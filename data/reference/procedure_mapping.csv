@@ -1,0 +1,31 @@
+plain_language_name,primary_code_type,primary_code,alternate_codes,notes
+Hip replacement,DRG,470,CPT 27130,Inpatient; DRG 470 is major hip/knee replacement without MCC
+Knee replacement,DRG,470,CPT 27447,Same DRG family as hip replacement for many inpatient comparisons
+Colonoscopy,CPT,45378,HCPCS G0121,Outpatient diagnostic colonoscopy; screening may use alternate codes
+Vaginal delivery,DRG,807,CPT 59400,DRG varies by complications and operating room procedure status
+C-section,DRG,783,CPT 59510,DRG varies by complications
+Appendectomy,DRG,341,CPT 44950,Laparoscopic and open cases may map differently
+Cardiac catheterization,DRG,287,CPT 93454,Complexity and intervention status affect code choice
+Brain MRI,CPT,70551,CPT 70553,With or without contrast changes code
+CT abdomen and pelvis,CPT,74176,CPT 74177,Contrast use changes code
+Emergency department visit,CPT,99285,CPT 99284,Level depends on acuity and documentation
+Gallbladder removal,CPT,47562,CPT 47563,Laparoscopic cholecystectomy; inpatient cases may group into DRG 417-419
+Hernia repair,CPT,49505,CPT 49650,Open inguinal hernia repair; laparoscopic cases use alternate codes
+Hysterectomy,CPT,58571,CPT 58150,Laparoscopic total hysterectomy; abdominal hysterectomy may use alternate code
+Cataract surgery,CPT,66984,,Routine cataract removal with intraocular lens
+Upper endoscopy,CPT,43235,CPT 43239,Diagnostic EGD; biopsy uses alternate code
+Screening mammogram,CPT,77067,,Screening mammography bilateral with CAD
+Chest X-ray,CPT,71046,CPT 71045,Two-view chest radiograph; one-view portable uses alternate code
+Abdominal ultrasound,CPT,76700,CPT 76705,Complete abdominal ultrasound; limited exam uses alternate code
+Echocardiogram,CPT,93306,,Complete transthoracic echocardiography
+EKG,CPT,93000,CPT 93005,Electrocardiogram with interpretation; tracing only uses alternate code
+Physical therapy evaluation,CPT,97161,CPT 97162,Low-complexity PT evaluation; moderate complexity uses alternate code
+Complete blood count,CPT,85025,CPT 85027,CBC with automated differential; without differential uses alternate code
+Basic metabolic panel,CPT,80048,,Basic metabolic panel
+Lipid panel,CPT,80061,,Lipid panel
+Hemoglobin A1c,CPT,83036,,Glycated hemoglobin test
+COVID test,CPT,87635,CPT 87426,Infectious agent detection by nucleic acid; antigen test uses alternate code
+Sleep study,CPT,95810,CPT 95811,Polysomnography; CPAP titration uses alternate code
+Tonsillectomy,CPT,42826,CPT 42825,Tonsillectomy age 12 or over; younger patient uses alternate code
+Mastectomy,CPT,19303,CPT 19301,Simple complete mastectomy; partial mastectomy uses alternate code
+Prostate biopsy,CPT,55700,,Biopsy of prostate

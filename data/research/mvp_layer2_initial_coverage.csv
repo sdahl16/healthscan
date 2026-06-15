@@ -1,0 +1,51 @@
+procedure_name,code_type,code,hospital,city,source_kind,source_path,match_count,coverage_result
+Hip replacement,DRG,470,Ronald Reagan UCLA Medical Center,"Los Angeles, CA",json_full,C:\Users\sam\Documents\healthscan\data\raw\mrf\ucla-ronald-reagan-standardcharges.json,4,present
+Hip replacement,DRG,470,Scripps Green Hospital,"San Diego, CA",csv_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\scripps-green-standardcharges-sample.csv,1,present
+Hip replacement,DRG,470,Keck Hospital of USC,"Los Angeles, CA",csv_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\keck-drg-470-sample.csv,135,present
+Hip replacement,DRG,470,Sharp Chula Vista Medical Center,"San Diego, CA",csv_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\sharp-chula-vista-drg-470-sample.csv,1,present
+Hip replacement,DRG,470,UC San Diego Medical Center,"San Diego, CA",json_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\ucsd-drg-470-sample.json,2,present
+Knee replacement,DRG,470,Ronald Reagan UCLA Medical Center,"Los Angeles, CA",json_full,C:\Users\sam\Documents\healthscan\data\raw\mrf\ucla-ronald-reagan-standardcharges.json,4,present
+Knee replacement,DRG,470,Scripps Green Hospital,"San Diego, CA",csv_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\scripps-green-standardcharges-sample.csv,1,present
+Knee replacement,DRG,470,Keck Hospital of USC,"Los Angeles, CA",csv_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\keck-drg-470-sample.csv,135,present
+Knee replacement,DRG,470,Sharp Chula Vista Medical Center,"San Diego, CA",csv_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\sharp-chula-vista-drg-470-sample.csv,1,present
+Knee replacement,DRG,470,UC San Diego Medical Center,"San Diego, CA",json_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\ucsd-drg-470-sample.json,2,present
+Colonoscopy,CPT,45378,Ronald Reagan UCLA Medical Center,"Los Angeles, CA",json_full,C:\Users\sam\Documents\healthscan\data\raw\mrf\ucla-ronald-reagan-standardcharges.json,0,not_found
+Colonoscopy,CPT,45378,Scripps Green Hospital,"San Diego, CA",csv_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\scripps-green-standardcharges-sample.csv,8,present
+Colonoscopy,CPT,45378,Keck Hospital of USC,"Los Angeles, CA",csv_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\keck-drg-470-sample.csv,0,not_found
+Colonoscopy,CPT,45378,Sharp Chula Vista Medical Center,"San Diego, CA",csv_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\sharp-chula-vista-drg-470-sample.csv,0,not_found
+Colonoscopy,CPT,45378,UC San Diego Medical Center,"San Diego, CA",json_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\ucsd-drg-470-sample.json,0,not_found
+Vaginal delivery,DRG,807,Ronald Reagan UCLA Medical Center,"Los Angeles, CA",json_full,C:\Users\sam\Documents\healthscan\data\raw\mrf\ucla-ronald-reagan-standardcharges.json,2,present
+Vaginal delivery,DRG,807,Scripps Green Hospital,"San Diego, CA",csv_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\scripps-green-standardcharges-sample.csv,0,not_found
+Vaginal delivery,DRG,807,Keck Hospital of USC,"Los Angeles, CA",csv_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\keck-drg-470-sample.csv,0,not_found
+Vaginal delivery,DRG,807,Sharp Chula Vista Medical Center,"San Diego, CA",csv_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\sharp-chula-vista-drg-470-sample.csv,0,not_found
+Vaginal delivery,DRG,807,UC San Diego Medical Center,"San Diego, CA",json_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\ucsd-drg-470-sample.json,0,not_found
+C-section,DRG,783,Ronald Reagan UCLA Medical Center,"Los Angeles, CA",json_full,C:\Users\sam\Documents\healthscan\data\raw\mrf\ucla-ronald-reagan-standardcharges.json,2,present
+C-section,DRG,783,Scripps Green Hospital,"San Diego, CA",csv_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\scripps-green-standardcharges-sample.csv,0,not_found
+C-section,DRG,783,Keck Hospital of USC,"Los Angeles, CA",csv_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\keck-drg-470-sample.csv,0,not_found
+C-section,DRG,783,Sharp Chula Vista Medical Center,"San Diego, CA",csv_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\sharp-chula-vista-drg-470-sample.csv,0,not_found
+C-section,DRG,783,UC San Diego Medical Center,"San Diego, CA",json_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\ucsd-drg-470-sample.json,0,not_found
+Appendectomy,DRG,341,Ronald Reagan UCLA Medical Center,"Los Angeles, CA",json_full,C:\Users\sam\Documents\healthscan\data\raw\mrf\ucla-ronald-reagan-standardcharges.json,0,not_found
+Appendectomy,DRG,341,Scripps Green Hospital,"San Diego, CA",csv_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\scripps-green-standardcharges-sample.csv,0,not_found
+Appendectomy,DRG,341,Keck Hospital of USC,"Los Angeles, CA",csv_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\keck-drg-470-sample.csv,0,not_found
+Appendectomy,DRG,341,Sharp Chula Vista Medical Center,"San Diego, CA",csv_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\sharp-chula-vista-drg-470-sample.csv,0,not_found
+Appendectomy,DRG,341,UC San Diego Medical Center,"San Diego, CA",json_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\ucsd-drg-470-sample.json,0,not_found
+Cardiac catheterization,DRG,287,Ronald Reagan UCLA Medical Center,"Los Angeles, CA",json_full,C:\Users\sam\Documents\healthscan\data\raw\mrf\ucla-ronald-reagan-standardcharges.json,2,present
+Cardiac catheterization,DRG,287,Scripps Green Hospital,"San Diego, CA",csv_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\scripps-green-standardcharges-sample.csv,1,present
+Cardiac catheterization,DRG,287,Keck Hospital of USC,"Los Angeles, CA",csv_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\keck-drg-470-sample.csv,0,not_found
+Cardiac catheterization,DRG,287,Sharp Chula Vista Medical Center,"San Diego, CA",csv_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\sharp-chula-vista-drg-470-sample.csv,0,not_found
+Cardiac catheterization,DRG,287,UC San Diego Medical Center,"San Diego, CA",json_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\ucsd-drg-470-sample.json,0,not_found
+Brain MRI,CPT,70551,Ronald Reagan UCLA Medical Center,"Los Angeles, CA",json_full,C:\Users\sam\Documents\healthscan\data\raw\mrf\ucla-ronald-reagan-standardcharges.json,0,not_found
+Brain MRI,CPT,70551,Scripps Green Hospital,"San Diego, CA",csv_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\scripps-green-standardcharges-sample.csv,1,present
+Brain MRI,CPT,70551,Keck Hospital of USC,"Los Angeles, CA",csv_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\keck-drg-470-sample.csv,0,not_found
+Brain MRI,CPT,70551,Sharp Chula Vista Medical Center,"San Diego, CA",csv_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\sharp-chula-vista-drg-470-sample.csv,0,not_found
+Brain MRI,CPT,70551,UC San Diego Medical Center,"San Diego, CA",json_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\ucsd-drg-470-sample.json,0,not_found
+CT abdomen and pelvis,CPT,74176,Ronald Reagan UCLA Medical Center,"Los Angeles, CA",json_full,C:\Users\sam\Documents\healthscan\data\raw\mrf\ucla-ronald-reagan-standardcharges.json,0,not_found
+CT abdomen and pelvis,CPT,74176,Scripps Green Hospital,"San Diego, CA",csv_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\scripps-green-standardcharges-sample.csv,1,present
+CT abdomen and pelvis,CPT,74176,Keck Hospital of USC,"Los Angeles, CA",csv_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\keck-drg-470-sample.csv,0,not_found
+CT abdomen and pelvis,CPT,74176,Sharp Chula Vista Medical Center,"San Diego, CA",csv_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\sharp-chula-vista-drg-470-sample.csv,0,not_found
+CT abdomen and pelvis,CPT,74176,UC San Diego Medical Center,"San Diego, CA",json_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\ucsd-drg-470-sample.json,0,not_found
+Emergency department visit,CPT,99285,Ronald Reagan UCLA Medical Center,"Los Angeles, CA",json_full,C:\Users\sam\Documents\healthscan\data\raw\mrf\ucla-ronald-reagan-standardcharges.json,0,not_found
+Emergency department visit,CPT,99285,Scripps Green Hospital,"San Diego, CA",csv_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\scripps-green-standardcharges-sample.csv,0,not_found
+Emergency department visit,CPT,99285,Keck Hospital of USC,"Los Angeles, CA",csv_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\keck-drg-470-sample.csv,0,not_found
+Emergency department visit,CPT,99285,Sharp Chula Vista Medical Center,"San Diego, CA",csv_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\sharp-chula-vista-drg-470-sample.csv,0,not_found
+Emergency department visit,CPT,99285,UC San Diego Medical Center,"San Diego, CA",json_drg470_sample,C:\Users\sam\Documents\healthscan\data\raw\mrf\ucsd-drg-470-sample.json,0,not_found

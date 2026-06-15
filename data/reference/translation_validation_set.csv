@@ -1,0 +1,51 @@
+case_type,input,expected_status,expected_label,expected_code_type,expected_code,notes
+exact,Hip replacement,match,Hip replacement,DRG,470,
+exact,Knee replacement,match,Knee replacement,DRG,470,
+exact,Colonoscopy,match,Colonoscopy,CPT,45378,
+exact,Vaginal delivery,match,Vaginal delivery,DRG,807,
+exact,C-section,match,C-section,DRG,783,
+exact,Appendectomy,match,Appendectomy,DRG,341,
+exact,Cardiac catheterization,match,Cardiac catheterization,DRG,287,
+exact,Brain MRI,match,Brain MRI,CPT,70551,
+exact,CT abdomen and pelvis,match,CT abdomen and pelvis,CPT,74176,
+exact,Emergency department visit,match,Emergency department visit,CPT,99285,
+exact,Gallbladder removal,match,Gallbladder removal,CPT,47562,
+exact,Hernia repair,match,Hernia repair,CPT,49505,
+exact,Hysterectomy,match,Hysterectomy,CPT,58571,
+exact,Cataract surgery,match,Cataract surgery,CPT,66984,
+exact,Upper endoscopy,match,Upper endoscopy,CPT,43235,
+exact,Screening mammogram,match,Screening mammogram,CPT,77067,
+exact,Chest X-ray,match,Chest X-ray,CPT,71046,
+exact,Abdominal ultrasound,match,Abdominal ultrasound,CPT,76700,
+exact,Echocardiogram,match,Echocardiogram,CPT,93306,
+exact,EKG,match,EKG,CPT,93000,
+exact,Physical therapy evaluation,match,Physical therapy evaluation,CPT,97161,
+exact,Complete blood count,match,Complete blood count,CPT,85025,
+exact,Basic metabolic panel,match,Basic metabolic panel,CPT,80048,
+exact,Lipid panel,match,Lipid panel,CPT,80061,
+exact,Hemoglobin A1c,match,Hemoglobin A1c,CPT,83036,
+exact,COVID test,match,COVID test,CPT,87635,
+exact,Sleep study,match,Sleep study,CPT,95810,
+exact,Tonsillectomy,match,Tonsillectomy,CPT,42826,
+exact,Mastectomy,match,Mastectomy,CPT,19303,
+exact,Prostate biopsy,match,Prostate biopsy,CPT,55700,
+synonym,total knee arthroplasty,match,Knee replacement,DRG,470,
+synonym,knee surgery,match,Knee replacement,DRG,470,
+synonym,total hip arthroplasty,match,Hip replacement,DRG,470,
+synonym,heart cath,match,Cardiac catheterization,DRG,287,
+synonym,er visit,match,Emergency department visit,CPT,99285,
+synonym,cesarean section,match,C-section,DRG,783,
+synonym,colon scope,match,Colonoscopy,CPT,45378,
+synonym,head mri,match,Brain MRI,CPT,70551,
+synonym,cholesterol test,match,Lipid panel,CPT,80061,
+synonym,cataract removal,match,Cataract surgery,CPT,66984,
+ambiguous,stomach surgery,ambiguous,,,,Should return multiple candidates
+ambiguous,heart test,ambiguous,,,,Should return multiple candidates
+ambiguous,scan,ambiguous,,,,Should return multiple candidates
+ambiguous,blood test,ambiguous,,,,Should return multiple candidates
+ambiguous,delivery,ambiguous,,,,Should return multiple candidates
+invalid,asdfghjkl,not_found,,,,Graceful no-match
+invalid,car repair,not_found,,,,Graceful no-match
+invalid,weather tomorrow,not_found,,,,Graceful no-match
+invalid,banana phone,not_found,,,,Graceful no-match
+invalid,123456789,not_found,,,,Graceful no-match

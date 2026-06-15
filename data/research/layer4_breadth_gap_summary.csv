@@ -1,0 +1,2 @@
+total_queries,queries_with_3plus_hospitals,queries_below_breadth_target,additional_hospital_matches_needed,output
+30,30,0,0,C:\Users\sam\Documents\healthscan\data\research\layer4_breadth_gap.csv

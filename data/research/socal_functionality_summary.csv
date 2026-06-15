@@ -1,0 +1,2 @@
+queries,queries_with_results,queries_with_3plus_hospitals,queries_needing_indexing,gate_scope,gate_result
+30,10,10,20,current_10_indexed_procedures,pass

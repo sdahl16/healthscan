@@ -1,0 +1,31 @@
+procedure_name,total_rows,display_rows,filtered_rows,filtered_flags
+Abdominal ultrasound,1020,934,86,excluded_low_outlier=86
+Appendectomy,5,5,0,
+Basic metabolic panel,435,161,274,excluded_low_outlier=274
+Brain MRI,4,4,0,
+C-section,3,3,0,
+COVID test,904,295,609,excluded_low_outlier=609
+CT abdomen and pelvis,4,4,0,
+Cardiac catheterization,4,4,0,
+Cataract surgery,374,374,0,
+Chest X-ray,1137,821,316,excluded_low_outlier=316
+Colonoscopy,5,5,0,
+Complete blood count,871,79,792,excluded_low_outlier=792
+EKG,425,242,183,excluded_low_outlier=183
+Echocardiogram,548,543,5,excluded_low_outlier=5
+Emergency department visit,4,4,0,
+Gallbladder removal,749,749,0,
+Hemoglobin A1c,482,120,362,excluded_low_outlier=362
+Hernia repair,1138,1121,17,excluded_low_outlier=17
+Hip replacement,5,5,0,
+Hysterectomy,583,566,17,excluded_low_outlier=17
+Knee replacement,5,5,0,
+Lipid panel,371,124,247,excluded_low_outlier=247
+Mastectomy,1146,1110,36,excluded_low_outlier=36
+Physical therapy evaluation,618,432,186,excluded_low_outlier=186
+Prostate biopsy,258,236,22,excluded_low_outlier=22
+Screening mammogram,852,813,39,excluded_low_outlier=39
+Sleep study,450,444,6,excluded_low_outlier=6
+Tonsillectomy,476,458,18,excluded_low_outlier=18
+Upper endoscopy,1210,1169,41,excluded_low_outlier=41
+Vaginal delivery,3,3,0,

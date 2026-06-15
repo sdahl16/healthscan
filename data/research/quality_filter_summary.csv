@@ -1,0 +1,2 @@
+total_rows,display_rows,filtered_rows,display_percent,filtered_percent,flag_counts
+14089,10833,3256,76.9,23.1,display_ok=10833; excluded_low_outlier=3256

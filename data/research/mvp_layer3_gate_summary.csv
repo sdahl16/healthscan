@@ -1,0 +1,11 @@
+procedure_name,search_ready_hospitals,gate_result,hospitals
+Appendectomy,5,pass,Keck Hospital of USC; Providence Cedars-Sinai Tarzana Medical Center; Providence Holy Cross Medical Center; Providence Saint Joseph Medical Center; Scripps Green Hospital
+Brain MRI,4,pass,Rady Children's Hospital; Scripps Green Hospital; Sharp Chula Vista Medical Center; UC San Diego Medical Center
+C-section,3,pass,Keck Hospital of USC; Sharp Chula Vista Medical Center; UC San Diego Medical Center
+CT abdomen and pelvis,4,pass,Rady Children's Hospital; Scripps Green Hospital; Sharp Chula Vista Medical Center; UC San Diego Medical Center
+Cardiac catheterization,4,pass,Keck Hospital of USC; Scripps Green Hospital; Sharp Chula Vista Medical Center; UC San Diego Medical Center
+Colonoscopy,5,pass,Keck Hospital of USC; Rady Children's Hospital; Scripps Green Hospital; Sharp Chula Vista Medical Center; UC San Diego Medical Center
+Emergency department visit,4,pass,Rady Children's Hospital; Scripps Green Hospital; Sharp Chula Vista Medical Center; UC San Diego Medical Center
+Hip replacement,5,pass,Keck Hospital of USC; Ronald Reagan UCLA Medical Center; Scripps Green Hospital; Sharp Chula Vista Medical Center; UC San Diego Medical Center
+Knee replacement,5,pass,Keck Hospital of USC; Ronald Reagan UCLA Medical Center; Scripps Green Hospital; Sharp Chula Vista Medical Center; UC San Diego Medical Center
+Vaginal delivery,3,pass,Keck Hospital of USC; Sharp Chula Vista Medical Center; UC San Diego Medical Center

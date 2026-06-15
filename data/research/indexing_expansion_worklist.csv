@@ -1,0 +1,34 @@
+procedure_name,code_type,procedure_code,care_setting,is_primary,priority,indexing_status,notes
+Gallbladder removal,CPT,47562,outpatient,true,1,needs_socal_indexing,Generated from South California functionality no-results row.
+Gallbladder removal,CPT,47563,outpatient,false,2,needs_socal_indexing,Generated from South California functionality no-results row.
+Hernia repair,CPT,49505,outpatient,true,1,needs_socal_indexing,Generated from South California functionality no-results row.
+Hernia repair,CPT,49650,outpatient,false,2,needs_socal_indexing,Generated from South California functionality no-results row.
+Hysterectomy,CPT,58571,outpatient,true,1,needs_socal_indexing,Generated from South California functionality no-results row.
+Hysterectomy,CPT,58150,outpatient,false,2,needs_socal_indexing,Generated from South California functionality no-results row.
+Cataract surgery,CPT,66984,outpatient,true,1,needs_socal_indexing,Generated from South California functionality no-results row.
+Upper endoscopy,CPT,43235,outpatient,true,1,needs_socal_indexing,Generated from South California functionality no-results row.
+Upper endoscopy,CPT,43239,outpatient,false,2,needs_socal_indexing,Generated from South California functionality no-results row.
+Screening mammogram,CPT,77067,outpatient,true,1,needs_socal_indexing,Generated from South California functionality no-results row.
+Chest X-ray,CPT,71046,outpatient,true,1,needs_socal_indexing,Generated from South California functionality no-results row.
+Chest X-ray,CPT,71045,outpatient,false,2,needs_socal_indexing,Generated from South California functionality no-results row.
+Abdominal ultrasound,CPT,76700,outpatient,true,1,needs_socal_indexing,Generated from South California functionality no-results row.
+Abdominal ultrasound,CPT,76705,outpatient,false,2,needs_socal_indexing,Generated from South California functionality no-results row.
+Echocardiogram,CPT,93306,outpatient,true,1,needs_socal_indexing,Generated from South California functionality no-results row.
+EKG,CPT,93000,outpatient,true,1,needs_socal_indexing,Generated from South California functionality no-results row.
+EKG,CPT,93005,outpatient,false,2,needs_socal_indexing,Generated from South California functionality no-results row.
+Physical therapy evaluation,CPT,97161,outpatient,true,1,needs_socal_indexing,Generated from South California functionality no-results row.
+Physical therapy evaluation,CPT,97162,outpatient,false,2,needs_socal_indexing,Generated from South California functionality no-results row.
+Complete blood count,CPT,85025,outpatient,true,1,needs_socal_indexing,Generated from South California functionality no-results row.
+Complete blood count,CPT,85027,outpatient,false,2,needs_socal_indexing,Generated from South California functionality no-results row.
+Basic metabolic panel,CPT,80048,outpatient,true,1,needs_socal_indexing,Generated from South California functionality no-results row.
+Lipid panel,CPT,80061,outpatient,true,1,needs_socal_indexing,Generated from South California functionality no-results row.
+Hemoglobin A1c,CPT,83036,outpatient,true,1,needs_socal_indexing,Generated from South California functionality no-results row.
+COVID test,CPT,87635,outpatient,true,1,needs_socal_indexing,Generated from South California functionality no-results row.
+COVID test,CPT,87426,outpatient,false,2,needs_socal_indexing,Generated from South California functionality no-results row.
+Sleep study,CPT,95810,outpatient,true,1,needs_socal_indexing,Generated from South California functionality no-results row.
+Sleep study,CPT,95811,outpatient,false,2,needs_socal_indexing,Generated from South California functionality no-results row.
+Tonsillectomy,CPT,42826,outpatient,true,1,needs_socal_indexing,Generated from South California functionality no-results row.
+Tonsillectomy,CPT,42825,outpatient,false,2,needs_socal_indexing,Generated from South California functionality no-results row.
+Mastectomy,CPT,19303,outpatient,true,1,needs_socal_indexing,Generated from South California functionality no-results row.
+Mastectomy,CPT,19301,outpatient,false,2,needs_socal_indexing,Generated from South California functionality no-results row.
+Prostate biopsy,CPT,55700,outpatient,true,1,needs_socal_indexing,Generated from South California functionality no-results row.

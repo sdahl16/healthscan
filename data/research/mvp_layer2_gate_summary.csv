@@ -1,0 +1,11 @@
+checked_at,procedure_name,code_type,code,hospitals_with_results,gate_result,notes
+2026-06-14T00:45:00Z,Hip replacement,DRG,470,5,pass,"Hospitals: Keck, UCLA, Scripps, Sharp, UCSD."
+2026-06-14T00:45:00Z,Knee replacement,DRG,470,5,pass,"Same primary DRG as hip replacement in starter mapping. Hospitals: Keck, UCLA, Scripps, Sharp, UCSD."
+2026-06-14T01:10:00Z,Colonoscopy,CPT,45378 plus alternates,5,pass,"Hospitals: Keck, Rady Children's, Scripps, Sharp, UCSD. Alternates tested include CPT 45380/45385 and HCPCS G0121."
+2026-06-14T00:45:00Z,Vaginal delivery,DRG,807,4,pass,"Hospitals: Keck, UCLA, Sharp, UCSD."
+2026-06-14T00:45:00Z,C-section,DRG,783,4,pass,"Hospitals: Keck, UCLA, Sharp, UCSD."
+2026-06-14T00:45:00Z,Appendectomy,DRG 341 plus alternates,5,pass,"Hospitals: Keck, Providence Tarzana, Providence Holy Cross, Providence Saint Joseph, Scripps. Alternates tested include CPT 44970 and DRG 343."
+2026-06-14T00:45:00Z,Cardiac catheterization,DRG,287,5,pass,"Hospitals: Keck, UCLA, Scripps, Sharp, UCSD."
+2026-06-14T01:10:00Z,Brain MRI,CPT 70551 plus alternates,4,pass,"Hospitals: Rady Children's, Scripps, Sharp, UCSD. Alternates tested include CPT 70552/70553. Rady labels CPT-style rows as HCPCS."
+2026-06-14T01:10:00Z,CT abdomen and pelvis,CPT 74176 plus alternates,4,pass,"Hospitals: Rady Children's, Scripps, Sharp, UCSD. Alternates tested include CPT 74177/74178. Rady labels CPT-style rows as HCPCS."
+2026-06-14T01:10:00Z,Emergency department visit,CPT 99285 plus alternates,4,pass,"Hospitals: Rady Children's, Scripps, Sharp, UCSD. Alternates tested include CPT 99283/99284. Rady labels CPT-style rows as HCPCS."

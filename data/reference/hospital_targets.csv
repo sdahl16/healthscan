@@ -1,0 +1,19 @@
+phase,city,hospital_system,domain,notes
+1,,Mayo Clinic,mayoclinic.org,Initial cms-hpt.txt discovery test
+1,,Cleveland Clinic,clevelandclinic.org,Initial cms-hpt.txt discovery test
+1,,Johns Hopkins Medicine,hopkinsmedicine.org,Initial cms-hpt.txt discovery test
+2,"New York, NY",NewYork-Presbyterian,nyp.org,Phase 2 candidate
+2,"New York, NY",NYU Langone Health,nyulangone.org,Phase 2 candidate
+2,"New York, NY",Mount Sinai,mountsinai.org,Phase 2 candidate
+2,"Houston, TX",Houston Methodist,houstonmethodist.org,Phase 2 candidate
+2,"Houston, TX",Memorial Hermann,memorialhermann.org,Phase 2 candidate
+2,"Houston, TX",St. Luke's Health,stlukeshealth.org,Phase 2 candidate
+2,"Minneapolis, MN",Allina Health,allinahealth.org,Phase 2 candidate
+2,"Minneapolis, MN",M Health Fairview,mhealthfairview.org,Phase 2 candidate
+2,"Minneapolis, MN",Hennepin Healthcare,hennepinhealthcare.org,Phase 2 candidate
+2,"Phoenix, AZ",Banner Health,bannerhealth.com,Phase 2 candidate
+2,"Phoenix, AZ",HonorHealth,honorhealth.com,Phase 2 candidate
+2,"Phoenix, AZ",Dignity Health,dignityhealth.org,Phase 2 candidate
+2,"Asheville, NC",Mission Health,missionhealth.org,Phase 2 candidate
+2,"Asheville, NC",AdventHealth Hendersonville,adventhealth.com,Regional candidate near Asheville
+2,"Asheville, NC",Pardee Hospital,pardeehospital.org,Regional candidate near Asheville

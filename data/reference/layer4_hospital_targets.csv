@@ -1,0 +1,26 @@
+market,region,hospital_name,hospital_system,domain,priority,notes
+Southern California,Los Angeles,Cedars-Sinai Medical Center,Cedars-Sinai,cedars-sinai.org,1,Large JSON source; range unsupported in prior test
+Southern California,Los Angeles,Ronald Reagan UCLA Medical Center,UCLA Health,uclahealth.org,1,Academic system already represented in Layer 1/3
+Southern California,Los Angeles,Keck Hospital of USC,Keck Medicine of USC,keckmedicine.org,1,Academic system already represented in Layer 1/3
+Southern California,Los Angeles,Providence Cedars-Sinai Tarzana Medical Center,Providence Southern California,providence.org,1,Providence JSON source represented in Layer 3
+Southern California,Los Angeles,Providence Holy Cross Medical Center,Providence Southern California,providence.org,1,Providence JSON source represented in Layer 3
+Southern California,Los Angeles,Providence Saint Joseph Medical Center,Providence Southern California,providence.org,1,Providence JSON source represented in Layer 3
+Southern California,Los Angeles,Kaiser Permanente Los Angeles Medical Center,Kaiser Permanente Southern California,kaiserpermanente.org,2,High-value integrated system; likely manual discovery
+Southern California,Los Angeles,Children's Hospital Los Angeles,Children's Hospital Los Angeles,chla.org,2,Pediatric parser coverage
+Southern California,Los Angeles,City of Hope Medical Center,City of Hope,cityofhope.org,2,Oncology specialty system
+Southern California,Los Angeles,Huntington Hospital,Huntington Health,huntingtonhealth.org,2,Regional LA hospital
+Southern California,Los Angeles,Torrance Memorial Medical Center,Torrance Memorial,torrancememorial.org,2,Regional LA hospital
+Southern California,Los Angeles,PIH Health Good Samaritan Hospital,PIH Health,pihhealth.org,2,Regional LA hospital
+Southern California,Orange County,UCI Medical Center,UCI Health,ucihealth.org,2,Academic Orange County system
+Southern California,Orange County,Hoag Hospital Newport Beach,Hoag,hoag.org,2,Regional Orange County system
+Southern California,Orange County,MemorialCare Orange Coast Medical Center,MemorialCare,memorialcare.org,2,Regional Orange County system
+Southern California,Inland Empire,Loma Linda University Medical Center,Loma Linda University Health,lluh.org,2,Academic Inland Empire system
+Southern California,Inland Empire,Riverside Community Hospital,Riverside Community Hospital,riversidecommunityhospital.com,3,HCA parser coverage
+Southern California,San Diego,UC San Diego Medical Center,UC San Diego Health,health.ucsd.edu,1,Large JSON source represented in Layer 3
+Southern California,San Diego,Scripps Green Hospital,Scripps Health,scripps.org,1,CSV source represented in Layer 3
+Southern California,San Diego,Sharp Chula Vista Medical Center,Sharp HealthCare,sharp.com,1,CSV source represented in Layer 3
+Southern California,San Diego,Rady Children's Hospital,Rady Children's Hospital,rchsd.org,2,Pediatric CSV source represented in Layer 3
+Southern California,San Diego,Palomar Medical Center Escondido,Palomar Health,palomarhealth.org,2,Regional San Diego County system
+Southern California,San Diego,Kaiser Permanente San Diego Medical Center,Kaiser Permanente Southern California,kaiserpermanente.org,2,High-value integrated system; likely manual discovery
+Southern California,San Diego,Tri-City Medical Center,Tri-City Medical Center,tricitymed.org,3,Regional San Diego County system
+Southern California,San Diego,Alvarado Hospital Medical Center,Prime Healthcare,alvaradohospital.com,3,Prime Healthcare parser coverage

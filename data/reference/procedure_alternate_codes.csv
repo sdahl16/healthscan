@@ -1,0 +1,12 @@
+plain_language_name,code_type,code,priority,notes
+Appendectomy,CPT,44970,1,Laparoscopic appendectomy; likely improves outpatient/procedure-code coverage
+Appendectomy,DRG,343,2,Appendectomy without complicated principal diagnosis without CC/MCC
+Emergency department visit,CPT,99284,1,ED level 4; likely broader than level 5
+Emergency department visit,CPT,99283,2,ED level 3
+Brain MRI,CPT,70553,1,MRI brain without and with contrast
+Brain MRI,CPT,70552,2,MRI brain with contrast
+CT abdomen and pelvis,CPT,74177,1,CT abdomen/pelvis with contrast
+CT abdomen and pelvis,CPT,74178,2,CT abdomen/pelvis without and with contrast
+Colonoscopy,CPT,45380,1,Colonoscopy with biopsy
+Colonoscopy,CPT,45385,1,Colonoscopy with lesion removal/snare
+Colonoscopy,HCPCS,G0121,2,Screening colonoscopy

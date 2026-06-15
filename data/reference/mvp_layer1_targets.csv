@@ -1,0 +1,11 @@
+market,city,hospital_system,domain,priority,notes
+"Southern California","Los Angeles, CA",Cedars-Sinai,cedars-sinai.org,1,High-priority LA flagship system
+"Southern California","Los Angeles, CA",UCLA Health,uclahealth.org,1,High-priority academic system
+"Southern California","Los Angeles, CA",Keck Medicine of USC,keckmedicine.org,1,High-priority academic system
+"Southern California","Los Angeles, CA",Providence Southern California,providence.org,2,Large LA-area system
+"Southern California","Los Angeles, CA",Kaiser Permanente Southern California,kaiserpermanente.org,2,Large integrated system; discovery may require manual registry
+"Southern California","San Diego, CA",UC San Diego Health,health.ucsd.edu,1,High-priority San Diego academic system
+"Southern California","San Diego, CA",Scripps Health,scripps.org,1,High-priority San Diego system
+"Southern California","San Diego, CA",Sharp HealthCare,sharp.com,1,High-priority San Diego system
+"Southern California","San Diego, CA",Rady Children's Hospital,rchsd.org,3,Pediatric system; likely less relevant for DRG 470 but useful parser test
+"Southern California","San Diego, CA",Palomar Health,palomarhealth.org,2,Regional San Diego County system

@@ -1,0 +1,7 @@
+checked_at,hospital,city,source_method,source_scope,drg_470_matches,indexed_price_rows,min_amount,max_amount,plausibility_result,notes
+2026-06-13T23:36:00Z,Ronald Reagan UCLA Medical Center,"Los Angeles, CA",full_json_download,full_mrf,2,23,2175,48081.25,pass,"Local SQLite index populated from full 22 MB UCLA JSON MRF."
+2026-06-13T23:36:00Z,Scripps Green Hospital,"San Diego, CA",csv_range_sample,first_5mb,1,5,16164.18,145426.9,pass,"DRG 470 appeared in bounded 5 MB sample; full MRF is about 538 MB."
+2026-06-13T23:36:00Z,Keck Hospital of USC,"Los Angeles, CA",csv_range_sample,90mb_to_95mb,135,222,23726.69,85344.18,pass,"DRG 470 rows appeared in bounded byte range; full MRF is about 115 MB."
+2026-06-13T23:36:00Z,Sharp Chula Vista Medical Center,"San Diego, CA",csv_range_sample,5mb_to_10mb,1,5,42900.34,144445.58,pass,"DRG 470 row appeared in bounded byte range; full MRF is about 663 MB."
+2026-06-13T23:45:00Z,Cedars-Sinai Medical Center,"Los Angeles, CA",full_json_required,pending_range_unsupported,,,,,pending,"Cedars MRF is about 884 MB and ignores byte-range requests; add via full-download/streaming JSON parser or manual preprocessed sample."
+2026-06-13T23:49:00Z,UC San Diego Medical Center,"San Diego, CA",json_range_sample,145.5mb_to_148.5mb,1,566,1.93,143892.34,pass_with_outlier,"DRG 470 object extracted from bounded byte range. 555 rows are within the plausible $1k-$500k band; minimum amount 1.93 should be flagged as a low outlier."

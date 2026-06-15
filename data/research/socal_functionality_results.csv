@@ -1,0 +1,31 @@
+query,status,hit_count,hospital_count,min_price,top_hospital,top_price
+Hip replacement,ok,10,5,2175.0,Ronald Reagan UCLA Medical Center,2175.0
+Knee replacement,ok,10,5,2175.0,Ronald Reagan UCLA Medical Center,2175.0
+Colonoscopy,ok,5,5,749.49,Scripps Green Hospital,749.49
+Vaginal delivery,ok,3,3,17551.56,UC San Diego Medical Center,17551.56
+C-section,ok,3,3,11709.7,UC San Diego Medical Center,11709.7
+Appendectomy,ok,4,4,27683.22,Providence Cedars-Sinai Tarzana Medical Center,27683.22
+Cardiac catheterization,ok,4,4,19889.0,UC San Diego Medical Center,19889.0
+Brain MRI,ok,4,4,913.03,Scripps Green Hospital,913.03
+CT abdomen and pelvis,ok,4,4,371.4,UC San Diego Medical Center,371.4
+Emergency department visit,ok,4,4,4050.0,Rady Children's Hospital,4050.0
+Gallbladder removal,no_results,0,0,,,
+Hernia repair,no_results,0,0,,,
+Hysterectomy,no_results,0,0,,,
+Cataract surgery,no_results,0,0,,,
+Upper endoscopy,no_results,0,0,,,
+Screening mammogram,no_results,0,0,,,
+Chest X-ray,no_results,0,0,,,
+Abdominal ultrasound,no_results,0,0,,,
+Echocardiogram,no_results,0,0,,,
+EKG,no_results,0,0,,,
+Physical therapy evaluation,no_results,0,0,,,
+Complete blood count,no_results,0,0,,,
+Basic metabolic panel,no_results,0,0,,,
+Lipid panel,no_results,0,0,,,
+Hemoglobin A1c,no_results,0,0,,,
+COVID test,no_results,0,0,,,
+Sleep study,no_results,0,0,,,
+Tonsillectomy,no_results,0,0,,,
+Mastectomy,no_results,0,0,,,
+Prostate biopsy,no_results,0,0,,,

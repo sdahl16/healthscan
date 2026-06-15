@@ -1,0 +1,4 @@
+checked_at,hospital_system,domain,cms_hpt_url,status,mrf_url,mrf_format,file_size_bytes,notes
+2026-06-13T22:28:16.052852+00:00,Mayo Clinic,mayoclinic.org,,fail,,,,HTTPError: HTTP Error 403: Forbidden
+2026-06-13T22:28:16.712708+00:00,Cleveland Clinic,clevelandclinic.org,,fail,,,,HTTPError: HTTP Error 404: Not Found
+2026-06-13T22:28:21.482651+00:00,Johns Hopkins Medicine,hopkinsmedicine.org,,fail,,,,HTTPError: HTTP Error 403: Forbidden
