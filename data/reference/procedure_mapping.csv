@@ -1,31 +1,32 @@
-plain_language_name,primary_code_type,primary_code,alternate_codes,notes
-Hip replacement,DRG,470,CPT 27130,Inpatient; DRG 470 is major hip/knee replacement without MCC
-Knee replacement,DRG,470,CPT 27447,Same DRG family as hip replacement for many inpatient comparisons
-Colonoscopy,CPT,45378,HCPCS G0121,Outpatient diagnostic colonoscopy; screening may use alternate codes
-Vaginal delivery,DRG,807,CPT 59400,DRG varies by complications and operating room procedure status
-C-section,DRG,783,CPT 59510,DRG varies by complications
-Appendectomy,DRG,341,CPT 44950,Laparoscopic and open cases may map differently
-Cardiac catheterization,DRG,287,CPT 93454,Complexity and intervention status affect code choice
-Brain MRI,CPT,70551,CPT 70553,With or without contrast changes code
-CT abdomen and pelvis,CPT,74176,CPT 74177,Contrast use changes code
-Emergency department visit,CPT,99285,CPT 99284,Level depends on acuity and documentation
-Gallbladder removal,CPT,47562,CPT 47563,Laparoscopic cholecystectomy; inpatient cases may group into DRG 417-419
-Hernia repair,CPT,49505,CPT 49650,Open inguinal hernia repair; laparoscopic cases use alternate codes
-Hysterectomy,CPT,58571,CPT 58150,Laparoscopic total hysterectomy; abdominal hysterectomy may use alternate code
-Cataract surgery,CPT,66984,,Routine cataract removal with intraocular lens
-Upper endoscopy,CPT,43235,CPT 43239,Diagnostic EGD; biopsy uses alternate code
-Screening mammogram,CPT,77067,,Screening mammography bilateral with CAD
-Chest X-ray,CPT,71046,CPT 71045,Two-view chest radiograph; one-view portable uses alternate code
-Abdominal ultrasound,CPT,76700,CPT 76705,Complete abdominal ultrasound; limited exam uses alternate code
-Echocardiogram,CPT,93306,,Complete transthoracic echocardiography
-EKG,CPT,93000,CPT 93005,Electrocardiogram with interpretation; tracing only uses alternate code
-Physical therapy evaluation,CPT,97161,CPT 97162,Low-complexity PT evaluation; moderate complexity uses alternate code
-Complete blood count,CPT,85025,CPT 85027,CBC with automated differential; without differential uses alternate code
-Basic metabolic panel,CPT,80048,,Basic metabolic panel
-Lipid panel,CPT,80061,,Lipid panel
-Hemoglobin A1c,CPT,83036,,Glycated hemoglobin test
-COVID test,CPT,87635,CPT 87426,Infectious agent detection by nucleic acid; antigen test uses alternate code
-Sleep study,CPT,95810,CPT 95811,Polysomnography; CPAP titration uses alternate code
-Tonsillectomy,CPT,42826,CPT 42825,Tonsillectomy age 12 or over; younger patient uses alternate code
-Mastectomy,CPT,19303,CPT 19301,Simple complete mastectomy; partial mastectomy uses alternate code
-Prostate biopsy,CPT,55700,,Biopsy of prostate
+plain_name,synonyms,primary_code,primary_code_type,alternate_codes,setting,notes
+Colonoscopy,colon scope|scope of the colon|diagnostic colonoscopy|colonoscopy test,45378,CPT,HCPCS:G0121,outpatient,Diagnostic colonoscopy; screening may use HCPCS G0121
+Upper endoscopy,egd|endoscopy|upper gi scope|stomach scope,43239,CPT,CPT:43235,outpatient,EGD with biopsy; diagnostic EGD may use alternate code
+Tonsillectomy,tonsil removal|remove tonsils|adult tonsillectomy|tonsilectomy,42826,CPT,CPT:42825,outpatient,Tonsillectomy age 12 or over
+Tonsillectomy (child),child tonsillectomy|pediatric tonsillectomy|kids tonsils|remove child tonsils,42825,CPT,CPT:42826,outpatient,Tonsillectomy under age 12
+Appendectomy,appendix removal|appendix surgery|lap appendectomy|laparoscopic appendectomy,44970,CPT,DRG:341,outpatient,Laparoscopic appendectomy; inpatient cases may group to DRG 341
+Gallbladder removal,cholecystectomy|laparoscopic cholecystectomy|gallbladder surgery|gallbladder out|gall bladder surgery,47562,CPT,CPT:47563,outpatient,Laparoscopic cholecystectomy
+Gallbladder removal (open),open cholecystectomy|open gallbladder surgery|open gall bladder surgery,47563,CPT,CPT:47562,outpatient,Open/removal variant
+Breast lumpectomy,lumpectomy|partial mastectomy|breast lump removal|breast cancer lump surgery,19301,CPT,CPT:19303,outpatient,Partial mastectomy/lumpectomy
+Mastectomy,breast removal|breast cancer surgery|simple mastectomy|boob job removal,19303,CPT,CPT:19301,outpatient,Simple complete mastectomy
+Upper endoscopy with biopsy,egd biopsy|upper endoscopy biopsy|endoscopy with biopsy|stomach scope biopsy,43235,CPT,CPT:43239,outpatient,Diagnostic upper endoscopy; biopsy may use alternate code
+Knee arthroscopy,knee scope|meniscus surgery|arthroscopic knee surgery|knee scopy,29881,CPT,,outpatient,Knee arthroscopy with meniscectomy
+Hernia repair,hernia surgery|inguinal hernia repair|groin hernia surgery|hernia operation,49505,CPT,,outpatient,Open inguinal hernia repair
+Cataract surgery,cataract removal|lens implant|eye cataract surgery|cateract surgery,66984,CPT,,outpatient,Routine cataract removal with intraocular lens
+Carpal tunnel surgery,carpal tunnel release|wrist nerve surgery|hand numbness surgery|carpel tunnel,64721,CPT,,outpatient,Carpal tunnel release
+Shoulder arthroscopy,rotator cuff repair|shoulder scope|arthroscopic shoulder surgery|shoulder repair,29827,CPT,,outpatient,Shoulder arthroscopy/rotator cuff repair
+Sleep study,polysomnography|sleep apnea test|overnight sleep study|sleep apnea study,95810,CPT,,outpatient,Diagnostic polysomnography
+MRI brain,brain mri|brain MRI|Brain MRI|head mri|brain scan|mri of brain,70551,CPT,CPT:70553,outpatient,MRI brain without and with contrast
+MRI spine,spine mri|back mri|lumbar mri|mri of spine,72148,CPT,,outpatient,MRI lumbar spine without contrast
+CT scan abdomen,ct abdomen|abdominal ct|ct belly|stomach ct,74178,CPT,,outpatient,CT abdomen without and with contrast
+Mammogram,mammography|screening mammogram|breast screening|mamogram,77067,CPT,,outpatient,Screening mammography
+Echocardiogram,echo|heart ultrasound|cardiac ultrasound|echocardiography,93306,CPT,,outpatient,Complete transthoracic echocardiography
+Screening colonoscopy,preventive colonoscopy|colon cancer screening|screening colon scope|medicare colonoscopy,G0121,HCPCS,CPT:45378,outpatient,Confirmed HCPCS screening colonoscopy code
+Hip replacement,hip surgery|total hip|total hip arthroplasty|hip arthroplasty|hip replacment,470,DRG,CPT:27130,inpatient,DRG 470 is major hip/knee replacement without MCC
+Knee replacement,knee surgery|total knee|total knee arthroplasty|knee arthroplasty|knee replacment,470,DRG,CPT:27447,inpatient,DRG 470 is major hip/knee replacement without MCC
+Vaginal delivery,normal delivery|childbirth|labor and delivery|vaginal birth|having a baby,807,DRG,,inpatient,DRG 807 vaginal delivery without sterilization or D&C
+C-section,cesarean|cesarean section|c section|csection|having baby surgery,783,DRG,,inpatient,DRG 783 cesarean section without sterilization
+Appendectomy (inpatient),appendectomy inpatient|inpatient appendix removal|appendix hospital stay,341,DRG,CPT:44970,inpatient,Confirmed inpatient appendectomy DRG
+Cardiac catheterization,heart cath|cardiac cath|coronary angiography|heart catheterization,287,DRG,CPT:93454,inpatient,Confirmed cardiac catheterization DRG
+Coronary bypass (CABG),cabg|coronary bypass|heart bypass|bypass surgery,231,DRG,,inpatient,May return no results until DRG 231 is indexed
+Emergency department visit,er visit|emergency room visit|emergency visit|ed visit,99285,CPT,CPT:99284,outpatient,Retained existing common search mapping for emergency visits
+EKG,ecg|electrocardiogram|heart tracing|cardiac tracing,93000,CPT,CPT:93005,outpatient,Retained existing common search mapping for electrocardiograms

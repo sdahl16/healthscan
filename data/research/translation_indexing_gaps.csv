@@ -1,0 +1,7 @@
+plain_name,primary_code_type,primary_code,setting,primary_indexed_hospitals,any_indexed_hospitals,priority
+CT scan abdomen,CPT,74178,outpatient,0,0,primary_code_gap
+Carpal tunnel surgery,CPT,64721,outpatient,0,0,primary_code_gap
+Knee arthroscopy,CPT,29881,outpatient,0,0,primary_code_gap
+MRI spine,CPT,72148,outpatient,0,0,primary_code_gap
+Shoulder arthroscopy,CPT,29827,outpatient,0,0,primary_code_gap
+Coronary bypass (CABG),DRG,231,inpatient,0,0,primary_code_gap_drg

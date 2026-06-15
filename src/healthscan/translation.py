@@ -11,25 +11,39 @@ from typing import Any, Literal, Protocol
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_MAPPING_PATH = ROOT / "data" / "reference" / "procedure_mapping.csv"
 
-CareSetting = Literal["inpatient", "outpatient", "unknown"]
+Setting = Literal["inpatient", "outpatient", "either", "unknown"]
+CareSetting = Setting
 TranslationStatus = Literal["match", "ambiguous", "clarify", "not_found"]
+SUPPORTED_CODE_TYPES = {"CPT", "DRG", "HCPCS"}
 
 
 @dataclass(frozen=True)
 class ProcedureCode:
     procedure_code: str
     code_type: str
-    plain_label: str
-    care_setting: CareSetting = "unknown"
+    description: str
+    setting: Setting = "unknown"
     is_primary: bool = False
+
+    @property
+    def plain_label(self) -> str:
+        return self.description
+
+    @property
+    def care_setting(self) -> Setting:
+        return self.setting
 
 
 @dataclass(frozen=True)
 class TranslationCandidate:
-    plain_label: str
+    description: str
     confidence: float
     match_reason: str
     codes: tuple[ProcedureCode, ...]
+
+    @property
+    def plain_label(self) -> str:
+        return self.description
 
 
 @dataclass(frozen=True)
@@ -43,13 +57,35 @@ class TranslationResponse:
     elapsed_ms: float = 0.0
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, init=False)
 class FallbackProcedure:
     code: str
     code_type: str
-    plain_label: str
     confidence: float
-    care_setting: CareSetting = "unknown"
+    plain_label: str = ""
+    description: str = ""
+    setting: Setting = "unknown"
+
+    def __init__(
+        self,
+        code: str,
+        code_type: str,
+        confidence: float,
+        plain_label: str = "",
+        description: str = "",
+        setting: Setting = "unknown",
+        care_setting: Setting | None = None,
+    ) -> None:
+        object.__setattr__(self, "code", code)
+        object.__setattr__(self, "code_type", code_type)
+        object.__setattr__(self, "confidence", confidence)
+        object.__setattr__(self, "plain_label", plain_label)
+        object.__setattr__(self, "description", description or plain_label)
+        object.__setattr__(self, "setting", care_setting or setting)
+
+    @property
+    def care_setting(self) -> Setting:
+        return self.setting
 
 
 @dataclass(frozen=True)
@@ -66,21 +102,26 @@ class TranslationFallback(Protocol):
 
 @dataclass(frozen=True)
 class ProcedureMapping:
-    plain_label: str
+    description: str
     primary_code_type: str
     primary_code: str
+    setting: Setting = "unknown"
     alternate_codes: tuple[ProcedureCode, ...] = ()
     notes: str | None = None
     synonyms: tuple[str, ...] = ()
     tokens: frozenset[str] = field(default_factory=frozenset)
 
     @property
+    def plain_label(self) -> str:
+        return self.description
+
+    @property
     def codes(self) -> tuple[ProcedureCode, ...]:
         primary = ProcedureCode(
             procedure_code=self.primary_code,
             code_type=self.primary_code_type,
-            plain_label=self.plain_label,
-            care_setting=setting_for_code_type(self.primary_code_type),
+            description=self.description,
+            setting=self.setting,
             is_primary=True,
         )
         return (primary, *self.alternate_codes)
@@ -89,20 +130,23 @@ class ProcedureMapping:
 DEFAULT_SYNONYMS = {
     "Hip replacement": ("hip surgery", "total hip", "total hip arthroplasty", "hip arthroplasty"),
     "Knee replacement": ("knee surgery", "total knee", "total knee arthroplasty", "knee arthroplasty"),
-    "Colonoscopy": ("colon scope", "colon cancer screening", "screening colonoscopy"),
+    "Colonoscopy": ("colon scope", "colon cancer screening", "scope of the colon"),
     "Vaginal delivery": ("normal delivery", "childbirth", "labor and delivery", "vaginal birth"),
     "C-section": ("cesarean", "cesarean section", "c section", "csection"),
-    "Appendectomy": ("appendix removal", "appendix surgery", "lap appendectomy"),
+    "Appendectomy": ("appendix removal", "appendix surgery", "lap appendectomy", "appendectomy inpatient"),
     "Cardiac catheterization": ("heart cath", "cardiac cath", "coronary angiography"),
-    "Brain MRI": ("mri brain", "head mri", "brain scan"),
-    "CT abdomen and pelvis": ("ct abdomen pelvis", "abdominal ct", "ct belly", "stomach ct"),
+    "MRI brain": ("mri brain", "head mri", "brain scan", "brain mri"),
+    "MRI spine": ("spine mri", "back mri", "lumbar mri"),
+    "CT scan abdomen": ("ct abdomen pelvis", "abdominal ct", "ct belly", "stomach ct"),
     "Emergency department visit": ("er visit", "emergency room visit", "emergency visit", "ed visit"),
-    "Gallbladder removal": ("cholecystectomy", "gall bladder surgery", "gallbladder surgery"),
+    "Gallbladder removal": ("cholecystectomy", "laparoscopic cholecystectomy", "gall bladder surgery", "gallbladder surgery", "gallbladder out"),
+    "Gallbladder removal (open)": ("open cholecystectomy", "open gallbladder surgery"),
     "Hernia repair": ("hernia surgery", "inguinal hernia repair"),
     "Hysterectomy": ("uterus removal", "remove uterus"),
     "Cataract surgery": ("cataract removal", "lens implant"),
     "Upper endoscopy": ("egd", "endoscopy", "upper gi scope"),
-    "Screening mammogram": ("mammography", "mammogram"),
+    "Upper endoscopy with biopsy": ("egd biopsy", "upper endoscopy biopsy"),
+    "Mammogram": ("mammography", "screening mammogram"),
     "Chest X-ray": ("chest xray", "chest radiograph", "cxr"),
     "Abdominal ultrasound": ("belly ultrasound", "abdomen ultrasound"),
     "Echocardiogram": ("echo", "heart ultrasound"),
@@ -115,14 +159,31 @@ DEFAULT_SYNONYMS = {
     "COVID test": ("covid pcr", "coronavirus test"),
     "Sleep study": ("polysomnography", "sleep apnea test"),
     "Tonsillectomy": ("tonsil removal", "remove tonsils"),
-    "Mastectomy": ("breast removal", "breast cancer surgery"),
+    "Tonsillectomy (child)": ("child tonsillectomy", "pediatric tonsillectomy", "kids tonsils"),
+    "Mastectomy": ("breast removal", "breast cancer surgery", "boob job removal"),
+    "Breast lumpectomy": ("lumpectomy", "partial mastectomy", "breast lump removal"),
+    "Screening colonoscopy": ("preventive colonoscopy", "colon cancer screening"),
+    "Shoulder arthroscopy": ("rotator cuff repair", "shoulder scope"),
+    "Knee arthroscopy": ("knee scope", "meniscus surgery"),
+    "Carpal tunnel surgery": ("carpal tunnel release", "wrist nerve surgery"),
+    "Coronary bypass (CABG)": ("cabg", "coronary bypass", "heart bypass"),
     "Prostate biopsy": ("prostate needle biopsy",),
 }
 
 AMBIGUOUS_HINTS = {
     "stomach surgery": ("Appendectomy", "Gallbladder removal", "Hernia repair", "Upper endoscopy"),
+    "heart surgery": ("Coronary bypass (CABG)", "Cardiac catheterization"),
+    "back surgery": ("MRI spine", "Hernia repair"),
+    "brain surgery": ("MRI brain", "Emergency department visit"),
+    "cancer surgery": ("Mastectomy", "Breast lumpectomy"),
+    "womens surgery": ("C-section", "Vaginal delivery", "Mastectomy", "Breast lumpectomy"),
+    "women s surgery": ("C-section", "Vaginal delivery", "Mastectomy", "Breast lumpectomy"),
+    "eye surgery": ("Cataract surgery", "MRI brain"),
+    "shoulder surgery": ("Shoulder arthroscopy", "MRI spine"),
+    "chest surgery": ("Mastectomy", "Breast lumpectomy", "Coronary bypass (CABG)"),
+    "abdominal surgery": ("Appendectomy", "Gallbladder removal", "Hernia repair"),
     "heart test": ("Cardiac catheterization", "Echocardiogram", "EKG"),
-    "scan": ("Brain MRI", "CT abdomen and pelvis", "Chest X-ray", "Abdominal ultrasound"),
+    "scan": ("MRI brain", "CT scan abdomen", "Mammogram"),
     "blood test": ("Complete blood count", "Basic metabolic panel", "Lipid panel", "Hemoglobin A1c"),
     "delivery": ("Vaginal delivery", "C-section"),
 }
@@ -139,45 +200,74 @@ def token_set(value: str) -> frozenset[str]:
     return frozenset(token for token in normalize_query(value).split() if token not in stopwords)
 
 
-def setting_for_code_type(code_type: str) -> CareSetting:
-    normalized = code_type.upper()
-    if normalized in {"DRG", "MS-DRG", "MSDRG"}:
+def normalize_code_type(code_type: str) -> str:
+    normalized = re.sub(r"[^A-Z0-9]+", "-", code_type.strip().upper()).strip("-")
+    if normalized in {"MS-DRG", "MSDRG"}:
+        return "DRG"
+    if normalized == "APC":
+        raise ValueError("APC is not supported by the current CMS engine index.")
+    if normalized not in SUPPORTED_CODE_TYPES:
+        raise ValueError(f"Unsupported code_type: {code_type!r}")
+    return normalized
+
+
+def setting_for_code_type(code_type: str) -> Setting:
+    normalized = normalize_code_type(code_type)
+    if normalized == "DRG":
         return "inpatient"
     if normalized in {"CPT", "HCPCS"}:
         return "outpatient"
     return "unknown"
 
 
-def parse_code(value: str, *, plain_label: str) -> ProcedureCode:
-    parts = value.strip().split()
+def parse_setting(value: str | None, code_type: str) -> Setting:
+    normalized = (value or "").strip().lower()
+    if normalized in {"inpatient", "outpatient", "either"}:
+        return normalized  # type: ignore[return-value]
+    return setting_for_code_type(code_type)
+
+
+def parse_code(value: str, *, description: str, setting: Setting | None = None) -> ProcedureCode:
+    raw = value.strip().replace(":", " ")
+    parts = raw.split()
     if len(parts) != 2:
         raise ValueError(f"Unsupported code value: {value!r}")
     code_type, code = parts
+    normalized_code_type = normalize_code_type(code_type)
     return ProcedureCode(
         procedure_code=code,
-        code_type=code_type.upper(),
-        plain_label=plain_label,
-        care_setting=setting_for_code_type(code_type),
+        code_type=normalized_code_type,
+        description=description,
+        setting=setting or setting_for_code_type(normalized_code_type),
     )
+
+
+def _split_values(value: str, separators: str = r"[|;]") -> tuple[str, ...]:
+    return tuple(part.strip() for part in re.split(separators, value or "") if part.strip())
 
 
 def load_mappings(path: Path = DEFAULT_MAPPING_PATH) -> tuple[ProcedureMapping, ...]:
     mappings: list[ProcedureMapping] = []
     with path.open(newline="", encoding="utf-8") as handle:
         for row in csv.DictReader(handle):
-            label = row["plain_language_name"].strip()
+            label = (row.get("plain_name") or row.get("plain_language_name") or "").strip()
+            if not label:
+                continue
+            primary_code_type = normalize_code_type(row["primary_code_type"].strip())
+            setting = parse_setting(row.get("setting"), primary_code_type)
             alternates = tuple(
-                parse_code(code.strip(), plain_label=label)
-                for code in row.get("alternate_codes", "").split(";")
+                parse_code(code.strip(), description=label, setting=parse_setting(None, code.split(":", 1)[0].split()[0]))
+                for code in _split_values(row.get("alternate_codes", ""))
                 if code.strip()
             )
-            synonyms = DEFAULT_SYNONYMS.get(label, ())
+            synonyms = (*_split_values(row.get("synonyms", "")), *DEFAULT_SYNONYMS.get(label, ()))
             token_values = [label, *synonyms]
             mappings.append(
                 ProcedureMapping(
-                    plain_label=label,
-                    primary_code_type=row["primary_code_type"].strip().upper(),
+                    description=label,
+                    primary_code_type=primary_code_type,
                     primary_code=row["primary_code"].strip(),
+                    setting=setting,
                     alternate_codes=alternates,
                     notes=row.get("notes") or None,
                     synonyms=synonyms,
@@ -188,10 +278,29 @@ def load_mappings(path: Path = DEFAULT_MAPPING_PATH) -> tuple[ProcedureMapping, 
 
 
 def _filter_codes(codes: tuple[ProcedureCode, ...], care_setting: CareSetting) -> tuple[ProcedureCode, ...]:
-    if care_setting == "unknown":
+    if care_setting in {"unknown", "either"}:
         return codes
-    filtered = tuple(code for code in codes if code.care_setting == care_setting or code.care_setting == "unknown")
+    filtered = tuple(code for code in codes if code.setting in {care_setting, "unknown", "either"})
     return filtered or codes
+
+
+def levenshtein_distance(left: str, right: str) -> int:
+    if left == right:
+        return 0
+    if not left:
+        return len(right)
+    if not right:
+        return len(left)
+    previous = list(range(len(right) + 1))
+    for left_index, left_char in enumerate(left, start=1):
+        current = [left_index]
+        for right_index, right_char in enumerate(right, start=1):
+            insertion = current[right_index - 1] + 1
+            deletion = previous[right_index] + 1
+            substitution = previous[right_index - 1] + (left_char != right_char)
+            current.append(min(insertion, deletion, substitution))
+        previous = current
+    return previous[-1]
 
 
 class ProcedureTranslator:
@@ -206,10 +315,13 @@ class ProcedureTranslator:
         self.fallback = fallback
         self.low_confidence_threshold = low_confidence_threshold
         self._by_normalized: dict[str, ProcedureMapping] = {}
+        self._match_terms: list[tuple[str, ProcedureMapping]] = []
         for mapping in self.mappings:
             self._by_normalized[normalize_query(mapping.plain_label)] = mapping
+            self._match_terms.append((normalize_query(mapping.plain_label), mapping))
             for synonym in mapping.synonyms:
                 self._by_normalized[normalize_query(synonym)] = mapping
+                self._match_terms.append((normalize_query(synonym), mapping))
 
     def translate(self, query: str, *, care_setting: CareSetting = "unknown") -> TranslationResponse:
         started = time.perf_counter()
@@ -235,6 +347,14 @@ class ProcedureTranslator:
                     status="match",
                     candidates=(self._candidate(exact, 1.0, "exact_or_synonym", care_setting),),
                 ),
+            )
+
+        fuzzy = self._fuzzy_candidate(normalized, care_setting)
+        if fuzzy:
+            return self._finish(
+                query,
+                started,
+                TranslationResponse(query=query, status="match", candidates=(fuzzy,)),
             )
 
         ambiguous = self._ambiguous_candidates(normalized, care_setting)
@@ -302,11 +422,29 @@ class ProcedureTranslator:
         care_setting: CareSetting,
     ) -> TranslationCandidate:
         return TranslationCandidate(
-            plain_label=mapping.plain_label,
+            description=mapping.description,
             confidence=round(confidence, 3),
             match_reason=match_reason,
             codes=_filter_codes(mapping.codes, care_setting),
         )
+
+    def _fuzzy_candidate(self, normalized_query: str, care_setting: CareSetting) -> TranslationCandidate | None:
+        if len(normalized_query) < 5:
+            return None
+        matches: list[tuple[int, ProcedureMapping]] = []
+        for term, mapping in self._match_terms:
+            if abs(len(term) - len(normalized_query)) > 2:
+                continue
+            distance = levenshtein_distance(normalized_query, term)
+            if distance <= 2:
+                matches.append((distance, mapping))
+        if not matches:
+            return None
+        matches.sort(key=lambda item: (item[0], item[1].plain_label))
+        best_distance, best_mapping = matches[0]
+        if len(matches) > 1 and matches[1][0] == best_distance and matches[1][1] != best_mapping:
+            return None
+        return self._candidate(best_mapping, 0.91 - (best_distance * 0.05), "fuzzy_name_or_synonym", care_setting)
 
     def _ambiguous_candidates(
         self,
@@ -346,20 +484,24 @@ class ProcedureTranslator:
         response = self.fallback.translate(query, care_setting=care_setting)
         valid_candidates = []
         for candidate in response.candidates:
-            if not candidate.code or not candidate.code_type or not candidate.plain_label:
+            description = candidate.description or candidate.plain_label
+            if not candidate.code or not candidate.code_type or not description:
                 continue
-            code_type = candidate.code_type.upper()
+            try:
+                code_type = normalize_code_type(candidate.code_type)
+            except ValueError:
+                continue
             valid_candidates.append(
                 TranslationCandidate(
-                    plain_label=candidate.plain_label,
+                    description=description,
                     confidence=round(candidate.confidence, 3),
                     match_reason="provider_fallback",
                     codes=(
                         ProcedureCode(
                             procedure_code=candidate.code,
                             code_type=code_type,
-                            plain_label=candidate.plain_label,
-                            care_setting=candidate.care_setting,
+                            description=description,
+                            setting=parse_setting(candidate.setting, code_type),
                             is_primary=True,
                         ),
                     ),
@@ -402,15 +544,16 @@ class ProcedureTranslator:
 
 
 def response_to_dict(response: TranslationResponse) -> dict[str, Any]:
-    return {
+    payload: dict[str, Any] = {
         "query": response.query,
         "status": response.status,
         "clarifying_question": response.clarifying_question,
         "message": response.message,
-        "source": response.source,
+        "source": "clarification_needed" if response.status in {"ambiguous", "clarify"} else response.source,
         "elapsed_ms": response.elapsed_ms,
         "candidates": [
             {
+                "description": candidate.description,
                 "plain_label": candidate.plain_label,
                 "confidence": candidate.confidence,
                 "match_reason": candidate.match_reason,
@@ -418,8 +561,9 @@ def response_to_dict(response: TranslationResponse) -> dict[str, Any]:
                     {
                         "procedure_code": code.procedure_code,
                         "code_type": code.code_type,
+                        "description": code.description,
                         "plain_label": code.plain_label,
-                        "care_setting": code.care_setting,
+                        "setting": code.setting,
                         "is_primary": code.is_primary,
                     }
                     for code in candidate.codes
@@ -428,3 +572,16 @@ def response_to_dict(response: TranslationResponse) -> dict[str, Any]:
             for candidate in response.candidates
         ],
     }
+    if response.status in {"ambiguous", "clarify"}:
+        payload["prompt"] = response.clarifying_question or "Did you mean one of these?"
+        payload["options"] = [
+            {
+                "label": candidate.description,
+                "procedure_code": code.procedure_code,
+                "code_type": code.code_type,
+                "setting": code.setting,
+            }
+            for candidate in response.candidates
+            for code in candidate.codes[:1]
+        ]
+    return payload

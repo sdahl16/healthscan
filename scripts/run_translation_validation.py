@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import csv
+import sys
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
 
 from healthscan.translation import ProcedureTranslator
 
-
-ROOT = Path(__file__).resolve().parents[1]
 VALIDATION_PATH = ROOT / "data" / "reference" / "translation_validation_set.csv"
 OUT_PATH = ROOT / "data" / "research" / "translation_validation_results.csv"
 

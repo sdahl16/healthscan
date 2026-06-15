@@ -1,0 +1,330 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ink: #17212b;
+  --muted: #5d6875;
+  --line: #d9e1e8;
+  --panel: #ffffff;
+  --page: #f5f7f8;
+  --accent: #146b6f;
+  --accent-strong: #0c4e52;
+  --warn: #9a5a00;
+  --warn-bg: #fff4dc;
+  --good-bg: #e9f7ef;
+  --good: #17613a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+.shell {
+  width: min(1160px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0 56px;
+}
+
+.search-panel {
+  display: grid;
+  gap: 22px;
+  padding: 28px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 18px 42px rgba(23, 33, 43, 0.07);
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.4rem, 4vw, 4.6rem);
+  line-height: 0.98;
+  letter-spacing: 0;
+}
+
+.lede {
+  max-width: 720px;
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.search-form,
+.controls {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.5fr) minmax(180px, 0.8fr) auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.controls {
+  grid-template-columns: repeat(3, minmax(150px, 1fr));
+  align-items: center;
+  padding-top: 4px;
+}
+
+label {
+  display: grid;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+input,
+select {
+  min-height: 46px;
+  width: 100%;
+  border: 1px solid #cbd5df;
+  border-radius: 6px;
+  background: #fff;
+  color: var(--ink);
+  padding: 0 13px;
+}
+
+input:focus,
+select:focus,
+button:focus-visible {
+  outline: 3px solid rgba(20, 107, 111, 0.24);
+  outline-offset: 2px;
+}
+
+button {
+  min-height: 46px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--accent);
+  color: white;
+  padding: 0 18px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--accent-strong);
+}
+
+.button-secondary {
+  background: #eaf0f2;
+  color: var(--ink);
+}
+
+.button-secondary:hover {
+  background: #dce7eb;
+}
+
+.icon {
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.status-region {
+  margin-top: 18px;
+}
+
+.notice,
+.empty-state,
+.loading {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.notice.warning {
+  border-color: #f0c878;
+  background: var(--warn-bg);
+  color: #573600;
+}
+
+.notice.success {
+  border-color: #bfe5cc;
+  background: var(--good-bg);
+  color: var(--good);
+}
+
+.results-region {
+  display: grid;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.summary-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.summary-row h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  border-radius: 999px;
+  background: #e8eef3;
+  color: #263846;
+  padding: 0 10px;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.pill.warning {
+  background: var(--warn-bg);
+  color: var(--warn);
+}
+
+.hospital-list {
+  display: grid;
+  gap: 12px;
+}
+
+.hospital-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.hospital-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.14rem;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.price-block {
+  min-width: 190px;
+  text-align: right;
+}
+
+.price {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 850;
+}
+
+.price-label {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 750;
+}
+
+.details {
+  grid-column: 1 / -1;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.details summary {
+  cursor: pointer;
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.price-table {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+}
+
+.price-table th,
+.price-table td {
+  padding: 8px;
+  border-bottom: 1px solid #edf1f4;
+  text-align: left;
+}
+
+.disclaimers {
+  padding: 16px 18px;
+  border: 1px solid #ccd8e1;
+  border-radius: 8px;
+  background: #fbfcfd;
+}
+
+.disclaimers ul {
+  margin: 10px 0 0;
+  padding-left: 20px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.clarify-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.clarify-grid button {
+  min-height: 64px;
+  background: #fff;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  text-align: left;
+}
+
+.clarify-grid button:hover {
+  background: #edf6f6;
+  border-color: #9bc9cc;
+}
+
+@media (max-width: 780px) {
+  .shell {
+    width: min(100% - 20px, 1160px);
+    padding-top: 14px;
+  }
+
+  .search-panel {
+    padding: 18px;
+  }
+
+  .search-form,
+  .controls,
+  .hospital-card {
+    grid-template-columns: 1fr;
+  }
+
+  .price-block {
+    text-align: left;
+  }
+}

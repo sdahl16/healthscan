@@ -33,6 +33,8 @@ CREATE TABLE IF NOT EXISTS indexed_prices (
     last_updated TEXT,
     source_url TEXT NOT NULL,
     data_quality_flag TEXT,
+    user_relevance_flag TEXT,
+    user_relevance_reason TEXT,
     parsed_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
     parse_warnings TEXT
 );
@@ -55,6 +57,7 @@ Enums / constrained values:
 - code_type is stored as TEXT, not a database enum.
 - setting is stored as TEXT, not a database enum.
 - data_quality_flag is stored as TEXT, not a database enum. Current code-generated values include ok, low_outlier, high_outlier, and placeholder_amount.
+- user_relevance_flag is stored as TEXT, not a database enum. Current values include display_ok and excluded_low_outlier.
 
 Supporting tables:
 
@@ -62,31 +65,27 @@ Supporting tables:
 - mrf_sources stores source URL, content metadata, crawl status, and source dates.
 - indexed_prices references both by hospital_id and mrf_source_id.
 
-Important implementation note:
+Migration note:
 
-The SQLite database at data/processed/healthscan.sqlite currently contains the earlier database-backed Layer 1 index, while the expanded Layer 4 scan output is represented in data/processed/combined_search_results.csv. The schema above is still the intended database target for indexed price records.
+The expanded Layer 4 combined search output has now been migrated into data/processed/healthscan.sqlite. The migration script is scripts/migrate_combined_search_to_sqlite.py.
 
 2. Code type coverage
 
-In the SQLite indexed_prices table so far:
-
-- DRG: 821 rows, 1 distinct code, 5 hospitals.
-- CPT: 0 rows.
-- HCPCS: 0 rows.
-- APC: 0 rows.
-- Other code types: 0 rows.
-
-SQLite example code present:
-
-- DRG 470.
-
-In the expanded combined search-ready output at data/processed/combined_search_results.csv:
+In the SQLite indexed_prices table after migration:
 
 - CPT: 14,064 rows, 38 distinct codes, 7 hospitals.
 - DRG: 24 rows, 5 distinct codes, 8 hospitals.
 - HCPCS: 1 row, 1 distinct code, 1 hospital.
 - APC: 0 rows.
-- MS-DRG: 0 rows as a stored output code_type. MS-DRG source rows are normalized to DRG where applicable.
+- Other code types: 0 rows.
+
+SQLite example codes present:
+
+- DRG 470.
+- CPT 45378.
+- HCPCS G0121.
+
+MS-DRG source rows are normalized to DRG where applicable. APC is not present in the current indexed/search-ready output.
 
 Patient-facing display rows after relevance filtering:
 
@@ -96,10 +95,10 @@ Patient-facing display rows after relevance filtering:
 
 Coverage interpretation:
 
-- CPT is the dominant and best-represented code type in the expanded Layer 4 search-ready output.
+- CPT is the dominant and best-represented code type in the expanded Layer 4 SQLite index.
 - DRG is present and useful for inpatient procedures, but narrower than CPT in the current 30-procedure MVP scope.
 - HCPCS is present but sparse. It appears mainly where hospitals label CPT-style outpatient rows as HCPCS or where a true HCPCS alternate such as G0121 is used.
-- APC is missing from the indexed/search-ready output so far.
+- APC is missing from the SQLite index so far.
 - Other code systems may appear in raw MRFs, but they are not part of the current 30-procedure query contract unless mapped into the procedure table.
 
 3. Procedure code format
@@ -116,10 +115,9 @@ Current behavior:
 
 Examples as they appear in current data:
 
-- DRG example in SQLite indexed_prices: code_type = DRG, procedure_code = 470.
-- DRG examples in combined search-ready output: 287, 341, 470, 783, 807.
-- CPT examples in combined search-ready output: 19301, 19303, 42825, 42826, 43235, 43239, 44970, 45378, 47562, 47563.
-- HCPCS example in combined search-ready output: G0121.
+- DRG examples in SQLite indexed_prices: 287, 341, 470, 783, 807.
+- CPT examples in SQLite indexed_prices: 19301, 19303, 42825, 42826, 43235, 43239, 44970, 45378, 47562, 47563.
+- HCPCS example in SQLite indexed_prices: G0121.
 
 Practical contract for integrations:
 

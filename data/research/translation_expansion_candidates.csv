@@ -1,0 +1,48 @@
+query,plain_name,primary_code_type,primary_code,setting,indexed_hospitals,recommendation
+anterior cervical discectomy and fusion,Anterior cervical discectomy and fusion,CPT,22554,inpatient,0,cms_gap
+anterior cervical discectomy and fusion,Anterior cervical discectomy and fusion with bone graft,CPT,22585,inpatient,0,cms_gap
+bronchoscopy with biopsy,Bronchoscopy with biopsy,CPT,31625,outpatient,0,cms_gap
+bronchoscopy with biopsy,Bronchoscopy with brushings and biopsies,CPT,31628,outpatient,0,cms_gap
+cardiac ablation,Cardiac ablation - atrial fibrillation,CPT,93656,outpatient,0,cms_gap
+cardiac ablation,Cardiac ablation - ventricular arrhythmia,CPT,93657,outpatient,0,cms_gap
+endoscopic retrograde cholangiopancreatography,ERCP with Sphincterotomy,CPT,43263,outpatient,0,cms_gap
+endoscopic retrograde cholangiopancreatography,ERCP with Stone Extraction,CPT,43264,outpatient,0,cms_gap
+endoscopic retrograde cholangiopancreatography,ERCP with biliary stent placement,CPT,43274,outpatient,0,cms_gap
+endoscopic retrograde cholangiopancreatography,ERCP with pancreatic sphincterotomy,CPT,43278,outpatient,0,cms_gap
+endoscopic retrograde cholangiopancreatography,Endoscopic Retrograde Cholangiopancreatography (ERCP),CPT,43262,outpatient,0,cms_gap
+endoscopic retrograde cholangiopancreatography,Endoscopic retrograde cholangiopancreatography (ERCP),CPT,43277,outpatient,0,cms_gap
+laminectomy,Laminectomy - Multiple Levels,CPT,63048,either,0,cms_gap
+laminectomy,Laminectomy - Single Level,CPT,63045,either,0,cms_gap
+orchiectomy,Orchiectomy (removal of one or both testicles),CPT,54520,outpatient,0,cms_gap
+percutaneous coronary intervention,Percutaneous Coronary Intervention (PCI) with Stent,CPT,92604,either,0,cms_gap
+percutaneous coronary intervention,Percutaneous Coronary Intervention (PCI) without Stent,CPT,92603,either,0,cms_gap
+prostatectomy,Radical prostatectomy (laparoscopic),CPT,55866,inpatient,0,cms_gap
+prostatectomy,Radical prostatectomy (open),CPT,55840,inpatient,0,cms_gap
+prostatectomy,Radical prostatectomy (robot-assisted),CPT,55868,inpatient,0,cms_gap
+rotator cuff repair,Rotator cuff repair - open,CPT,23412,outpatient,0,cms_gap
+spinal fusion,Spinal fusion - cervical,CPT,22554,inpatient,0,cms_gap
+spinal fusion,Spinal fusion - lumbar,CPT,22612,inpatient,0,cms_gap
+thyroidectomy,Thyroidectomy - Partial or Subtotal,CPT,60210,inpatient,0,cms_gap
+thyroidectomy,Thyroidectomy - Total or Subtotal,CPT,60240,inpatient,0,cms_gap
+transurethral resection of the prostate,Transurethral Resection of Prostate (TURP),CPT,52601,either,0,cms_gap
+vitrectomy,Vitrectomy - 23 gauge micro-incision,CPT,67038,outpatient,0,cms_gap
+vitrectomy,Vitrectomy - 3 port pars plana,CPT,67040,outpatient,0,cms_gap
+vitrectomy,Vitrectomy - Anterior Approach,CPT,67005,outpatient,0,cms_gap
+percutaneous coronary intervention,Acute Myocardial Infarction with PCI,DRG,280,inpatient,0,cms_gap
+bronchoscopy with biopsy,Bronchoscopy with biopsy - inpatient,DRG,166,inpatient,0,cms_gap
+cardiac ablation,Cardiac ablation - inpatient hospitalization,DRG,223,inpatient,0,cms_gap
+knee meniscectomy,Knee meniscectomy - inpatient,DRG,871,inpatient,0,cms_gap
+laminectomy,Laminectomy - Inpatient Hospital Stay,DRG,471,inpatient,0,cms_gap
+laparoscopic cholecystectomy,Laparoscopic cholecystectomy (inpatient),DRG,782,inpatient,0,cms_gap
+orchiectomy,Orchiectomy with inpatient hospital stay,DRG,743,inpatient,0,cms_gap
+rotator cuff repair,Rotator cuff repair - inpatient stay,DRG,473,inpatient,0,cms_gap
+spinal fusion,Spinal fusion - inpatient hospital stay,DRG,471,inpatient,0,cms_gap
+transurethral resection of the prostate,TURP with complications or comorbidities (inpatient),DRG,707,inpatient,0,cms_gap
+thyroidectomy,Thyroid Surgery - Inpatient Hospital Stay,DRG,643,inpatient,0,cms_gap
+transurethral resection of the prostate,Transurethral Resection of Prostate (TURP) - Inpatient,DRG,704,inpatient,0,cms_gap
+vitrectomy,Vitrectomy - Inpatient Hospital Stay,DRG,269,inpatient,0,cms_gap
+vitrectomy,Vitrectomy - complex retinal detachment repair,DRG,263,inpatient,0,cms_gap
+knee meniscectomy,Knee meniscectomy,CPT,29881,outpatient,0,already_mapped
+laparoscopic cholecystectomy,Laparoscopic cholecystectomy,CPT,47562,outpatient,6,already_mapped
+rotator cuff repair,Rotator cuff repair - arthroscopic,CPT,29827,outpatient,0,already_mapped
+anterior cervical discectomy and fusion,Cervical fusion inpatient stay,DRG,470,inpatient,5,already_mapped

@@ -1,0 +1,6 @@
+procedure_name,code_type,procedure_code,search_ready_rows,distinct_hospitals,display_rows,display_hospitals,matched_jobs
+CT scan abdomen,CPT,74178,475,7,472,7,7
+Carpal tunnel surgery,CPT,64721,484,7,466,7,7
+Knee arthroscopy,CPT,29881,450,6,439,6,6
+MRI spine,CPT,72148,486,7,483,7,7
+Shoulder arthroscopy,CPT,29827,450,6,440,6,6

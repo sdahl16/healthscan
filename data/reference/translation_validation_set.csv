@@ -1,51 +1,51 @@
 case_type,input,expected_status,expected_label,expected_code_type,expected_code,notes
+exact,Colonoscopy,match,Colonoscopy,CPT,45378,
+exact,Upper endoscopy,match,Upper endoscopy,CPT,43239,
+exact,Tonsillectomy,match,Tonsillectomy,CPT,42826,
+exact,Tonsillectomy (child),match,Tonsillectomy (child),CPT,42825,
+exact,Appendectomy,match,Appendectomy,CPT,44970,
+exact,Gallbladder removal,match,Gallbladder removal,CPT,47562,
+exact,Gallbladder removal (open),match,Gallbladder removal (open),CPT,47563,
+exact,Breast lumpectomy,match,Breast lumpectomy,CPT,19301,
+exact,Mastectomy,match,Mastectomy,CPT,19303,
+exact,Upper endoscopy with biopsy,match,Upper endoscopy with biopsy,CPT,43235,
+exact,Knee arthroscopy,match,Knee arthroscopy,CPT,29881,
+exact,Hernia repair,match,Hernia repair,CPT,49505,
+exact,Cataract surgery,match,Cataract surgery,CPT,66984,
+exact,Carpal tunnel surgery,match,Carpal tunnel surgery,CPT,64721,
+exact,Shoulder arthroscopy,match,Shoulder arthroscopy,CPT,29827,
+exact,Sleep study,match,Sleep study,CPT,95810,
+exact,MRI brain,match,MRI brain,CPT,70551,
+exact,MRI spine,match,MRI spine,CPT,72148,
+exact,CT scan abdomen,match,CT scan abdomen,CPT,74178,
+exact,Mammogram,match,Mammogram,CPT,77067,
+exact,Echocardiogram,match,Echocardiogram,CPT,93306,
+exact,Screening colonoscopy,match,Screening colonoscopy,HCPCS,G0121,
 exact,Hip replacement,match,Hip replacement,DRG,470,
 exact,Knee replacement,match,Knee replacement,DRG,470,
-exact,Colonoscopy,match,Colonoscopy,CPT,45378,
 exact,Vaginal delivery,match,Vaginal delivery,DRG,807,
 exact,C-section,match,C-section,DRG,783,
-exact,Appendectomy,match,Appendectomy,DRG,341,
+exact,Appendectomy (inpatient),match,Appendectomy (inpatient),DRG,341,
 exact,Cardiac catheterization,match,Cardiac catheterization,DRG,287,
-exact,Brain MRI,match,Brain MRI,CPT,70551,
-exact,CT abdomen and pelvis,match,CT abdomen and pelvis,CPT,74176,
-exact,Emergency department visit,match,Emergency department visit,CPT,99285,
-exact,Gallbladder removal,match,Gallbladder removal,CPT,47562,
-exact,Hernia repair,match,Hernia repair,CPT,49505,
-exact,Hysterectomy,match,Hysterectomy,CPT,58571,
-exact,Cataract surgery,match,Cataract surgery,CPT,66984,
-exact,Upper endoscopy,match,Upper endoscopy,CPT,43235,
-exact,Screening mammogram,match,Screening mammogram,CPT,77067,
-exact,Chest X-ray,match,Chest X-ray,CPT,71046,
-exact,Abdominal ultrasound,match,Abdominal ultrasound,CPT,76700,
-exact,Echocardiogram,match,Echocardiogram,CPT,93306,
-exact,EKG,match,EKG,CPT,93000,
-exact,Physical therapy evaluation,match,Physical therapy evaluation,CPT,97161,
-exact,Complete blood count,match,Complete blood count,CPT,85025,
-exact,Basic metabolic panel,match,Basic metabolic panel,CPT,80048,
-exact,Lipid panel,match,Lipid panel,CPT,80061,
-exact,Hemoglobin A1c,match,Hemoglobin A1c,CPT,83036,
-exact,COVID test,match,COVID test,CPT,87635,
-exact,Sleep study,match,Sleep study,CPT,95810,
-exact,Tonsillectomy,match,Tonsillectomy,CPT,42826,
-exact,Mastectomy,match,Mastectomy,CPT,19303,
-exact,Prostate biopsy,match,Prostate biopsy,CPT,55700,
-synonym,total knee arthroplasty,match,Knee replacement,DRG,470,
+exact,Coronary bypass (CABG),match,Coronary bypass (CABG),DRG,231,
+exact,Emergency department visit,match,Emergency department visit,CPT,99285,Compatibility mapping retained from existing app
 synonym,knee surgery,match,Knee replacement,DRG,470,
 synonym,total hip arthroplasty,match,Hip replacement,DRG,470,
-synonym,heart cath,match,Cardiac catheterization,DRG,287,
-synonym,er visit,match,Emergency department visit,CPT,99285,
-synonym,cesarean section,match,C-section,DRG,783,
-synonym,colon scope,match,Colonoscopy,CPT,45378,
-synonym,head mri,match,Brain MRI,CPT,70551,
-synonym,cholesterol test,match,Lipid panel,CPT,80061,
-synonym,cataract removal,match,Cataract surgery,CPT,66984,
-ambiguous,stomach surgery,ambiguous,,,,Should return multiple candidates
-ambiguous,heart test,ambiguous,,,,Should return multiple candidates
-ambiguous,scan,ambiguous,,,,Should return multiple candidates
-ambiguous,blood test,ambiguous,,,,Should return multiple candidates
-ambiguous,delivery,ambiguous,,,,Should return multiple candidates
+synonym,having a baby,match,Vaginal delivery,DRG,807,
+synonym,CABG,match,Coronary bypass (CABG),DRG,231,
+synonym,scope of the colon,match,Colonoscopy,CPT,45378,
+synonym,gallbladder out,match,Gallbladder removal,CPT,47562,
+synonym,EGD,match,Upper endoscopy,CPT,43239,
+synonym,boob job removal,match,Mastectomy,CPT,19303,
+synonym,rotator cuff repair,match,Shoulder arthroscopy,CPT,29827,
+synonym,carpel tunnel,match,Carpal tunnel surgery,CPT,64721,
+ambiguous,heart surgery,ambiguous,,,,Must not single-guess
+ambiguous,back surgery,ambiguous,,,,Must not single-guess
+ambiguous,brain surgery,ambiguous,,,,Must not single-guess
+ambiguous,stomach surgery,ambiguous,,,,Must not single-guess
+ambiguous,cancer surgery,ambiguous,,,,Must not single-guess
+invalid,pizza,not_found,,,,Graceful no-match
+invalid,car accident,not_found,,,,Graceful no-match
 invalid,asdfghjkl,not_found,,,,Graceful no-match
-invalid,car repair,not_found,,,,Graceful no-match
-invalid,weather tomorrow,not_found,,,,Graceful no-match
-invalid,banana phone,not_found,,,,Graceful no-match
-invalid,123456789,not_found,,,,Graceful no-match
+invalid,I don't know,not_found,,,,Graceful no-match
+invalid,how much does it cost,not_found,,,,Graceful no-match

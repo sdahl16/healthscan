@@ -10,3 +10,5 @@ data/interim/
 data/processed/
 data/tmp/
 *.log
+.secrets/
+data/research/translation_fallback_log.csv

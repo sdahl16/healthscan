@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HealthScan</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="search-panel" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Southern California launch coverage</p>
+          <h1 id="page-title">HealthScan</h1>
+          <p class="lede">Compare hospital-published prices for common procedures before you schedule care.</p>
+        </div>
+
+        <form id="search-form" class="search-form">
+          <label>
+            <span>Procedure</span>
+            <input id="procedure" name="procedure" autocomplete="off" placeholder="Colonoscopy, MRI brain, cataract surgery" required />
+          </label>
+          <label>
+            <span>ZIP or city</span>
+            <input id="location" name="location" autocomplete="postal-code" placeholder="90095 or San Diego, CA" required />
+          </label>
+          <button type="submit">
+            <span class="icon" aria-hidden="true">⌕</span>
+            Search prices
+          </button>
+        </form>
+
+        <div class="controls" aria-label="Search controls">
+          <label>
+            <span>Radius</span>
+            <select id="radius">
+              <option value="50">50 miles</option>
+              <option value="100">100 miles</option>
+            </select>
+          </label>
+          <label>
+            <span>Sort</span>
+            <select id="sort">
+              <option value="price">Lowest price</option>
+              <option value="distance">Distance</option>
+            </select>
+          </label>
+          <label>
+            <span>Price type</span>
+            <select id="price-type">
+              <option value="all">All actionable</option>
+              <option value="cash">Cash only</option>
+              <option value="negotiated">Negotiated</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section id="status-region" class="status-region" aria-live="polite"></section>
+      <section id="results-region" class="results-region"></section>
+    </main>
+
+    <template id="disclaimer-template">
+      <aside class="disclaimers" aria-label="Important pricing notes">
+        <strong>Before using these prices</strong>
+        <ul>
+          <li>Prices shown are the hospital's published standard charges, not what an insured patient will pay.</li>
+          <li>Actual out-of-pocket cost depends on insurance plan, deductible, and in-network status.</li>
+          <li>Data is sourced from hospital-published CMS machine-readable files and may not reflect current pricing.</li>
+          <li>This tool is for informational purposes only and does not constitute medical or financial advice.</li>
+        </ul>
+      </aside>
+    </template>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

@@ -52,6 +52,8 @@ CREATE TABLE IF NOT EXISTS indexed_prices (
     last_updated TEXT,
     source_url TEXT NOT NULL,
     data_quality_flag TEXT,
+    user_relevance_flag TEXT,
+    user_relevance_reason TEXT,
     parsed_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
     parse_warnings TEXT
 );

@@ -6,6 +6,7 @@ The current milestone is Phase 1 from `docs/cms-research-plan.md`: understand th
 
 ## Current Scope
 
+- Project context and safety boundaries: `CONTEXT.md`
 - Source plan: `docs/cms-research-plan.md`
 - Consolidated validation report: `docs/reports/cms-price-transparency-validation-report.md`
 - Phase 1 research log: `docs/research/phase-1-schema-and-discovery.md`

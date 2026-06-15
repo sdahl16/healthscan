@@ -1,0 +1,965 @@
+{
+  "summary": {
+    "mapped_procedures": 31,
+    "primary_codes_with_indexed_rows": 25,
+    "procedures_with_any_indexed_rows": 25,
+    "cpt_primary_rows": 23,
+    "drg_primary_rows": 7,
+    "hcpcs_primary_rows": 1,
+    "expansion_candidate_rows": 47,
+    "add_to_lookup_candidates": 0,
+    "cms_gap_candidates": 43,
+    "mapping_primary_code_gaps": 6,
+    "primary_swap_candidates": 0
+  },
+  "mapping_coverage": [
+    {
+      "plain_name": "Colonoscopy",
+      "primary_code_type": "CPT",
+      "primary_code": "45378",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 4,
+      "any_indexed_hospitals": 4,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "45378",
+          "indexed_hospitals": 4,
+          "is_primary": true
+        },
+        {
+          "code_type": "HCPCS",
+          "procedure_code": "G0121",
+          "indexed_hospitals": 1,
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "plain_name": "Upper endoscopy",
+      "primary_code_type": "CPT",
+      "primary_code": "43239",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 7,
+      "any_indexed_hospitals": 7,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "43239",
+          "indexed_hospitals": 7,
+          "is_primary": true
+        },
+        {
+          "code_type": "CPT",
+          "procedure_code": "43235",
+          "indexed_hospitals": 7,
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "plain_name": "Tonsillectomy",
+      "primary_code_type": "CPT",
+      "primary_code": "42826",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 6,
+      "any_indexed_hospitals": 6,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "42826",
+          "indexed_hospitals": 6,
+          "is_primary": true
+        },
+        {
+          "code_type": "CPT",
+          "procedure_code": "42825",
+          "indexed_hospitals": 4,
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "plain_name": "Tonsillectomy (child)",
+      "primary_code_type": "CPT",
+      "primary_code": "42825",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 4,
+      "any_indexed_hospitals": 6,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "42825",
+          "indexed_hospitals": 4,
+          "is_primary": true
+        },
+        {
+          "code_type": "CPT",
+          "procedure_code": "42826",
+          "indexed_hospitals": 6,
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "plain_name": "Appendectomy",
+      "primary_code_type": "CPT",
+      "primary_code": "44970",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 1,
+      "any_indexed_hospitals": 4,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "44970",
+          "indexed_hospitals": 1,
+          "is_primary": true
+        },
+        {
+          "code_type": "DRG",
+          "procedure_code": "341",
+          "indexed_hospitals": 4,
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "plain_name": "Gallbladder removal",
+      "primary_code_type": "CPT",
+      "primary_code": "47562",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 6,
+      "any_indexed_hospitals": 6,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "47562",
+          "indexed_hospitals": 6,
+          "is_primary": true
+        },
+        {
+          "code_type": "CPT",
+          "procedure_code": "47563",
+          "indexed_hospitals": 6,
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "plain_name": "Gallbladder removal (open)",
+      "primary_code_type": "CPT",
+      "primary_code": "47563",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 6,
+      "any_indexed_hospitals": 6,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "47563",
+          "indexed_hospitals": 6,
+          "is_primary": true
+        },
+        {
+          "code_type": "CPT",
+          "procedure_code": "47562",
+          "indexed_hospitals": 6,
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "plain_name": "Breast lumpectomy",
+      "primary_code_type": "CPT",
+      "primary_code": "19301",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 6,
+      "any_indexed_hospitals": 6,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "19301",
+          "indexed_hospitals": 6,
+          "is_primary": true
+        },
+        {
+          "code_type": "CPT",
+          "procedure_code": "19303",
+          "indexed_hospitals": 6,
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "plain_name": "Mastectomy",
+      "primary_code_type": "CPT",
+      "primary_code": "19303",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 6,
+      "any_indexed_hospitals": 6,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "19303",
+          "indexed_hospitals": 6,
+          "is_primary": true
+        },
+        {
+          "code_type": "CPT",
+          "procedure_code": "19301",
+          "indexed_hospitals": 6,
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "plain_name": "Upper endoscopy with biopsy",
+      "primary_code_type": "CPT",
+      "primary_code": "43235",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 7,
+      "any_indexed_hospitals": 7,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "43235",
+          "indexed_hospitals": 7,
+          "is_primary": true
+        },
+        {
+          "code_type": "CPT",
+          "procedure_code": "43239",
+          "indexed_hospitals": 7,
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "plain_name": "Knee arthroscopy",
+      "primary_code_type": "CPT",
+      "primary_code": "29881",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 0,
+      "any_indexed_hospitals": 0,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "29881",
+          "indexed_hospitals": 0,
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "plain_name": "Hernia repair",
+      "primary_code_type": "CPT",
+      "primary_code": "49505",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 6,
+      "any_indexed_hospitals": 6,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "49505",
+          "indexed_hospitals": 6,
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "plain_name": "Cataract surgery",
+      "primary_code_type": "CPT",
+      "primary_code": "66984",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 6,
+      "any_indexed_hospitals": 6,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "66984",
+          "indexed_hospitals": 6,
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "plain_name": "Carpal tunnel surgery",
+      "primary_code_type": "CPT",
+      "primary_code": "64721",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 0,
+      "any_indexed_hospitals": 0,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "64721",
+          "indexed_hospitals": 0,
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "plain_name": "Shoulder arthroscopy",
+      "primary_code_type": "CPT",
+      "primary_code": "29827",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 0,
+      "any_indexed_hospitals": 0,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "29827",
+          "indexed_hospitals": 0,
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "plain_name": "Sleep study",
+      "primary_code_type": "CPT",
+      "primary_code": "95810",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 6,
+      "any_indexed_hospitals": 6,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "95810",
+          "indexed_hospitals": 6,
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "plain_name": "MRI brain",
+      "primary_code_type": "CPT",
+      "primary_code": "70551",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 4,
+      "any_indexed_hospitals": 4,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "70551",
+          "indexed_hospitals": 4,
+          "is_primary": true
+        },
+        {
+          "code_type": "CPT",
+          "procedure_code": "70553",
+          "indexed_hospitals": 0,
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "plain_name": "MRI spine",
+      "primary_code_type": "CPT",
+      "primary_code": "72148",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 0,
+      "any_indexed_hospitals": 0,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "72148",
+          "indexed_hospitals": 0,
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "plain_name": "CT scan abdomen",
+      "primary_code_type": "CPT",
+      "primary_code": "74178",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 0,
+      "any_indexed_hospitals": 0,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "74178",
+          "indexed_hospitals": 0,
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "plain_name": "Mammogram",
+      "primary_code_type": "CPT",
+      "primary_code": "77067",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 7,
+      "any_indexed_hospitals": 7,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "77067",
+          "indexed_hospitals": 7,
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "plain_name": "Echocardiogram",
+      "primary_code_type": "CPT",
+      "primary_code": "93306",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 7,
+      "any_indexed_hospitals": 7,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "93306",
+          "indexed_hospitals": 7,
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "plain_name": "Screening colonoscopy",
+      "primary_code_type": "HCPCS",
+      "primary_code": "G0121",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 1,
+      "any_indexed_hospitals": 4,
+      "codes": [
+        {
+          "code_type": "HCPCS",
+          "procedure_code": "G0121",
+          "indexed_hospitals": 1,
+          "is_primary": true
+        },
+        {
+          "code_type": "CPT",
+          "procedure_code": "45378",
+          "indexed_hospitals": 4,
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "plain_name": "Hip replacement",
+      "primary_code_type": "DRG",
+      "primary_code": "470",
+      "setting": "inpatient",
+      "primary_indexed_hospitals": 5,
+      "any_indexed_hospitals": 5,
+      "codes": [
+        {
+          "code_type": "DRG",
+          "procedure_code": "470",
+          "indexed_hospitals": 5,
+          "is_primary": true
+        },
+        {
+          "code_type": "CPT",
+          "procedure_code": "27130",
+          "indexed_hospitals": 0,
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "plain_name": "Knee replacement",
+      "primary_code_type": "DRG",
+      "primary_code": "470",
+      "setting": "inpatient",
+      "primary_indexed_hospitals": 5,
+      "any_indexed_hospitals": 5,
+      "codes": [
+        {
+          "code_type": "DRG",
+          "procedure_code": "470",
+          "indexed_hospitals": 5,
+          "is_primary": true
+        },
+        {
+          "code_type": "CPT",
+          "procedure_code": "27447",
+          "indexed_hospitals": 0,
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "plain_name": "Vaginal delivery",
+      "primary_code_type": "DRG",
+      "primary_code": "807",
+      "setting": "inpatient",
+      "primary_indexed_hospitals": 3,
+      "any_indexed_hospitals": 3,
+      "codes": [
+        {
+          "code_type": "DRG",
+          "procedure_code": "807",
+          "indexed_hospitals": 3,
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "plain_name": "C-section",
+      "primary_code_type": "DRG",
+      "primary_code": "783",
+      "setting": "inpatient",
+      "primary_indexed_hospitals": 3,
+      "any_indexed_hospitals": 3,
+      "codes": [
+        {
+          "code_type": "DRG",
+          "procedure_code": "783",
+          "indexed_hospitals": 3,
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "plain_name": "Appendectomy (inpatient)",
+      "primary_code_type": "DRG",
+      "primary_code": "341",
+      "setting": "inpatient",
+      "primary_indexed_hospitals": 4,
+      "any_indexed_hospitals": 4,
+      "codes": [
+        {
+          "code_type": "DRG",
+          "procedure_code": "341",
+          "indexed_hospitals": 4,
+          "is_primary": true
+        },
+        {
+          "code_type": "CPT",
+          "procedure_code": "44970",
+          "indexed_hospitals": 1,
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "plain_name": "Cardiac catheterization",
+      "primary_code_type": "DRG",
+      "primary_code": "287",
+      "setting": "inpatient",
+      "primary_indexed_hospitals": 4,
+      "any_indexed_hospitals": 4,
+      "codes": [
+        {
+          "code_type": "DRG",
+          "procedure_code": "287",
+          "indexed_hospitals": 4,
+          "is_primary": true
+        },
+        {
+          "code_type": "CPT",
+          "procedure_code": "93454",
+          "indexed_hospitals": 0,
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "plain_name": "Coronary bypass (CABG)",
+      "primary_code_type": "DRG",
+      "primary_code": "231",
+      "setting": "inpatient",
+      "primary_indexed_hospitals": 0,
+      "any_indexed_hospitals": 0,
+      "codes": [
+        {
+          "code_type": "DRG",
+          "procedure_code": "231",
+          "indexed_hospitals": 0,
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "plain_name": "Emergency department visit",
+      "primary_code_type": "CPT",
+      "primary_code": "99285",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 4,
+      "any_indexed_hospitals": 4,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "99285",
+          "indexed_hospitals": 4,
+          "is_primary": true
+        },
+        {
+          "code_type": "CPT",
+          "procedure_code": "99284",
+          "indexed_hospitals": 0,
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "plain_name": "EKG",
+      "primary_code_type": "CPT",
+      "primary_code": "93000",
+      "setting": "outpatient",
+      "primary_indexed_hospitals": 4,
+      "any_indexed_hospitals": 6,
+      "codes": [
+        {
+          "code_type": "CPT",
+          "procedure_code": "93000",
+          "indexed_hospitals": 4,
+          "is_primary": true
+        },
+        {
+          "code_type": "CPT",
+          "procedure_code": "93005",
+          "indexed_hospitals": 6,
+          "is_primary": false
+        }
+      ]
+    }
+  ],
+  "primary_swap_candidates": [],
+  "fallback_expansion_candidates": [
+    {
+      "query": "transurethral resection of the prostate",
+      "fallback_hits": 2,
+      "sample_output": [
+        {
+          "plain_name": "Transurethral Resection of Prostate (TURP)",
+          "procedure_code": "52601",
+          "code_type": "CPT",
+          "setting": "either"
+        },
+        {
+          "plain_name": "Transurethral Resection of Prostate (TURP) - Inpatient",
+          "procedure_code": "704",
+          "code_type": "DRG",
+          "setting": "inpatient"
+        }
+      ]
+    },
+    {
+      "query": "endoscopic retrograde cholangiopancreatography",
+      "fallback_hits": 2,
+      "sample_output": [
+        {
+          "plain_name": "Endoscopic retrograde cholangiopancreatography (ERCP)",
+          "procedure_code": "43277",
+          "code_type": "CPT",
+          "setting": "outpatient"
+        },
+        {
+          "plain_name": "ERCP with biliary stent placement",
+          "procedure_code": "43274",
+          "code_type": "CPT",
+          "setting": "outpatient"
+        },
+        {
+          "plain_name": "ERCP with pancreatic sphincterotomy",
+          "procedure_code": "43278",
+          "code_type": "CPT",
+          "setting": "outpatient"
+        }
+      ]
+    },
+    {
+      "query": "vitrectomy",
+      "fallback_hits": 2,
+      "sample_output": [
+        {
+          "plain_name": "Vitrectomy - 3 port pars plana",
+          "procedure_code": "67040",
+          "code_type": "CPT",
+          "setting": "outpatient"
+        },
+        {
+          "plain_name": "Vitrectomy - 23 gauge micro-incision",
+          "procedure_code": "67038",
+          "code_type": "CPT",
+          "setting": "outpatient"
+        },
+        {
+          "plain_name": "Vitrectomy - complex retinal detachment repair",
+          "procedure_code": "263",
+          "code_type": "DRG",
+          "setting": "inpatient"
+        }
+      ]
+    },
+    {
+      "query": "laparoscopic cholecystectomy",
+      "fallback_hits": 1,
+      "sample_output": [
+        {
+          "plain_name": "Laparoscopic cholecystectomy",
+          "procedure_code": "47562",
+          "code_type": "CPT",
+          "setting": "outpatient"
+        },
+        {
+          "plain_name": "Laparoscopic cholecystectomy (inpatient)",
+          "procedure_code": "782",
+          "code_type": "DRG",
+          "setting": "inpatient"
+        }
+      ]
+    },
+    {
+      "query": "percutaneous coronary intervention",
+      "fallback_hits": 1,
+      "sample_output": [
+        {
+          "plain_name": "Percutaneous Coronary Intervention (PCI) with Stent",
+          "procedure_code": "92604",
+          "code_type": "CPT",
+          "setting": "either"
+        },
+        {
+          "plain_name": "Percutaneous Coronary Intervention (PCI) without Stent",
+          "procedure_code": "92603",
+          "code_type": "CPT",
+          "setting": "either"
+        },
+        {
+          "plain_name": "Acute Myocardial Infarction with PCI",
+          "procedure_code": "280",
+          "code_type": "DRG",
+          "setting": "inpatient"
+        }
+      ]
+    },
+    {
+      "query": "anterior cervical discectomy and fusion",
+      "fallback_hits": 1,
+      "sample_output": [
+        {
+          "plain_name": "Anterior cervical discectomy and fusion",
+          "procedure_code": "22554",
+          "code_type": "CPT",
+          "setting": "inpatient"
+        },
+        {
+          "plain_name": "Anterior cervical discectomy and fusion with bone graft",
+          "procedure_code": "22585",
+          "code_type": "CPT",
+          "setting": "inpatient"
+        },
+        {
+          "plain_name": "Cervical fusion inpatient stay",
+          "procedure_code": "470",
+          "code_type": "DRG",
+          "setting": "inpatient"
+        }
+      ]
+    },
+    {
+      "query": "rotator cuff repair",
+      "fallback_hits": 1,
+      "sample_output": [
+        {
+          "plain_name": "Rotator cuff repair - arthroscopic",
+          "procedure_code": "29827",
+          "code_type": "CPT",
+          "setting": "outpatient"
+        },
+        {
+          "plain_name": "Rotator cuff repair - open",
+          "procedure_code": "23412",
+          "code_type": "CPT",
+          "setting": "outpatient"
+        },
+        {
+          "plain_name": "Rotator cuff repair - inpatient stay",
+          "procedure_code": "473",
+          "code_type": "DRG",
+          "setting": "inpatient"
+        }
+      ]
+    },
+    {
+      "query": "thyroidectomy",
+      "fallback_hits": 1,
+      "sample_output": [
+        {
+          "plain_name": "Thyroidectomy - Total or Subtotal",
+          "procedure_code": "60240",
+          "code_type": "CPT",
+          "setting": "inpatient"
+        },
+        {
+          "plain_name": "Thyroidectomy - Partial or Subtotal",
+          "procedure_code": "60210",
+          "code_type": "CPT",
+          "setting": "inpatient"
+        },
+        {
+          "plain_name": "Thyroid Surgery - Inpatient Hospital Stay",
+          "procedure_code": "643",
+          "code_type": "DRG",
+          "setting": "inpatient"
+        }
+      ]
+    },
+    {
+      "query": "laminectomy",
+      "fallback_hits": 1,
+      "sample_output": [
+        {
+          "plain_name": "Laminectomy - Single Level",
+          "procedure_code": "63045",
+          "code_type": "CPT",
+          "setting": "either"
+        },
+        {
+          "plain_name": "Laminectomy - Multiple Levels",
+          "procedure_code": "63048",
+          "code_type": "CPT",
+          "setting": "either"
+        },
+        {
+          "plain_name": "Laminectomy - Inpatient Hospital Stay",
+          "procedure_code": "471",
+          "code_type": "DRG",
+          "setting": "inpatient"
+        }
+      ]
+    },
+    {
+      "query": "orchiectomy",
+      "fallback_hits": 1,
+      "sample_output": [
+        {
+          "plain_name": "Orchiectomy (removal of one or both testicles)",
+          "procedure_code": "54520",
+          "code_type": "CPT",
+          "setting": "outpatient"
+        },
+        {
+          "plain_name": "Orchiectomy with inpatient hospital stay",
+          "procedure_code": "743",
+          "code_type": "DRG",
+          "setting": "inpatient"
+        }
+      ]
+    },
+    {
+      "query": "bronchoscopy with biopsy",
+      "fallback_hits": 1,
+      "sample_output": [
+        {
+          "plain_name": "Bronchoscopy with biopsy",
+          "procedure_code": "31625",
+          "code_type": "CPT",
+          "setting": "outpatient"
+        },
+        {
+          "plain_name": "Bronchoscopy with brushings and biopsies",
+          "procedure_code": "31628",
+          "code_type": "CPT",
+          "setting": "outpatient"
+        },
+        {
+          "plain_name": "Bronchoscopy with biopsy - inpatient",
+          "procedure_code": "166",
+          "code_type": "DRG",
+          "setting": "inpatient"
+        }
+      ]
+    },
+    {
+      "query": "cardiac ablation",
+      "fallback_hits": 1,
+      "sample_output": [
+        {
+          "plain_name": "Cardiac ablation - atrial fibrillation",
+          "procedure_code": "93656",
+          "code_type": "CPT",
+          "setting": "outpatient"
+        },
+        {
+          "plain_name": "Cardiac ablation - ventricular arrhythmia",
+          "procedure_code": "93657",
+          "code_type": "CPT",
+          "setting": "outpatient"
+        },
+        {
+          "plain_name": "Cardiac ablation - inpatient hospitalization",
+          "procedure_code": "223",
+          "code_type": "DRG",
+          "setting": "inpatient"
+        }
+      ]
+    },
+    {
+      "query": "spinal fusion",
+      "fallback_hits": 1,
+      "sample_output": [
+        {
+          "plain_name": "Spinal fusion - cervical",
+          "procedure_code": "22554",
+          "code_type": "CPT",
+          "setting": "inpatient"
+        },
+        {
+          "plain_name": "Spinal fusion - lumbar",
+          "procedure_code": "22612",
+          "code_type": "CPT",
+          "setting": "inpatient"
+        },
+        {
+          "plain_name": "Spinal fusion - inpatient hospital stay",
+          "procedure_code": "471",
+          "code_type": "DRG",
+          "setting": "inpatient"
+        }
+      ]
+    },
+    {
+      "query": "knee meniscectomy",
+      "fallback_hits": 1,
+      "sample_output": [
+        {
+          "plain_name": "Knee meniscectomy",
+          "procedure_code": "29881",
+          "code_type": "CPT",
+          "setting": "outpatient"
+        },
+        {
+          "plain_name": "Knee meniscectomy - inpatient",
+          "procedure_code": "871",
+          "code_type": "DRG",
+          "setting": "inpatient"
+        }
+      ]
+    },
+    {
+      "query": "prostatectomy",
+      "fallback_hits": 1,
+      "sample_output": [
+        {
+          "plain_name": "Radical prostatectomy (open)",
+          "procedure_code": "55840",
+          "code_type": "CPT",
+          "setting": "inpatient"
+        },
+        {
+          "plain_name": "Radical prostatectomy (laparoscopic)",
+          "procedure_code": "55866",
+          "code_type": "CPT",
+          "setting": "inpatient"
+        },
+        {
+          "plain_name": "Radical prostatectomy (robot-assisted)",
+          "procedure_code": "55868",
+          "code_type": "CPT",
+          "setting": "inpatient"
+        }
+      ]
+    }
+  ],
+  "recommended_next_steps": [
+    "Add high-frequency fallback matches as CPT rows first when indexed coverage exists.",
+    "Keep DRG additions gated on indexed_prices coverage.",
+    "Keep APC disabled until indexed_prices contains APC rows."
+  ]
+}
