@@ -1,0 +1,131 @@
+HealthScan indexed data answers
+Generated: 2026-06-15
+
+1. Exact database schema
+
+The crawler/database schema is defined in db/schema.sql. The indexed price records are written to the indexed_prices table:
+
+CREATE TABLE IF NOT EXISTS indexed_prices (
+    id INTEGER PRIMARY KEY,
+    hospital_id INTEGER NOT NULL REFERENCES hospitals(id),
+    mrf_source_id INTEGER NOT NULL REFERENCES mrf_sources(id),
+    procedure_name TEXT NOT NULL,
+    procedure_code TEXT NOT NULL,
+    code_type TEXT NOT NULL,
+    description TEXT,
+    setting TEXT,
+    price_type TEXT NOT NULL CHECK (
+        price_type IN (
+            'gross',
+            'cash',
+            'negotiated',
+            'negotiated_min',
+            'negotiated_max',
+            'median_allowed',
+            'allowed_p10',
+            'allowed_p90'
+        )
+    ),
+    amount NUMERIC NOT NULL,
+    payer_name TEXT,
+    plan_name TEXT,
+    allowed_amount_count INTEGER,
+    last_updated TEXT,
+    source_url TEXT NOT NULL,
+    data_quality_flag TEXT,
+    parsed_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    parse_warnings TEXT
+);
+
+Indexes:
+
+CREATE INDEX IF NOT EXISTS idx_indexed_prices_lookup
+ON indexed_prices (code_type, procedure_code, hospital_id);
+
+CREATE INDEX IF NOT EXISTS idx_indexed_prices_procedure
+ON indexed_prices (procedure_name, hospital_id);
+
+CREATE INDEX IF NOT EXISTS idx_indexed_prices_price_type
+ON indexed_prices (price_type, procedure_code);
+
+Enums / constrained values:
+
+- price_type is the only database-enforced enum-like field. Allowed values are:
+  gross, cash, negotiated, negotiated_min, negotiated_max, median_allowed, allowed_p10, allowed_p90.
+- code_type is stored as TEXT, not a database enum.
+- setting is stored as TEXT, not a database enum.
+- data_quality_flag is stored as TEXT, not a database enum. Current code-generated values include ok, low_outlier, high_outlier, and placeholder_amount.
+
+Supporting tables:
+
+- hospitals stores hospital identity and location metadata.
+- mrf_sources stores source URL, content metadata, crawl status, and source dates.
+- indexed_prices references both by hospital_id and mrf_source_id.
+
+Important implementation note:
+
+The SQLite database at data/processed/healthscan.sqlite currently contains the earlier database-backed Layer 1 index, while the expanded Layer 4 scan output is represented in data/processed/combined_search_results.csv. The schema above is still the intended database target for indexed price records.
+
+2. Code type coverage
+
+In the SQLite indexed_prices table so far:
+
+- DRG: 821 rows, 1 distinct code, 5 hospitals.
+- CPT: 0 rows.
+- HCPCS: 0 rows.
+- APC: 0 rows.
+- Other code types: 0 rows.
+
+SQLite example code present:
+
+- DRG 470.
+
+In the expanded combined search-ready output at data/processed/combined_search_results.csv:
+
+- CPT: 14,064 rows, 38 distinct codes, 7 hospitals.
+- DRG: 24 rows, 5 distinct codes, 8 hospitals.
+- HCPCS: 1 row, 1 distinct code, 1 hospital.
+- APC: 0 rows.
+- MS-DRG: 0 rows as a stored output code_type. MS-DRG source rows are normalized to DRG where applicable.
+
+Patient-facing display rows after relevance filtering:
+
+- CPT: 10,808 display rows across 7 hospitals.
+- DRG: 24 display rows across 8 hospitals.
+- HCPCS: 1 display row across 1 hospital.
+
+Coverage interpretation:
+
+- CPT is the dominant and best-represented code type in the expanded Layer 4 search-ready output.
+- DRG is present and useful for inpatient procedures, but narrower than CPT in the current 30-procedure MVP scope.
+- HCPCS is present but sparse. It appears mainly where hospitals label CPT-style outpatient rows as HCPCS or where a true HCPCS alternate such as G0121 is used.
+- APC is missing from the indexed/search-ready output so far.
+- Other code systems may appear in raw MRFs, but they are not part of the current 30-procedure query contract unless mapped into the procedure table.
+
+3. Procedure code format
+
+Procedure codes are stored as raw strings in procedure_code/code fields.
+
+Current behavior:
+
+- Codes are stripped of surrounding whitespace.
+- Codes are not converted to integers.
+- Leading zeros are not intentionally stripped by HealthScan code.
+- No automatic zero-padding is applied.
+- Code type normalization is separate from code value storage. For example, source MS-DRG can be treated as DRG for matching, while the stored output code_type is DRG.
+
+Examples as they appear in current data:
+
+- DRG example in SQLite indexed_prices: code_type = DRG, procedure_code = 470.
+- DRG examples in combined search-ready output: 287, 341, 470, 783, 807.
+- CPT examples in combined search-ready output: 19301, 19303, 42825, 42826, 43235, 43239, 44970, 45378, 47562, 47563.
+- HCPCS example in combined search-ready output: G0121.
+
+Practical contract for integrations:
+
+- Treat procedure_code as a string.
+- Do not assume numeric-only codes.
+- Do not strip leading zeros in downstream systems.
+- Join/query using the exact pair (code_type, procedure_code), after applying the same code_type compatibility rules used by HealthScan:
+  - MS-DRG/MSDRG can match DRG.
+  - HCPCS can match CPT when the procedure code itself matches or is an accepted alternate in the mapping table.
