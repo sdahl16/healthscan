@@ -58,6 +58,23 @@ HOSPITAL_COORDS = {
     "Providence Saint Joseph Medical Center": (34.1578, -118.3273),
 }
 
+HOSPITAL_METADATA = {
+    "Rady Children's Hospital": {
+        "address": "3020 Children's Way, San Diego, CA 92123",
+        "state": "CA",
+        "zip": "92123",
+    }
+}
+
+SUPPORTED_EXAMPLES = [
+    "colonoscopy",
+    "MRI brain",
+    "cataract surgery",
+    "hip replacement",
+    "mammogram",
+    "cardiac catheterization",
+]
+
 
 @dataclass(frozen=True)
 class Location:
@@ -213,6 +230,36 @@ def price_rank(price_type: str) -> int:
     return {"cash": 0, "negotiated": 1, "negotiated_min": 2}.get(price_type, 99)
 
 
+def display_payer_plan(row: dict[str, Any]) -> str:
+    parts = [row.get("payer_name"), row.get("plan_name")]
+    text = " / ".join(str(part) for part in parts if part)
+    if not text:
+        return "Not listed"
+    if row.get("price_type") == "cash":
+        return f"Source file field: {text}"
+    return text
+
+
+def source_metadata(row: dict[str, Any]) -> dict[str, Any]:
+    hospital_file_date = row.get("last_updated")
+    indexed_at = row.get("parsed_at")
+    return {
+        "url": row.get("source_url"),
+        "hospital_file_date": hospital_file_date,
+        "indexed_at": indexed_at,
+        "timestamp_label": "Hospital file date" if hospital_file_date else "Indexed by HealthScan",
+        "display_timestamp": hospital_file_date or indexed_at,
+    }
+
+
+def price_selection_explanation(price_filter: str) -> str:
+    if price_filter == "cash":
+        return "Showing the lowest eligible cash/self-pay row after suppressing flagged outliers."
+    if price_filter == "negotiated":
+        return "Showing the lowest eligible negotiated row after suppressing flagged outliers."
+    return "Showing the lowest eligible actionable row, preferring cash/self-pay rows before negotiated rows and suppressing flagged outliers."
+
+
 def build_hospitals(
     rows: list[dict[str, Any]],
     location: Location,
@@ -252,6 +299,8 @@ def build_hospitals(
                 "amount": float(row["amount"]),
                 "payer_name": row["payer_name"],
                 "plan_name": row["plan_name"],
+                "payer_plan_display": display_payer_plan(row),
+                "source": source_metadata(row),
                 "last_updated": row["last_updated"] or row["parsed_at"],
                 "quality": row.get("data_quality_flag") or "ok",
             }
@@ -260,11 +309,18 @@ def build_hospitals(
         if headline is None:
             continue
 
+        metadata = HOSPITAL_METADATA.get(first["hospital_name"], {})
+        address = first["address"] or metadata.get("address")
+        state = first.get("state") or metadata.get("state")
+        zip_code = first.get("zip") or metadata.get("zip")
+
         hospitals.append(
             {
                 "hospital_id": hospital_id,
                 "name": first["hospital_name"],
-                "address": first["address"],
+                "address": address,
+                "state": state,
+                "zip": zip_code,
                 "distance_miles": round(distance, 1),
                 "procedure_name": headline["procedure_name"],
                 "procedure_code": headline["procedure_code"],
@@ -274,11 +330,14 @@ def build_hospitals(
                     "amount": float(headline["amount"]),
                     "payer_name": headline["payer_name"],
                     "plan_name": headline["plan_name"],
+                    "payer_plan_display": display_payer_plan(headline),
+                    "source": source_metadata(headline),
                     "last_updated": headline["last_updated"] or headline["parsed_at"],
                 },
                 "prices": prices,
                 "suppressed_price_count": len(suppressed),
                 "source_url": headline["source_url"],
+                "selection_explanation": price_selection_explanation(price_filter),
             }
         )
 
@@ -294,7 +353,8 @@ def search(payload: dict[str, Any]) -> dict[str, Any]:
     if location is None:
         return {
             "status": "location_not_found",
-            "message": "Enter a Southern California ZIP code or city/state.",
+            "message": "Enter a Southern California ZIP code or city/state. Alpha coverage currently focuses on selected Southern California hospitals.",
+            "examples": SUPPORTED_EXAMPLES,
         }
 
     translation, codes = translate(payload)
@@ -306,6 +366,7 @@ def search(payload: dict[str, Any]) -> dict[str, Any]:
             "translation": translation,
             "location": asdict(location),
             "message": translation.get("message") or "That procedure is not available in the current index.",
+            "examples": SUPPORTED_EXAMPLES,
         }
 
     radius = float(payload.get("radius") or 50)
@@ -325,7 +386,8 @@ def search(payload: dict[str, Any]) -> dict[str, Any]:
             "translation": translation,
             "location": asdict(location),
             "codes": [asdict(code) for code in codes],
-            "message": "This procedure has no indexed price rows yet.",
+            "message": "HealthScan recognizes this procedure, but this alpha has no indexed price rows for it yet.",
+            "examples": SUPPORTED_EXAMPLES,
         }
 
     hospitals, in_radius_count = build_hospitals(rows, location, radius, price_filter, sort)
@@ -338,7 +400,8 @@ def search(payload: dict[str, Any]) -> dict[str, Any]:
             "total_indexed_hospitals": len({row["hospital_id"] for row in rows}),
             "hospitals_in_radius": in_radius_count,
             "radius": radius,
-            "message": "Indexed prices exist for this procedure, but none matched the current location, radius, and price filter.",
+            "message": "Indexed prices exist for this procedure, but none matched the current location, radius, and price filter. Alpha coverage currently focuses on selected Southern California hospitals.",
+            "examples": SUPPORTED_EXAMPLES,
         }
 
     return {

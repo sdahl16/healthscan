@@ -216,6 +216,34 @@ function renderClarification(result) {
   resultsRegion.append(panel);
 }
 
+function renderExamples(panel, examples = []) {
+  if (!examples.length) {
+    return;
+  }
+  const wrapper = document.createElement("div");
+  wrapper.className = "example-searches";
+  const label = document.createElement("p");
+  label.className = "meta";
+  label.textContent = "Try a supported alpha search:";
+  const buttons = document.createElement("div");
+  buttons.className = "clarify-grid";
+  for (const example of examples) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = example;
+    button.addEventListener("click", () => {
+      procedureInput.value = example;
+      search(null).catch((error) => {
+        clear();
+        notice(error.message, "warning");
+      });
+    });
+    buttons.append(button);
+  }
+  wrapper.append(label, buttons);
+  panel.append(wrapper);
+}
+
 function renderEmpty(title, message, result) {
   const panel = document.createElement("section");
   panel.className = "empty-state";
@@ -226,6 +254,7 @@ function renderEmpty(title, message, result) {
     codes.textContent = `Checked ${result.codes.map((code) => `${code.code_type} ${code.procedure_code}`).join(", ")}.`;
     panel.append(codes);
   }
+  renderExamples(panel, result.examples || []);
   resultsRegion.append(panel);
   appendDisclaimers();
 }
@@ -246,6 +275,7 @@ function renderNoNearby(result) {
     });
     panel.append(button);
   }
+  renderExamples(panel, result.examples || []);
   resultsRegion.append(panel);
   appendDisclaimers();
 }
@@ -295,15 +325,17 @@ function renderHospital(hospital) {
   price.innerHTML = `
     <p class="price">${money(hospital.headline_price.amount)}</p>
     <p class="price-label">${priceLabels[hospital.headline_price.type] || hospital.headline_price.type}</p>
-    <p class="price-label">Updated ${hospital.headline_price.last_updated || "unknown"}</p>
+    <p class="price-label">${hospital.headline_price.source?.timestamp_label || "Indexed by HealthScan"}: ${hospital.headline_price.source?.display_timestamp || "unknown"}</p>
   `;
 
   const details = document.createElement("details");
   details.className = "details";
   details.innerHTML = `
     <summary>Price details</summary>
+    <p class="meta">${hospital.selection_explanation || "HealthScan selected the displayed row from eligible, non-flagged price rows."}</p>
+    <p class="meta">Source: ${hospital.source_url ? `<a href="${hospital.source_url}" target="_blank" rel="noreferrer">hospital-published MRF row</a>` : "source URL unavailable"}</p>
     <table class="price-table">
-      <thead><tr><th>Type</th><th>Amount</th><th>Payer / plan</th><th>Updated</th></tr></thead>
+      <thead><tr><th>Type</th><th>Amount</th><th>Source payer/plan field</th><th>Date shown</th></tr></thead>
       <tbody>
         ${hospital.prices
           .map(
@@ -311,8 +343,8 @@ function renderHospital(hospital) {
               <tr>
                 <td>${priceLabels[priceRow.type] || priceRow.type}</td>
                 <td>${money(priceRow.amount)}</td>
-                <td>${[priceRow.payer_name, priceRow.plan_name].filter(Boolean).join(" / ") || "Not listed"}</td>
-                <td>${priceRow.last_updated || "unknown"}</td>
+                <td>${priceRow.payer_plan_display || "Not listed"}</td>
+                <td>${priceRow.source?.display_timestamp || priceRow.last_updated || "unknown"}</td>
               </tr>
             `,
           )
