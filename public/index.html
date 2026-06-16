@@ -18,16 +18,15 @@
         <form id="search-form" class="search-form">
           <label>
             <span>Procedure</span>
-            <input id="procedure" name="procedure" autocomplete="off" placeholder="Colonoscopy, MRI brain, cataract surgery" required />
+            <input id="procedure" name="procedure" autocomplete="off" list="procedure-options" placeholder="Colonoscopy, MRI brain, cataract surgery" required />
+            <datalist id="procedure-options"></datalist>
           </label>
           <label>
             <span>ZIP or city</span>
-            <input id="location" name="location" autocomplete="postal-code" placeholder="90095 or San Diego, CA" required />
+            <input id="location" name="location" autocomplete="postal-code" list="location-options" placeholder="90095 or San Diego, CA" required />
+            <datalist id="location-options"></datalist>
           </label>
-          <button type="submit">
-            <span class="icon" aria-hidden="true">⌕</span>
-            Search prices
-          </button>
+          <button type="submit">Search prices</button>
         </form>
 
         <div class="controls" aria-label="Search controls">

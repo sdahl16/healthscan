@@ -7,6 +7,8 @@ const priceTypeInput = document.querySelector("#price-type");
 const statusRegion = document.querySelector("#status-region");
 const resultsRegion = document.querySelector("#results-region");
 const disclaimerTemplate = document.querySelector("#disclaimer-template");
+const procedureOptions = document.querySelector("#procedure-options");
+const locationOptions = document.querySelector("#location-options");
 
 let lastSelected = null;
 
@@ -15,6 +17,104 @@ const priceLabels = {
   negotiated: "Negotiated rate",
   negotiated_min: "Negotiated minimum",
 };
+
+const fallbackProcedures = [
+  { plain_name: "Appendectomy", procedure_code: "44970", code_type: "CPT" },
+  { plain_name: "Appendectomy (inpatient)", procedure_code: "341", code_type: "DRG" },
+  { plain_name: "Breast lumpectomy", procedure_code: "19301", code_type: "CPT" },
+  { plain_name: "C-section", procedure_code: "783", code_type: "DRG" },
+  { plain_name: "Cardiac catheterization", procedure_code: "287", code_type: "DRG" },
+  { plain_name: "Carpal tunnel surgery", procedure_code: "64721", code_type: "CPT" },
+  { plain_name: "Cataract surgery", procedure_code: "66984", code_type: "CPT" },
+  { plain_name: "Colonoscopy", procedure_code: "45378", code_type: "CPT" },
+  { plain_name: "Coronary bypass (CABG)", procedure_code: "231", code_type: "DRG" },
+  { plain_name: "CT scan abdomen", procedure_code: "74178", code_type: "CPT" },
+  { plain_name: "Echocardiogram", procedure_code: "93306", code_type: "CPT" },
+  { plain_name: "EKG", procedure_code: "93000", code_type: "CPT" },
+  { plain_name: "Emergency department visit", procedure_code: "99285", code_type: "CPT" },
+  { plain_name: "Gallbladder removal", procedure_code: "47562", code_type: "CPT" },
+  { plain_name: "Gallbladder removal (open)", procedure_code: "47563", code_type: "CPT" },
+  { plain_name: "Hernia repair", procedure_code: "49505", code_type: "CPT" },
+  { plain_name: "Hip replacement", procedure_code: "470", code_type: "DRG" },
+  { plain_name: "Knee arthroscopy", procedure_code: "29881", code_type: "CPT" },
+  { plain_name: "Knee replacement", procedure_code: "470", code_type: "DRG" },
+  { plain_name: "Mammogram", procedure_code: "77067", code_type: "CPT" },
+  { plain_name: "Mastectomy", procedure_code: "19303", code_type: "CPT" },
+  { plain_name: "MRI brain", procedure_code: "70551", code_type: "CPT" },
+  { plain_name: "MRI spine", procedure_code: "72148", code_type: "CPT" },
+  { plain_name: "Screening colonoscopy", procedure_code: "G0121", code_type: "HCPCS" },
+  { plain_name: "Shoulder arthroscopy", procedure_code: "29827", code_type: "CPT" },
+  { plain_name: "Sleep study", procedure_code: "95810", code_type: "CPT" },
+  { plain_name: "Tonsillectomy", procedure_code: "42826", code_type: "CPT" },
+  { plain_name: "Tonsillectomy (child)", procedure_code: "42825", code_type: "CPT" },
+  { plain_name: "Upper endoscopy", procedure_code: "43239", code_type: "CPT" },
+  { plain_name: "Upper endoscopy with biopsy", procedure_code: "43235", code_type: "CPT" },
+  { plain_name: "Vaginal delivery", procedure_code: "807", code_type: "DRG" },
+];
+
+const fallbackLocations = [
+  { value: "Los Angeles, CA", label: "City" },
+  { value: "San Diego, CA", label: "City" },
+  { value: "Chula Vista, CA", label: "City" },
+  { value: "La Jolla, CA 92037", label: "Scripps Green area" },
+  { value: "Los Angeles, CA 90033", label: "Keck USC area" },
+  { value: "Los Angeles, CA 90089", label: "USC area" },
+  { value: "Los Angeles, CA 90095", label: "UCLA area" },
+  { value: "San Diego, CA 92103", label: "UCSD Hillcrest area" },
+  { value: "San Diego, CA 92123", label: "Rady area" },
+  { value: "Chula Vista, CA 91910", label: "Chula Vista area" },
+  { value: "Chula Vista, CA 91911", label: "Sharp Chula Vista area" },
+  { value: "San Francisco, CA", label: "Out-of-area test" },
+  { value: "San Francisco, CA 94102", label: "Out-of-area test" },
+];
+
+function renderProcedureOptions(procedures) {
+  const options = procedures.map((procedure) => {
+    const option = document.createElement("option");
+    option.value = procedure.plain_name;
+    option.label = `${procedure.code_type} ${procedure.procedure_code}`;
+    return option;
+  });
+  procedureOptions.replaceChildren(...options);
+}
+
+function renderLocationOptions(locations) {
+  const options = locations.map((location) => {
+    const option = document.createElement("option");
+    option.value = location.value;
+    option.label = location.label;
+    return option;
+  });
+  locationOptions.replaceChildren(...options);
+}
+
+async function loadProcedureOptions() {
+  renderProcedureOptions(fallbackProcedures);
+  try {
+    const response = await fetch("/api/procedures");
+    if (!response.ok) {
+      return;
+    }
+    const procedures = await response.json();
+    renderProcedureOptions(procedures);
+  } catch {
+    renderProcedureOptions(fallbackProcedures);
+  }
+}
+
+async function loadLocationOptions() {
+  renderLocationOptions(fallbackLocations);
+  try {
+    const response = await fetch("/api/locations");
+    if (!response.ok) {
+      return;
+    }
+    const locations = await response.json();
+    renderLocationOptions(locations);
+  } catch {
+    renderLocationOptions(fallbackLocations);
+  }
+}
 
 function money(value) {
   return new Intl.NumberFormat("en-US", {
@@ -249,3 +349,6 @@ for (const control of [radiusInput, sortInput, priceTypeInput]) {
     }
   });
 }
+
+loadProcedureOptions();
+loadLocationOptions();

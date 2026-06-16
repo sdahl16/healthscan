@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import csv
 import mimetypes
 import os
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -12,6 +13,7 @@ from frontend_search import search
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / "public"
+PROCEDURE_MAPPING = ROOT / "data" / "reference" / "procedure_mapping.csv"
 PORT = int(os.environ.get("PORT", "4173"))
 
 
@@ -19,6 +21,12 @@ class HealthScanHandler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:
         if self.path == "/api/health":
             self.send_json(200, {"ok": True})
+            return
+        if self.path == "/api/procedures":
+            self.send_json(200, load_procedures())
+            return
+        if self.path == "/api/locations":
+            self.send_json(200, load_locations())
             return
         self.serve_static()
 
@@ -68,6 +76,38 @@ def main() -> None:
     server = ThreadingHTTPServer(("localhost", PORT), HealthScanHandler)
     print(f"HealthScan frontend running at http://localhost:{PORT}")
     server.serve_forever()
+
+
+def load_procedures() -> list[dict[str, str]]:
+    with PROCEDURE_MAPPING.open(newline="", encoding="utf-8") as handle:
+        rows = [
+            {
+                "plain_name": row["plain_name"],
+                "procedure_code": row["primary_code"],
+                "code_type": row["primary_code_type"],
+            }
+            for row in csv.DictReader(handle)
+            if row.get("plain_name") and row.get("primary_code") and row.get("primary_code_type")
+        ]
+    return sorted(rows, key=lambda row: row["plain_name"].lower())
+
+
+def load_locations() -> list[dict[str, str]]:
+    return [
+        {"value": "Los Angeles, CA", "label": "City"},
+        {"value": "San Diego, CA", "label": "City"},
+        {"value": "Chula Vista, CA", "label": "City"},
+        {"value": "La Jolla, CA 92037", "label": "Scripps Green area"},
+        {"value": "Los Angeles, CA 90033", "label": "Keck USC area"},
+        {"value": "Los Angeles, CA 90089", "label": "USC area"},
+        {"value": "Los Angeles, CA 90095", "label": "UCLA area"},
+        {"value": "San Diego, CA 92103", "label": "UCSD Hillcrest area"},
+        {"value": "San Diego, CA 92123", "label": "Rady area"},
+        {"value": "Chula Vista, CA 91910", "label": "Chula Vista area"},
+        {"value": "Chula Vista, CA 91911", "label": "Sharp Chula Vista area"},
+        {"value": "San Francisco, CA", "label": "Out-of-area test"},
+        {"value": "San Francisco, CA 94102", "label": "Out-of-area test"},
+    ]
 
 
 if __name__ == "__main__":
