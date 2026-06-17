@@ -392,7 +392,7 @@ function renderHospital(hospital, priceDetailsHelp = "Hospitals can publish the 
     <p class="repeated-price-help"><strong>Why repeat prices?</strong> ${detailsHelp}</p>
     <p class="meta">Source: ${hospital.source_url ? `<a href="${hospital.source_url}" target="_blank" rel="noreferrer">hospital-published MRF row</a>` : "source URL unavailable"}</p>
     <table class="price-table">
-      <thead><tr><th>Type</th><th>Amount</th><th>Source payer/plan field</th><th>Date/source shown</th></tr></thead>
+      <thead><tr><th>Type</th><th>Amount</th><th>Payer / plan</th><th>Date/source shown</th></tr></thead>
       <tbody>
         ${hospital.prices
           .map(

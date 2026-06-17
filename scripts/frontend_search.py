@@ -296,10 +296,10 @@ def price_rank(price_type: str) -> int:
 def display_payer_plan(row: dict[str, Any]) -> str:
     parts = [row.get("payer_name"), row.get("plan_name")]
     text = " / ".join(str(part) for part in parts if part)
+    if row.get("price_type") == "cash":
+        return f"Source file field: {text}" if text else "Cash / self-pay"
     if not text:
         return "Not listed"
-    if row.get("price_type") == "cash":
-        return f"Source file field: {text}"
     return text
 
 

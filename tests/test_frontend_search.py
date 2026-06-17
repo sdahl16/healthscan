@@ -28,6 +28,12 @@ def test_cash_rows_label_payer_plan_as_source_file_field() -> None:
     assert display_payer_plan(row) == "Source file field: MEDICARE ADVANTAGE [442] / MEDICARE HMO/PPO"
 
 
+def test_cash_rows_without_payer_plan_display_as_self_pay() -> None:
+    row = {"price_type": "cash", "payer_name": None, "plan_name": None}
+
+    assert display_payer_plan(row) == "Cash / self-pay"
+
+
 def test_negotiated_rows_keep_payer_plan_display() -> None:
     row = {"price_type": "negotiated", "payer_name": "Aetna", "plan_name": "PPO"}
 
