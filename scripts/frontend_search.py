@@ -51,11 +51,19 @@ HOSPITAL_COORDS = {
     "Sharp Chula Vista Medical Center": (32.6185, -117.0220),
     "Cedars-Sinai Medical Center": (34.0752, -118.3802),
     "Providence Saint John's Health Center": (34.0273, -118.4792),
-    "Hoag Hospital Newport Beach": (33.6253, -117.9304),
-    "Huntington Hospital": (34.1348, -118.1522),
+    "Hoag Hospital Newport Beach": (33.6221, -117.9333),
+    "Huntington Hospital": (34.1332, -118.1522),
     "Providence Cedars-Sinai Tarzana Medical Center": (34.1708, -118.5317),
     "Providence Holy Cross Medical Center": (34.2794, -118.4590),
     "Providence Saint Joseph Medical Center": (34.1578, -118.3273),
+    "Hollywood Presbyterian Medical Center": (34.0963, -118.2901),
+    "UCI Medical Center": (33.7874, -117.8866),
+    "MemorialCare Orange Coast Medical Center": (33.7011, -117.9563),
+    "Loma Linda University Medical Center": (34.0491, -117.2634),
+    "Riverside Community Hospital": (33.9765, -117.3826),
+    "Tri-City Medical Center": (33.1857, -117.2908),
+    "Los Robles Regional Medical Center": (34.2078, -118.8831),
+    "Community Memorial Healthcare - Ventura": (34.2740, -119.2582),
 }
 
 HOSPITAL_METADATA = {
@@ -63,7 +71,62 @@ HOSPITAL_METADATA = {
         "address": "3020 Children's Way, San Diego, CA 92123",
         "state": "CA",
         "zip": "92123",
-    }
+    },
+    "Cedars-Sinai Medical Center": {
+        "address": "8700 Beverly Blvd, Los Angeles, CA 90048",
+        "state": "CA",
+        "zip": "90048",
+    },
+    "Hollywood Presbyterian Medical Center": {
+        "address": "1300 N Vermont Ave, Los Angeles, CA 90027",
+        "state": "CA",
+        "zip": "90027",
+    },
+    "Huntington Hospital": {
+        "address": "100 W California Blvd, Pasadena, CA 91105",
+        "state": "CA",
+        "zip": "91105",
+    },
+    "UCI Medical Center": {
+        "address": "101 The City Drive South, Orange, CA 92868",
+        "state": "CA",
+        "zip": "92868",
+    },
+    "Hoag Hospital Newport Beach": {
+        "address": "One Hoag Drive, Newport Beach, CA 92663",
+        "state": "CA",
+        "zip": "92663",
+    },
+    "MemorialCare Orange Coast Medical Center": {
+        "address": "9920 Talbert Avenue, Fountain Valley, CA 92708",
+        "state": "CA",
+        "zip": "92708",
+    },
+    "Loma Linda University Medical Center": {
+        "address": "11234 Anderson Street, Loma Linda, CA 92354",
+        "state": "CA",
+        "zip": "92354",
+    },
+    "Riverside Community Hospital": {
+        "address": "4445 Magnolia Avenue, Riverside, CA 92501",
+        "state": "CA",
+        "zip": "92501",
+    },
+    "Tri-City Medical Center": {
+        "address": "4002 Vista Way, Oceanside, CA 92056",
+        "state": "CA",
+        "zip": "92056",
+    },
+    "Los Robles Regional Medical Center": {
+        "address": "215 West Janss Road, Thousand Oaks, CA 91360",
+        "state": "CA",
+        "zip": "91360",
+    },
+    "Community Memorial Healthcare - Ventura": {
+        "address": "147 N Brent Street, Ventura, CA 93003",
+        "state": "CA",
+        "zip": "93003",
+    },
 }
 
 SUPPORTED_EXAMPLES = [

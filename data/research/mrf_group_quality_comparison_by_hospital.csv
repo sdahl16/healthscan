@@ -1,0 +1,18 @@
+group,hospital,scan_hospitals,scan_jobs,scan_matched_jobs,scan_job_match_rate,scan_raw_matches,scan_search_ready_rows,scan_rows_per_hospital_avg,scan_procedures_per_hospital_avg,combined_rows,combined_hospitals_with_rows,combined_procedures,combined_rows_per_hospital_avg,combined_amount_min,combined_amount_p50,combined_amount_p95,combined_amount_max
+first,Cedars-Sinai Medical Center,1,39,39,100.0,406,406,406.0,26,366,1,26,366.0,10.73,735.38,27131.25,42988.0
+first,Keck Hospital of USC,1,39,39,100.0,842,775,775.0,26,781,1,33,781.0,6.47,1921.8,128177.28,372980.93
+first,Rady Children's Hospital,1,39,39,100.0,360,338,338.0,26,334,1,30,334.0,16.95,1436.25,16807.0,21802.0
+first,Ronald Reagan UCLA Medical Center,1,39,38,97.4,839,839,839.0,26,841,1,28,841.0,5.71,1786.9,21851.86,210130.18
+first,Scripps Green Hospital,1,39,33,84.6,6723,6723,6723.0,23,6486,1,31,6486.0,4.15,644.72,10557.19,67814.52
+first,Sharp Chula Vista Medical Center,1,39,25,64.1,1212,1212,1212.0,18,1201,1,27,1201.0,1.0,465.76,5682.6,499958.16
+first,UC San Diego Medical Center,1,39,34,87.2,6208,6208,6208.0,24,6217,1,33,6217.0,6.47,590.4,41345.37,159285.89
+new,Hollywood Presbyterian Medical Center,1,39,38,97.4,203,203,203.0,26,203,1,26,203.0,45.0,4955.0,30394.0,102807.0
+new,Huntington Hospital,1,39,37,94.9,4249,4249,4249.0,25,1835,1,25,1835.0,7.74,424.79,14247.81,229521.28
+new,UCI Medical Center,1,39,39,100.0,271,271,271.0,26,270,1,26,270.0,7.2,7931.07,188131.7,943811.6
+new,Hoag Hospital Newport Beach,1,39,39,100.0,290,258,258.0,26,258,1,26,258.0,3.12,6881.37,80217.47,256422.03
+new,MemorialCare Orange Coast Medical Center,1,39,39,100.0,607,607,607.0,26,607,1,26,607.0,30.0,8760.0,86900.38,262997.39
+new,Loma Linda University Medical Center,1,39,23,59.0,3103,3103,3103.0,17,2241,1,17,2241.0,4.0,123.07,4245.3,223024.57
+new,Riverside Community Hospital,1,39,39,100.0,169,169,169.0,26,169,1,26,169.0,7.77,197.23,7949.0,18342.0
+new,Tri-City Medical Center,1,39,19,48.7,125,125,125.0,15,63,1,15,63.0,0.01,214.8,2095.8,105196.09
+new,Los Robles Regional Medical Center,1,39,38,97.4,228,228,228.0,26,228,1,26,228.0,6.41,1442.26,25269.0,46092.0
+new,Community Memorial Healthcare - Ventura,1,39,17,43.6,56,56,56.0,13,23,1,13,23.0,5.12,151.8,1033.8,2684.4

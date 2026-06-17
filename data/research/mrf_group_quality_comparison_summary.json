@@ -1,0 +1,113 @@
+{
+  "first_names": [
+    "Cedars-Sinai Medical Center",
+    "Keck Hospital of USC",
+    "Rady Children's Hospital",
+    "Ronald Reagan UCLA Medical Center",
+    "Scripps Green Hospital",
+    "Sharp Chula Vista Medical Center",
+    "UC San Diego Medical Center"
+  ],
+  "new_names": [
+    "Hollywood Presbyterian Medical Center",
+    "Huntington Hospital",
+    "UCI Medical Center",
+    "Hoag Hospital Newport Beach",
+    "MemorialCare Orange Coast Medical Center",
+    "Loma Linda University Medical Center",
+    "Riverside Community Hospital",
+    "Tri-City Medical Center",
+    "Los Robles Regional Medical Center",
+    "Community Memorial Healthcare - Ventura"
+  ],
+  "summary": {
+    "first_group_scan": {
+      "hospitals": 7,
+      "jobs": 273,
+      "matched_jobs": 247,
+      "job_match_rate": 90.5,
+      "raw_matches": 16590,
+      "search_ready_rows": 16501,
+      "rows_per_hospital_avg": 2357.3,
+      "procedures_per_hospital_avg": 24.1,
+      "scopes": {
+        "large_local_json": 117,
+        "full_local_csv": 156
+      },
+      "formats": {
+        "json": 117,
+        "csv": 156
+      }
+    },
+    "new_group_scan": {
+      "hospitals": 10,
+      "jobs": 390,
+      "matched_jobs": 328,
+      "job_match_rate": 84.1,
+      "raw_matches": 9301,
+      "search_ready_rows": 9269,
+      "rows_per_hospital_avg": 926.9,
+      "procedures_per_hospital_avg": 22.6,
+      "scopes": {
+        "full_local_csv": 195,
+        "large_local_json": 195
+      },
+      "formats": {
+        "csv": 195,
+        "json": 195
+      }
+    },
+    "first_group_combined": {
+      "rows": 16226,
+      "hospitals_with_rows": 7,
+      "procedures": 36,
+      "rows_per_hospital_avg": 2318.0,
+      "price_types": {
+        "negotiated": 15790,
+        "cash": 429,
+        "median_allowed": 7
+      },
+      "data_quality_flags": {
+        "ok": 12925,
+        "low_outlier": 3301
+      },
+      "relevance_flags": {
+        "display_ok": 12925,
+        "excluded_low_outlier": 3301
+      },
+      "missing_required": {
+        "source_url": 25
+      },
+      "amount_min": 1.0,
+      "amount_p50": 691.66,
+      "amount_p95": 28330.45,
+      "amount_max": 499958.16
+    },
+    "new_group_combined": {
+      "rows": 5897,
+      "hospitals_with_rows": 10,
+      "procedures": 26,
+      "rows_per_hospital_avg": 589.7,
+      "price_types": {
+        "negotiated": 4574,
+        "cash": 1322,
+        "median_allowed": 1
+      },
+      "data_quality_flags": {
+        "ok": 4457,
+        "low_outlier": 1436,
+        "high_outlier": 4
+      },
+      "relevance_flags": {
+        "display_ok": 4457,
+        "excluded_low_outlier": 1436,
+        "excluded_high_outlier": 4
+      },
+      "missing_required": {},
+      "amount_min": 0.01,
+      "amount_p50": 555.61,
+      "amount_p95": 20438.0,
+      "amount_max": 943811.6
+    }
+  }
+}
