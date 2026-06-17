@@ -17,6 +17,14 @@ PROCEDURE_MAPPING = ROOT / "data" / "reference" / "procedure_mapping.csv"
 PORT = int(os.environ.get("PORT", "4173"))
 
 
+def no_cache_headers() -> dict[str, str]:
+    return {
+        "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+        "Pragma": "no-cache",
+        "Expires": "0",
+    }
+
+
 class HealthScanHandler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:
         if self.path == "/api/health":
@@ -57,6 +65,8 @@ class HealthScanHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("content-type", content_type)
         self.send_header("content-length", str(len(data)))
+        for name, value in no_cache_headers().items():
+            self.send_header(name, value)
         self.end_headers()
         self.wfile.write(data)
 
@@ -65,6 +75,8 @@ class HealthScanHandler(BaseHTTPRequestHandler):
         self.send_response(status_code)
         self.send_header("content-type", "application/json; charset=utf-8")
         self.send_header("content-length", str(len(data)))
+        for name, value in no_cache_headers().items():
+            self.send_header(name, value)
         self.end_headers()
         self.wfile.write(data)
 

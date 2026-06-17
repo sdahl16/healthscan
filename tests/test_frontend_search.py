@@ -15,6 +15,7 @@ from frontend_search import (
     price_details_help_text,
     price_selection_explanation,
     source_metadata,
+    summarize_payer_plans,
 )
 
 
@@ -56,7 +57,7 @@ def test_price_details_help_text_explains_repeated_amounts() -> None:
     assert "exact duplicate" in help_text
 
 
-def test_repeated_display_amounts_keep_distinct_payer_plan_context() -> None:
+def test_repeated_display_amounts_collapse_to_distinct_amount_rows() -> None:
     rows = [
         {
             "hospital_id": 1,
@@ -91,18 +92,30 @@ def test_repeated_display_amounts_keep_distinct_payer_plan_context() -> None:
     hospitals, _ = build_hospitals(rows, Location(32.6180, -117.0347, "Chula Vista, CA 91911", "local"), 25, "negotiated", "price")
 
     prices = hospitals[0]["prices"]
-    repeated_112 = [row for row in prices if row["display_amount_group_count"] == 4]
-    repeated_262 = [row for row in prices if row["display_amount_group_count"] == 2]
 
-    assert len(repeated_112) == 4
-    assert {row["payer_plan_display"] for row in repeated_112} == {
-        "United Healthcare / United Healthcare - HMO",
-        "Managed Health Network / MHN - Medicare",
-        "Blue Cross / Blue Cross - Standard",
-        "Blue Cross / Blue Cross - HMO",
-    }
-    assert len(repeated_262) == 2
-    assert all("same displayed amount" in row["display_amount_note"] for row in repeated_112 + repeated_262)
+    assert len(prices) == 2
+    assert prices[0]["display_amount_group_count"] == 4
+    assert prices[0]["payer_plan_display"] == (
+        "4 payer/plans: United Healthcare / United Healthcare - HMO; "
+        "Managed Health Network / MHN - Medicare; Blue Cross / Blue Cross - Standard; +1 more"
+    )
+    assert prices[1]["display_amount_group_count"] == 2
+    assert prices[1]["payer_plan_display"] == "2 payer/plans: Blue Cross / Blue Cross - PPO; County Medical Services / County of San Diego"
+    assert all("same displayed amount" in row["display_amount_note"] for row in prices)
+
+
+def test_repeated_display_amounts_without_payer_plan_collapse_to_unlisted_summary() -> None:
+    rows = [
+        {
+            "price_type": "negotiated",
+            "amount": amount,
+            "payer_name": None,
+            "plan_name": None,
+        }
+        for amount in [2968.1, 2968.2, 2968.3]
+    ]
+
+    assert summarize_payer_plans(rows) == "3 source rows; payer/plan not listed"
 
 
 def test_next_ten_hospitals_have_frontend_location_metadata() -> None:

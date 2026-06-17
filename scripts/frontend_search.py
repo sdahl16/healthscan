@@ -358,24 +358,48 @@ def dedupe_exact_price_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return deduped
 
 
-def serialize_price_row(row: dict[str, Any], display_amount_group_counts: dict[tuple[str, int], int]) -> dict[str, Any]:
-    group_key = display_amount_bucket(row)
-    group_count = display_amount_group_counts.get(group_key, 1)
+def summarize_payer_plans(rows: list[dict[str, Any]]) -> str:
+    labels = [display_payer_plan(row) for row in rows]
+    listed = [label for label in labels if label != "Not listed"]
+    if not listed:
+        if len(rows) == 1:
+            return "Not listed"
+        return f"{len(rows)} source rows; payer/plan not listed"
+    unique_labels = list(dict.fromkeys(listed))
+    if len(unique_labels) == 1:
+        return unique_labels[0]
+    preview = "; ".join(unique_labels[:3])
+    if len(unique_labels) > 3:
+        preview += f"; +{len(unique_labels) - 3} more"
+    return f"{len(unique_labels)} payer/plans: {preview}"
+
+
+def serialize_price_group(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    first = rows[0]
+    group_count = len(rows)
     note = None
     if group_count > 1:
         note = f"{group_count} distinct payer/plan rows share this same displayed amount."
     return {
-        "type": row["price_type"],
-        "amount": float(row["amount"]),
-        "payer_name": row["payer_name"],
-        "plan_name": row["plan_name"],
-        "payer_plan_display": display_payer_plan(row),
+        "type": first["price_type"],
+        "amount": float(first["amount"]),
+        "payer_name": first["payer_name"],
+        "plan_name": first["plan_name"],
+        "payer_plan_display": summarize_payer_plans(rows),
         "display_amount_group_count": group_count,
         "display_amount_note": note,
-        "source": source_metadata(row),
-        "last_updated": row["last_updated"] or row["parsed_at"],
-        "quality": row.get("data_quality_flag") or "ok",
+        "payer_plan_options": [display_payer_plan(row) for row in rows],
+        "source": source_metadata(first),
+        "last_updated": first["last_updated"] or first["parsed_at"],
+        "quality": first.get("data_quality_flag") or "ok",
     }
+
+
+def group_price_rows_by_display_amount(rows: list[dict[str, Any]]) -> list[list[dict[str, Any]]]:
+    groups: dict[tuple[str, int], list[dict[str, Any]]] = {}
+    for row in rows:
+        groups.setdefault(display_amount_bucket(row), []).append(row)
+    return list(groups.values())
 
 
 def build_hospitals(
@@ -410,13 +434,10 @@ def build_hospitals(
         eligible = [row for row in hospital_rows if price_allowed(row, price_filter)]
         eligible.sort(key=lambda row: (price_rank(row["price_type"]), float(row["amount"])))
         eligible = dedupe_exact_price_rows(eligible)
-        display_amount_group_counts: dict[tuple[str, int], int] = {}
-        for row in eligible:
-            key = display_amount_bucket(row)
-            display_amount_group_counts[key] = display_amount_group_counts.get(key, 0) + 1
+        price_groups = group_price_rows_by_display_amount(eligible)
         headline = eligible[0] if eligible else None
         suppressed = [row for row in hospital_rows if row.get("data_quality_flag") in QUALITY_SUPPRESS]
-        prices = [serialize_price_row(row, display_amount_group_counts) for row in eligible[:8]]
+        prices = [serialize_price_group(group) for group in price_groups[:8]]
         if headline is None:
             continue
 
