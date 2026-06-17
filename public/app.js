@@ -7,6 +7,7 @@ const priceTypeInput = document.querySelector("#price-type");
 const statusRegion = document.querySelector("#status-region");
 const resultsRegion = document.querySelector("#results-region");
 const disclaimerTemplate = document.querySelector("#disclaimer-template");
+const feedbackTemplate = document.querySelector("#feedback-template");
 const procedureOptions = document.querySelector("#procedure-options");
 const locationOptions = document.querySelector("#location-options");
 
@@ -140,6 +141,24 @@ function appendDisclaimers() {
   resultsRegion.append(disclaimerTemplate.content.cloneNode(true));
 }
 
+function appendFeedback(prompts = []) {
+  if (!feedbackTemplate) {
+    return;
+  }
+  const fragment = feedbackTemplate.content.cloneNode(true);
+  const card = fragment.querySelector(".feedback-card");
+  if (card && prompts.length) {
+    const details = document.createElement("details");
+    details.className = "feedback-prompts";
+    details.innerHTML = `
+      <summary>Suggested tester questions</summary>
+      <ul>${prompts.map((prompt) => `<li>${tooltipText(prompt)}</li>`).join("")}</ul>
+    `;
+    card.append(details);
+  }
+  resultsRegion.append(fragment);
+}
+
 function currentPayload(selected = lastSelected) {
   return {
     procedure: procedureInput.value.trim(),
@@ -254,9 +273,21 @@ function renderEmpty(title, message, result) {
     codes.textContent = `Checked ${result.codes.map((code) => `${code.code_type} ${code.procedure_code}`).join(", ")}.`;
     panel.append(codes);
   }
+  const why = document.createElement("div");
+  why.className = "empty-next-steps";
+  why.innerHTML = `
+    <strong>What to try next</strong>
+    <ul>
+      <li>Try a supported alpha example below.</li>
+      <li>Try a nearby Southern California ZIP/city that is currently covered.</li>
+      <li>If this was a user test, note the exact procedure/location so coverage gaps can be prioritized.</li>
+    </ul>
+  `;
+  panel.append(why);
   renderExamples(panel, result.examples || []);
   resultsRegion.append(panel);
   appendDisclaimers();
+  appendFeedback(result.testing_prompts || []);
 }
 
 function renderNoNearby(result) {
@@ -264,6 +295,17 @@ function renderNoNearby(result) {
   panel.className = "empty-state";
   const canExpand = Number(result.radius) < 100;
   panel.innerHTML = `<h2>No results near ${result.location.label}</h2><p>${result.message}</p>`;
+  const nextSteps = document.createElement("div");
+  nextSteps.className = "empty-next-steps";
+  nextSteps.innerHTML = `
+    <strong>Why this can happen</strong>
+    <ul>
+      <li>The procedure exists in the index, but not for hospitals inside this radius.</li>
+      <li>The selected price type may hide otherwise available rows.</li>
+      <li>Alpha coverage currently emphasizes selected Southern California hospitals.</li>
+    </ul>
+  `;
+  panel.append(nextSteps);
   if (canExpand) {
     const button = document.createElement("button");
     button.type = "button";
@@ -278,6 +320,7 @@ function renderNoNearby(result) {
   renderExamples(panel, result.examples || []);
   resultsRegion.append(panel);
   appendDisclaimers();
+  appendFeedback(result.testing_prompts || []);
 }
 
 function renderResults(result) {
@@ -294,6 +337,7 @@ function renderResults(result) {
       <span class="pill ${result.status === "limited_coverage" ? "warning" : ""}">${statusText}</span>
     </div>
     <p>${result.hospitals.length} hospital${result.hospitals.length === 1 ? "" : "s"} within ${result.radius} miles of ${result.location.label}. Coverage is currently strongest in Southern California.</p>
+    <p class="summary-source-note">Each result includes a hospital-published MRF source link and the best available date label. Use the source/date line to decide whether you trust a result.</p>
   `;
   resultsRegion.append(summary);
   appendDisclaimers();
@@ -304,6 +348,7 @@ function renderResults(result) {
     list.append(renderHospital(hospital, result.price_details_help));
   }
   resultsRegion.append(list);
+  appendFeedback(result.testing_prompts || []);
 }
 
 function tooltipText(value) {
@@ -330,10 +375,12 @@ function renderHospital(hospital, priceDetailsHelp = "Hospitals can publish the 
 
   const price = document.createElement("div");
   price.className = "price-block";
+  const source = hospital.headline_price.source || {};
+  const sourceLink = source.url || hospital.source_url;
   price.innerHTML = `
     <p class="price">${money(hospital.headline_price.amount)}</p>
     <p class="price-label">${priceLabels[hospital.headline_price.type] || hospital.headline_price.type}</p>
-    <p class="price-label">${hospital.headline_price.source?.timestamp_label || "Indexed by HealthScan"}: ${hospital.headline_price.source?.display_timestamp || "unknown"}</p>
+    <p class="price-label source-date-line">${source.timestamp_label || "Indexed by HealthScan"}: ${source.display_timestamp || "unknown"}${sourceLink ? ` · <a href="${sourceLink}" target="_blank" rel="noreferrer">View MRF source</a>` : ""}</p>
   `;
 
   const details = document.createElement("details");
@@ -345,7 +392,7 @@ function renderHospital(hospital, priceDetailsHelp = "Hospitals can publish the 
     <p class="repeated-price-help"><strong>Why repeat prices?</strong> ${detailsHelp}</p>
     <p class="meta">Source: ${hospital.source_url ? `<a href="${hospital.source_url}" target="_blank" rel="noreferrer">hospital-published MRF row</a>` : "source URL unavailable"}</p>
     <table class="price-table">
-      <thead><tr><th>Type</th><th>Amount</th><th>Source payer/plan field</th><th>Date shown</th></tr></thead>
+      <thead><tr><th>Type</th><th>Amount</th><th>Source payer/plan field</th><th>Date/source shown</th></tr></thead>
       <tbody>
         ${hospital.prices
           .map(
@@ -354,7 +401,7 @@ function renderHospital(hospital, priceDetailsHelp = "Hospitals can publish the 
                 <td>${priceLabels[priceRow.type] || priceRow.type}</td>
                 <td>${money(priceRow.amount)}${priceRow.display_amount_note ? ` <span class="repeated-amount-badge" title="${tooltipText(priceRow.display_amount_note)}">same amount ×${priceRow.display_amount_group_count}</span>` : ""}</td>
                 <td>${priceRow.payer_plan_display || "Not listed"}</td>
-                <td>${priceRow.source?.display_timestamp || priceRow.last_updated || "unknown"}</td>
+                <td>${priceRow.source?.display_timestamp || priceRow.last_updated || "unknown"}${priceRow.source?.url ? ` · <a href="${priceRow.source.url}" target="_blank" rel="noreferrer">source</a>` : ""}</td>
               </tr>
             `,
           )

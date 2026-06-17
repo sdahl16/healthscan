@@ -331,6 +331,31 @@ def price_details_help_text() -> str:
     )
 
 
+def unavailable_message() -> str:
+    return (
+        "HealthScan recognized this procedure, but this alpha has no indexed price rows for it yet. "
+        "This usually means coverage is still incomplete, not broken. Try one of the supported examples or a nearby Southern California hospital market."
+    )
+
+
+def no_results_message() -> str:
+    return (
+        "Indexed prices exist for this procedure, but none matched the current location, radius, and price filter. "
+        "Expand the radius, switch Price type to All actionable, or try one of the selected Southern California hospitals."
+    )
+
+
+def user_testing_prompts() -> list[str]:
+    return [
+        "What did you think HealthScan was telling you?",
+        "Did you trust the prices and source information shown? Why or why not?",
+        "Was any price label, payer/plan text, or repeated-price note confusing?",
+        "Could you find the hospital source/date information for a result?",
+        "What would stop you from using this before scheduling care?",
+        "What procedure and location did you search?",
+    ]
+
+
 def display_amount_bucket(row: dict[str, Any]) -> tuple[str, int]:
     amount = float(row["amount"])
     return (str(row["price_type"]), int(amount + 0.5))
@@ -499,6 +524,7 @@ def search(payload: dict[str, Any]) -> dict[str, Any]:
             "location": asdict(location),
             "message": translation.get("message") or "That procedure is not available in the current index.",
             "examples": SUPPORTED_EXAMPLES,
+            "testing_prompts": user_testing_prompts(),
         }
 
     radius = float(payload.get("radius") or 50)
@@ -518,8 +544,9 @@ def search(payload: dict[str, Any]) -> dict[str, Any]:
             "translation": translation,
             "location": asdict(location),
             "codes": [asdict(code) for code in codes],
-            "message": "HealthScan recognizes this procedure, but this alpha has no indexed price rows for it yet.",
+            "message": unavailable_message(),
             "examples": SUPPORTED_EXAMPLES,
+            "testing_prompts": user_testing_prompts(),
         }
 
     hospitals, in_radius_count = build_hospitals(rows, location, radius, price_filter, sort)
@@ -532,8 +559,9 @@ def search(payload: dict[str, Any]) -> dict[str, Any]:
             "total_indexed_hospitals": len({row["hospital_id"] for row in rows}),
             "hospitals_in_radius": in_radius_count,
             "radius": radius,
-            "message": "Indexed prices exist for this procedure, but none matched the current location, radius, and price filter. Alpha coverage currently focuses on selected Southern California hospitals.",
+            "message": no_results_message(),
             "examples": SUPPORTED_EXAMPLES,
+            "testing_prompts": user_testing_prompts(),
         }
 
     return {
@@ -547,6 +575,7 @@ def search(payload: dict[str, Any]) -> dict[str, Any]:
         "hospitals": hospitals,
         "total_indexed_hospitals": len({row["hospital_id"] for row in rows}),
         "price_details_help": price_details_help_text(),
+        "testing_prompts": user_testing_prompts(),
     }
 
 

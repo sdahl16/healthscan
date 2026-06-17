@@ -12,10 +12,13 @@ from frontend_search import (
     Location,
     build_hospitals,
     display_payer_plan,
+    no_results_message,
     price_details_help_text,
     price_selection_explanation,
     source_metadata,
     summarize_payer_plans,
+    unavailable_message,
+    user_testing_prompts,
 )
 
 
@@ -55,6 +58,28 @@ def test_price_details_help_text_explains_repeated_amounts() -> None:
     assert "same dollar amount" in help_text
     assert "different payer or plan" in help_text
     assert "exact duplicate" in help_text
+
+
+def test_alpha_empty_state_messages_explain_next_steps() -> None:
+    unavailable = unavailable_message()
+    no_results = no_results_message()
+
+    assert "recognized" in unavailable
+    assert "not broken" in unavailable
+    assert "Try one of the supported examples" in unavailable
+    assert "price filter" in no_results
+    assert "Expand the radius" in no_results
+    assert "selected Southern California hospitals" in no_results
+
+
+def test_user_testing_prompts_capture_trust_confusion_and_source_feedback() -> None:
+    prompts = user_testing_prompts()
+
+    assert len(prompts) >= 5
+    joined = " ".join(prompts).lower()
+    assert "trust" in joined
+    assert "source" in joined
+    assert "confusing" in joined
 
 
 def test_repeated_display_amounts_collapse_to_distinct_amount_rows() -> None:
