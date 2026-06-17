@@ -1,0 +1,11 @@
+hospital_name,region,mrf_format,local_jobs,matched_jobs,local_search_ready_rows,combined_rows,procedures_represented
+Hollywood Presbyterian Medical Center,Los Angeles,json,39,38,203,203,26
+Huntington Hospital,Los Angeles,csv,39,37,4249,1835,25
+UCI Medical Center,Orange County,json,39,39,271,270,26
+Hoag Hospital Newport Beach,Orange County,csv,39,39,258,258,26
+MemorialCare Orange Coast Medical Center,Orange County,json,39,39,607,607,26
+Loma Linda University Medical Center,Inland Empire,csv,39,23,3103,2241,17
+Riverside Community Hospital,Inland Empire,json,39,39,169,169,26
+Tri-City Medical Center,San Diego,csv,39,19,125,63,15
+Los Robles Regional Medical Center,Ventura County,json,39,38,228,228,26
+Community Memorial Healthcare - Ventura,Ventura County,csv,39,17,56,23,13

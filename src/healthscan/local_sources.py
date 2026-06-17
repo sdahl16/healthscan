@@ -58,6 +58,66 @@ LOCAL_MRF_SOURCES = (
         mrf_format="json",
         scan_scope="large_local_json",
     ),
+    LocalMrfSource(
+        url_marker='300284087_HOLLYWOOD-PRESBYTERIAN-MEDICAL-CENTER_STANDARDCHARGES.json',
+        path=ROOT / "data" / "raw" / "mrf" / 'hollywood-presbyterian-standardcharges.json',
+        mrf_format='json',
+        scan_scope='large_local_json',
+    ),
+    LocalMrfSource(
+        url_marker='951644036_HUNTINGTON-HOSPITAL_standardcharges.csv',
+        path=ROOT / "data" / "raw" / "mrf" / 'huntington-hospital-standardcharges.csv',
+        mrf_format='csv',
+        scan_scope='full_local_csv',
+    ),
+    LocalMrfSource(
+        url_marker='952226406_regents-of-the-university-of-california-at-irvine-hospital_standardcharges.json',
+        path=ROOT / "data" / "raw" / "mrf" / 'uci-medical-center-standardcharges.json',
+        mrf_format='json',
+        scan_scope='large_local_json',
+    ),
+    LocalMrfSource(
+        url_marker='951643327_hoag-memorial-hospital-presbyterian_standardcharges.csv',
+        path=ROOT / "data" / "raw" / "mrf" / 'hoag-newport-beach-standardcharges.csv',
+        mrf_format='csv',
+        scan_scope='full_local_csv',
+    ),
+    LocalMrfSource(
+        url_marker='330687414_memorialcare-orange-coast-medical-center_standardcharges.json',
+        path=ROOT / "data" / "raw" / "mrf" / 'memorialcare-orange-coast-standardcharges.json',
+        mrf_format='json',
+        scan_scope='large_local_json',
+    ),
+    LocalMrfSource(
+        url_marker='llu-mc/charges/export',
+        path=ROOT / "data" / "raw" / "mrf" / 'loma-linda-university-medical-center-standardcharges.csv',
+        mrf_format='csv',
+        scan_scope='full_local_csv',
+    ),
+    LocalMrfSource(
+        url_marker='33-0751869_RIVERSIDE-COMMUNITY-HOSPITAL_standardcharges.json',
+        path=ROOT / "data" / "raw" / "mrf" / 'riverside-community-hospital-standardcharges.json',
+        mrf_format='json',
+        scan_scope='large_local_json',
+    ),
+    LocalMrfSource(
+        url_marker='952126937_Tri-City-Medical-Center_standardcharges.csv',
+        path=ROOT / "data" / "raw" / "mrf" / 'tri-city-medical-center-standardcharges.csv',
+        mrf_format='csv',
+        scan_scope='full_local_csv',
+    ),
+    LocalMrfSource(
+        url_marker='95-2321136_LOS-ROBLES-HOSPITAL-AND-MEDICAL-CENTER_standardcharges.json',
+        path=ROOT / "data" / "raw" / "mrf" / 'los-robles-regional-medical-center-standardcharges.json',
+        mrf_format='json',
+        scan_scope='large_local_json',
+    ),
+    LocalMrfSource(
+        url_marker='951683892_community-memorial-healthcare-ventura_standardcharges.csv.csv',
+        path=ROOT / "data" / "raw" / "mrf" / 'community-memorial-ventura-standardcharges.csv',
+        mrf_format='csv',
+        scan_scope='full_local_csv',
+    ),
 )
 
 

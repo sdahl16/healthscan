@@ -32,31 +32,41 @@ def scan_csv_group(
     targets_by_code: dict[str, list[dict[str, str]]] = {}
     for matrix_row in matrix_rows:
         targets_by_code.setdefault(matrix_row["procedure_code"], []).append(matrix_row)
-    with local_path.open(newline="", encoding="utf-8-sig") as handle:
-        reader = csv.reader(handle)
-        header = None
-        for raw_row in reader:
-            if charge_header(raw_row):
-                header = raw_row
-                break
-        if header is None:
-            return matches
-        dict_reader = csv.DictReader(handle, fieldnames=header)
-        for index, record in enumerate(dict_reader):
-            if limit is not None and index >= limit:
-                break
-            for found_type, found_code in _codes_from_record(record):
-                for matrix_row in targets_by_code.get(found_code, []):
-                    wanted_type = matrix_row["code_type"].upper()
-                    normalized_found_type = found_type.replace("-", "")
-                    normalized_wanted_type = wanted_type.replace("-", "")
-                    type_matches = normalized_found_type == normalized_wanted_type
-                    if wanted_type == "DRG" and found_type in {"MS-DRG", "MSDRG"}:
-                        type_matches = True
-                    if wanted_type == "CPT" and found_type == "HCPCS":
-                        type_matches = True
-                    if type_matches:
-                        matches[int(matrix_row["_row_id"])].append(record)
+
+    last_decode_error: UnicodeDecodeError | None = None
+    for encoding in ("utf-8-sig", "cp1252", "latin-1"):
+        try:
+            with local_path.open(newline="", encoding=encoding) as handle:
+                reader = csv.reader(handle)
+                header = None
+                for raw_row in reader:
+                    if charge_header(raw_row):
+                        header = raw_row
+                        break
+                if header is None:
+                    return matches
+                dict_reader = csv.DictReader(handle, fieldnames=header)
+                for index, record in enumerate(dict_reader):
+                    if limit is not None and index >= limit:
+                        break
+                    for found_type, found_code in _codes_from_record(record):
+                        for matrix_row in targets_by_code.get(found_code, []):
+                            wanted_type = matrix_row["code_type"].upper()
+                            normalized_found_type = found_type.replace("-", "")
+                            normalized_wanted_type = wanted_type.replace("-", "")
+                            type_matches = normalized_found_type == normalized_wanted_type
+                            if wanted_type == "DRG" and found_type in {"MS-DRG", "MSDRG"}:
+                                type_matches = True
+                            if wanted_type == "CPT" and found_type == "HCPCS":
+                                type_matches = True
+                            if type_matches:
+                                matches[int(matrix_row["_row_id"])].append(record)
+                return matches
+        except UnicodeDecodeError as error:
+            last_decode_error = error
+            continue
+    if last_decode_error is not None:
+        raise last_decode_error
     return matches
 
 

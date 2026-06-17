@@ -32,3 +32,9 @@ Tonsillectomy,CPT,42825,outpatient,false,2,needs_socal_indexing,Generated from S
 Mastectomy,CPT,19303,outpatient,true,1,needs_socal_indexing,Generated from South California functionality no-results row.
 Mastectomy,CPT,19301,outpatient,false,2,needs_socal_indexing,Generated from South California functionality no-results row.
 Prostate biopsy,CPT,55700,outpatient,true,1,needs_socal_indexing,Generated from South California functionality no-results row.
+Knee arthroscopy,CPT,29881,outpatient,true,1,needs_socal_indexing,Added after next-10 expansion breadth gap scan.
+Carpal tunnel surgery,CPT,64721,outpatient,true,1,needs_socal_indexing,Added after next-10 expansion breadth gap scan.
+Shoulder arthroscopy,CPT,29827,outpatient,true,1,needs_socal_indexing,Added after next-10 expansion breadth gap scan.
+MRI spine,CPT,72148,outpatient,true,1,needs_socal_indexing,Added after next-10 expansion breadth gap scan.
+CT scan abdomen,CPT,74178,outpatient,true,1,needs_socal_indexing,Added after next-10 expansion breadth gap scan.
+Coronary bypass (CABG),DRG,231,inpatient,true,1,needs_socal_indexing,Added after next-10 expansion breadth gap scan.

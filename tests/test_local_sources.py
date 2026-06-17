@@ -33,3 +33,73 @@ def test_resolve_local_source_finds_cedars_large_json() -> None:
     assert source is not None
     assert source.mrf_format == "json"
     assert source.scan_scope == "large_local_json"
+
+
+def test_resolve_local_source_finds_next_ten_sources() -> None:
+    cases = [
+        (
+            "https://www.hollywoodpresbyterian.com/"
+            "300284087_HOLLYWOOD-PRESBYTERIAN-MEDICAL-CENTER_STANDARDCHARGES.json",
+            "json",
+            "large_local_json",
+        ),
+        (
+            "https://media.huntingtonhealth.org/951644036_HUNTINGTON-HOSPITAL_standardcharges.csv",
+            "csv",
+            "full_local_csv",
+        ),
+        (
+            "https://www.ucihealth.org/pricetransparency/"
+            "952226406_regents-of-the-university-of-california-at-irvine-hospital_standardcharges.json",
+            "json",
+            "large_local_json",
+        ),
+        (
+            "https://downloads.ctfassets.net/8u2cuf59smsh/52tazi7symInZOZZ2g2eJU/"
+            "a5edeceac81a9d8369ea9548032e2d42/"
+            "951643327_hoag-memorial-hospital-presbyterian_standardcharges.csv",
+            "csv",
+            "full_local_csv",
+        ),
+        (
+            "https://www.memorialcare.org/sites/default/files/_images/content/Patient-Financial-Services/"
+            "330687414_memorialcare-orange-coast-medical-center_standardcharges.json",
+            "json",
+            "large_local_json",
+        ),
+        (
+            "https://pricetransparency.healthcare/llu-mc/charges/export",
+            "csv",
+            "full_local_csv",
+        ),
+        (
+            "https://stctrprodsnsvc00455826e6.blob.core.windows.net/pt-final-posting-files/"
+            "33-0751869_RIVERSIDE-COMMUNITY-HOSPITAL_standardcharges.json?token=redacted",
+            "json",
+            "large_local_json",
+        ),
+        (
+            "https://tricitymed.org/wp-content/uploads/2026/03/"
+            "952126937_Tri-City-Medical-Center_standardcharges.csv",
+            "csv",
+            "full_local_csv",
+        ),
+        (
+            "https://stctrprodsnsvc00455826e6.blob.core.windows.net/pt-final-posting-files/"
+            "95-2321136_LOS-ROBLES-HOSPITAL-AND-MEDICAL-CENTER_standardcharges.json?token=redacted",
+            "json",
+            "large_local_json",
+        ),
+        (
+            "https://www.mycmh.org/documents/"
+            "951683892_community-memorial-healthcare-ventura_standardcharges.csv.csv",
+            "csv",
+            "full_local_csv",
+        ),
+    ]
+
+    for url, expected_format, expected_scope in cases:
+        source = resolve_local_source(url)
+        assert source is not None, url
+        assert source.mrf_format == expected_format
+        assert source.scan_scope == expected_scope

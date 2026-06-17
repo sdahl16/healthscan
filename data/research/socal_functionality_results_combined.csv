@@ -1,31 +1,31 @@
 query,status,hit_count,hospital_count,min_price,top_hospital,top_price
+Colonoscopy,ok,5,5,749.49,Scripps Green Hospital,749.49
+Upper endoscopy,ok,1481,15,115.67,Scripps Green Hospital,115.67
+Tonsillectomy,ok,644,13,247.72,Scripps Green Hospital,247.72
+Tonsillectomy (child),ok,644,13,247.72,Scripps Green Hospital,247.72
+Appendectomy,ok,5,5,13922.35,Scripps Green Hospital,13922.35
+Gallbladder removal,ok,956,13,155.0,UC San Diego Medical Center,155.0
+Gallbladder removal (open),ok,956,13,155.0,UC San Diego Medical Center,155.0
+Breast lumpectomy,ok,1267,13,101.5,Riverside Community Hospital,101.5
+Mastectomy,ok,1267,13,101.5,Riverside Community Hospital,101.5
+Upper endoscopy with biopsy,ok,1481,15,115.67,Scripps Green Hospital,115.67
+Knee arthroscopy,ok,462,13,119.7,UC San Diego Medical Center,119.7
+Hernia repair,ok,700,13,102.56,Riverside Community Hospital,102.56
+Cataract surgery,ok,461,13,140.0,UC San Diego Medical Center,140.0
+Carpal tunnel surgery,ok,471,14,124.79,Riverside Community Hospital,124.79
+Shoulder arthroscopy,ok,463,13,113.4,UC San Diego Medical Center,113.4
+Sleep study,ok,310,14,185.08,Scripps Green Hospital,185.08
+MRI brain,ok,4,4,913.03,Scripps Green Hospital,913.03
+MRI spine,ok,562,17,111.88,Sharp Chula Vista Medical Center,111.88
+CT scan abdomen,ok,552,17,207.0,Scripps Green Hospital,207.0
+Mammogram,ok,881,16,106.42,UC San Diego Medical Center,106.42
+Echocardiogram,ok,723,17,125.35,Scripps Green Hospital,125.35
+Screening colonoscopy,ok,5,5,749.49,Scripps Green Hospital,749.49
 Hip replacement,ok,10,5,2175.0,Ronald Reagan UCLA Medical Center,2175.0
 Knee replacement,ok,10,5,2175.0,Ronald Reagan UCLA Medical Center,2175.0
-Colonoscopy,ok,5,5,749.49,Scripps Green Hospital,749.49
 Vaginal delivery,ok,3,3,17551.56,UC San Diego Medical Center,17551.56
 C-section,ok,3,3,11709.7,UC San Diego Medical Center,11709.7
-Appendectomy,ok,4,4,27683.22,Providence Cedars-Sinai Tarzana Medical Center,27683.22
+Appendectomy (inpatient),ok,5,5,13922.35,Scripps Green Hospital,13922.35
 Cardiac catheterization,ok,4,4,19889.0,UC San Diego Medical Center,19889.0
-Brain MRI,ok,4,4,913.03,Scripps Green Hospital,913.03
-CT abdomen and pelvis,ok,4,4,371.4,UC San Diego Medical Center,371.4
+Coronary bypass (CABG),ok,348,14,2175.0,Ronald Reagan UCLA Medical Center,2175.0
 Emergency department visit,ok,4,4,4050.0,Rady Children's Hospital,4050.0
-Gallbladder removal,ok,749,6,155.0,UC San Diego Medical Center,155.0
-Hernia repair,ok,1121,6,155.0,UC San Diego Medical Center,155.0
-Hysterectomy,ok,566,6,155.0,UC San Diego Medical Center,155.0
-Cataract surgery,ok,374,6,140.0,UC San Diego Medical Center,140.0
-Upper endoscopy,ok,1169,7,115.67,Scripps Green Hospital,115.67
-Screening mammogram,ok,813,7,106.42,UC San Diego Medical Center,106.42
-Chest X-ray,ok,821,7,101.8,Scripps Green Hospital,101.8
-Abdominal ultrasound,ok,934,7,100.19,UC San Diego Medical Center,100.19
-Echocardiogram,ok,543,7,125.35,Scripps Green Hospital,125.35
-EKG,ok,242,6,109.4,Scripps Green Hospital,109.4
-Physical therapy evaluation,ok,432,7,101.79,Scripps Green Hospital,101.79
-Complete blood count,ok,79,5,101.44,Sharp Chula Vista Medical Center,101.44
-Basic metabolic panel,ok,161,6,100.04,Scripps Green Hospital,100.04
-Lipid panel,ok,124,5,102.3,UC San Diego Medical Center,102.3
-Hemoglobin A1c,ok,120,4,100.75,UC San Diego Medical Center,100.75
-COVID test,ok,295,7,100.0,Keck Hospital of USC,100.0
-Sleep study,ok,444,6,185.08,Scripps Green Hospital,185.08
-Tonsillectomy,ok,458,6,247.72,Scripps Green Hospital,247.72
-Mastectomy,ok,1110,6,333.58,UC San Diego Medical Center,333.58
-Prostate biopsy,ok,236,6,167.31,UC San Diego Medical Center,167.31

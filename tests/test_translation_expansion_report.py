@@ -60,7 +60,21 @@ def test_candidate_rows_are_supported_and_actionable() -> None:
 
 
 def test_gap_rows_include_unindexed_primary_lookup_codes() -> None:
-    rows = build_gap_rows(mapping_coverage())
+    rows = build_gap_rows(
+        [
+            {
+                "plain_name": "Example procedure",
+                "primary_code_type": "CPT",
+                "primary_code": "11111",
+                "setting": "outpatient",
+                "primary_indexed_hospitals": 0,
+                "any_indexed_hospitals": 0,
+                "codes": [
+                    {"code_type": "CPT", "procedure_code": "11111", "indexed_hospitals": 0, "is_primary": True},
+                ],
+            }
+        ]
+    )
 
     assert rows
     assert all(row["primary_indexed_hospitals"] == 0 for row in rows)
