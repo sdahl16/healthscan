@@ -301,12 +301,20 @@ function renderResults(result) {
   const list = document.createElement("section");
   list.className = "hospital-list";
   for (const hospital of result.hospitals) {
-    list.append(renderHospital(hospital));
+    list.append(renderHospital(hospital, result.price_details_help));
   }
   resultsRegion.append(list);
 }
 
-function renderHospital(hospital) {
+function tooltipText(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+
+function renderHospital(hospital, priceDetailsHelp = "Hospitals can publish the same dollar amount for different payer or plan contracts. HealthScan keeps distinct payer/plan rows and removes exact duplicates.") {
   const card = document.createElement("article");
   card.className = "hospital-card";
 
@@ -330,9 +338,11 @@ function renderHospital(hospital) {
 
   const details = document.createElement("details");
   details.className = "details";
+  const detailsHelp = tooltipText(priceDetailsHelp);
   details.innerHTML = `
-    <summary>Price details</summary>
+    <summary>Price details <span class="info-tooltip" tabindex="0" role="img" aria-label="${detailsHelp}" title="${detailsHelp}">ⓘ</span></summary>
     <p class="meta">${hospital.selection_explanation || "HealthScan selected the displayed row from eligible, non-flagged price rows."}</p>
+    <p class="meta repeated-price-help">Repeated dollar amounts can be legitimate when they belong to different payer/plan contracts. Hover or tap the ⓘ for details.</p>
     <p class="meta">Source: ${hospital.source_url ? `<a href="${hospital.source_url}" target="_blank" rel="noreferrer">hospital-published MRF row</a>` : "source URL unavailable"}</p>
     <table class="price-table">
       <thead><tr><th>Type</th><th>Amount</th><th>Source payer/plan field</th><th>Date shown</th></tr></thead>
@@ -342,7 +352,7 @@ function renderHospital(hospital) {
             (priceRow) => `
               <tr>
                 <td>${priceLabels[priceRow.type] || priceRow.type}</td>
-                <td>${money(priceRow.amount)}</td>
+                <td>${money(priceRow.amount)}${priceRow.display_amount_note ? ` <span class="repeated-amount-badge" title="${tooltipText(priceRow.display_amount_note)}">same amount ×${priceRow.display_amount_group_count}</span>` : ""}</td>
                 <td>${priceRow.payer_plan_display || "Not listed"}</td>
                 <td>${priceRow.source?.display_timestamp || priceRow.last_updated || "unknown"}</td>
               </tr>
