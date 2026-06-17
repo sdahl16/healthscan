@@ -4,6 +4,7 @@ const locationInput = document.querySelector("#location");
 const radiusInput = document.querySelector("#radius");
 const sortInput = document.querySelector("#sort");
 const priceTypeInput = document.querySelector("#price-type");
+const insuranceFilterInput = document.querySelector("#insurance-filter");
 const statusRegion = document.querySelector("#status-region");
 const resultsRegion = document.querySelector("#results-region");
 const disclaimerTemplate = document.querySelector("#disclaimer-template");
@@ -89,6 +90,21 @@ function renderLocationOptions(locations) {
   locationOptions.replaceChildren(...options);
 }
 
+function renderInsuranceOptions(options = [], selectedValue = insuranceFilterInput.value) {
+  const allOption = document.createElement("option");
+  allOption.value = "all";
+  allOption.textContent = "All insurance";
+  const payerOptions = options.map((payer) => {
+    const option = document.createElement("option");
+    option.value = payer.value;
+    option.textContent = payer.count ? `${payer.label} (${payer.count} rows)` : payer.label;
+    return option;
+  });
+  insuranceFilterInput.replaceChildren(allOption, ...payerOptions);
+  const values = new Set(["all", ...options.map((payer) => payer.value)]);
+  insuranceFilterInput.value = values.has(selectedValue) ? selectedValue : "all";
+}
+
 async function loadProcedureOptions() {
   renderProcedureOptions(fallbackProcedures);
   try {
@@ -166,6 +182,7 @@ function currentPayload(selected = lastSelected) {
     radius: Number(radiusInput.value),
     sort: sortInput.value,
     priceType: priceTypeInput.value,
+    insuranceFilter: insuranceFilterInput.value,
     selected,
   };
 }
@@ -291,6 +308,7 @@ function renderEmpty(title, message, result) {
 }
 
 function renderNoNearby(result) {
+  renderInsuranceOptions(result.insurance_filters || [], result.insurance_filter || insuranceFilterInput.value);
   const panel = document.createElement("section");
   panel.className = "empty-state";
   const canExpand = Number(result.radius) < 100;
@@ -324,6 +342,7 @@ function renderNoNearby(result) {
 }
 
 function renderResults(result) {
+  renderInsuranceOptions(result.insurance_filters || [], result.insurance_filter || insuranceFilterInput.value);
   const summary = document.createElement("section");
   summary.className = result.status === "limited_coverage" ? "notice warning" : "notice success";
   const label = result.translation?.candidates?.[0]?.description || procedureInput.value;
@@ -428,7 +447,7 @@ form.addEventListener("submit", (event) => {
   });
 });
 
-for (const control of [radiusInput, sortInput, priceTypeInput]) {
+for (const control of [radiusInput, sortInput, priceTypeInput, insuranceFilterInput]) {
   control.addEventListener("change", () => {
     if (procedureInput.value.trim() && locationInput.value.trim()) {
       search().catch((error) => {

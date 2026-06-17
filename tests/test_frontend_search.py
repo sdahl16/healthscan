@@ -12,6 +12,7 @@ from frontend_search import (
     Location,
     build_hospitals,
     display_payer_plan,
+    insurance_filter_options,
     no_results_message,
     price_details_help_text,
     price_selection_explanation,
@@ -147,6 +148,80 @@ def test_repeated_display_amounts_without_payer_plan_collapse_to_unlisted_summar
     ]
 
     assert summarize_payer_plans(rows) == "3 source rows; payer/plan not listed"
+
+
+def hoag_blue_shield_rows() -> list[dict[str, object]]:
+    base = {
+        "hospital_id": 13,
+        "hospital_name": "Hoag Hospital Newport Beach",
+        "address": None,
+        "state": "CA",
+        "zip": "92663",
+        "procedure_name": "Gallbladder removal",
+        "procedure_code": "47562",
+        "code_type": "CPT",
+        "description": "Laparoscopic cholecystectomy",
+        "setting": "outpatient",
+        "price_type": "negotiated",
+        "last_updated": None,
+        "source_url": "https://example.org/hoag.csv",
+        "data_quality_flag": "ok",
+        "parsed_at": "2026-06-17 18:36:28",
+    }
+    return [
+        {**base, "amount": 7775.56, "payer_name": "Aetna", "plan_name": "Medicare Managed Care Plan"},
+        {**base, "amount": 11947.77, "payer_name": "Blue Shield", "plan_name": "Epn/Ifp Other Commercial Plan"},
+        {**base, "amount": 12534.49, "payer_name": "Blue Shield", "plan_name": "Hmo/Pos"},
+        {**base, "amount": 15350.75, "payer_name": "Blue Shield", "plan_name": "Ppo/Epo"},
+        {**base, "amount": 27754.00, "payer_name": "Unitedhealthcare", "plan_name": "All Commercial Plans"},
+    ]
+
+
+def test_insurance_filter_options_are_built_from_available_payers() -> None:
+    options = insurance_filter_options(hoag_blue_shield_rows())
+
+    assert options == [
+        {"value": "Aetna", "label": "Aetna", "count": 1},
+        {"value": "Blue Shield", "label": "Blue Shield", "count": 3},
+        {"value": "UnitedHealthcare", "label": "UnitedHealthcare", "count": 1},
+    ]
+
+
+def test_insurance_filter_options_group_source_file_variants_under_common_payers() -> None:
+    rows = [
+        {"price_type": "negotiated", "payer_name": "ALTERNATE BLUE SHIELD [2002]", "plan_name": "PPO"},
+        {"price_type": "negotiated", "payer_name": "Blue Shield", "plan_name": "Hmo/Pos"},
+        {"price_type": "negotiated", "payer_name": "BLUE SHIELD PROMISE [445]", "plan_name": "Medicaid"},
+        {"price_type": "negotiated", "payer_name": "ANTHEM BLUE CROSS [1005]", "plan_name": "PPO"},
+        {"price_type": "negotiated", "payer_name": "ADMAR [1001]", "plan_name": "PPO"},
+    ]
+
+    assert insurance_filter_options(rows) == [
+        {"value": "Anthem Blue Cross", "label": "Anthem Blue Cross", "count": 1},
+        {"value": "Blue Shield", "label": "Blue Shield", "count": 3},
+        {"value": "ADMAR [1001]", "label": "ADMAR [1001]", "count": 1},
+    ]
+
+
+def test_insurance_filter_limits_prices_and_headline_to_matching_payer() -> None:
+    hospitals, _ = build_hospitals(
+        hoag_blue_shield_rows(),
+        Location(33.6221, -117.9333, "Newport Beach, CA", "local"),
+        25,
+        "negotiated",
+        "price",
+        "Blue Shield",
+    )
+
+    assert len(hospitals) == 1
+    hoag = hospitals[0]
+    assert hoag["headline_price"]["payer_plan_display"] == "Blue Shield / Epn/Ifp Other Commercial Plan"
+    assert [price["payer_plan_display"] for price in hoag["prices"]] == [
+        "Blue Shield / Epn/Ifp Other Commercial Plan",
+        "Blue Shield / Hmo/Pos",
+        "Blue Shield / Ppo/Epo",
+    ]
+    assert "insurance filter: Blue Shield" in hoag["selection_explanation"]
 
 
 def test_next_ten_hospitals_have_frontend_location_metadata() -> None:

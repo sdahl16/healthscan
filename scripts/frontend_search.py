@@ -315,12 +315,83 @@ def source_metadata(row: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def price_selection_explanation(price_filter: str) -> str:
+def price_selection_explanation(price_filter: str, insurance_filter: str = "all") -> str:
     if price_filter == "cash":
-        return "Showing the lowest eligible cash/self-pay row after suppressing flagged outliers."
-    if price_filter == "negotiated":
-        return "Showing the lowest eligible negotiated row after suppressing flagged outliers."
-    return "Showing the lowest eligible actionable row, preferring cash/self-pay rows before negotiated rows and suppressing flagged outliers."
+        text = "Showing the lowest eligible cash/self-pay row after suppressing flagged outliers."
+    elif price_filter == "negotiated":
+        text = "Showing the lowest eligible negotiated row after suppressing flagged outliers."
+    else:
+        text = "Showing the lowest eligible actionable row, preferring cash/self-pay rows before negotiated rows and suppressing flagged outliers."
+    if insurance_filter and insurance_filter != "all":
+        text += f" Applied insurance filter: {insurance_filter}."
+    return text
+
+
+def normalize_filter_text(value: Any) -> str:
+    return " ".join(str(value or "").lower().split())
+
+
+def canonical_payer_name(value: Any) -> str:
+    text = str(value or "").strip()
+    normalized = normalize_filter_text(text)
+    compact = normalized.replace("[", " ").replace("]", " ")
+    if "blue shield" in compact:
+        return "Blue Shield"
+    if "blue cross" in compact or "anthem" in compact:
+        return "Anthem Blue Cross" if "anthem" in compact else "Blue Cross"
+    if "aetna" in compact:
+        return "Aetna"
+    if "cigna" in compact:
+        return "Cigna"
+    if "united" in compact or "uhc" in compact:
+        return "UnitedHealthcare"
+    if "kaiser" in compact:
+        return "Kaiser Permanente"
+    if "medicare" in compact:
+        return "Medicare"
+    if "medi-cal" in compact or "medicaid" in compact:
+        return "Medi-Cal / Medicaid"
+    return text
+
+
+def insurance_matches(row: dict[str, Any], insurance_filter: str) -> bool:
+    if not insurance_filter or insurance_filter == "all":
+        return True
+    needle = normalize_filter_text(insurance_filter)
+    payer = normalize_filter_text(row.get("payer_name"))
+    canonical_payer = normalize_filter_text(canonical_payer_name(row.get("payer_name")))
+    plan = normalize_filter_text(row.get("plan_name"))
+    display = normalize_filter_text(display_payer_plan(row))
+    return needle in {payer, canonical_payer, display} or needle in payer or needle in plan or needle in display
+
+
+COMMON_PAYER_ORDER = {
+    "Aetna": 0,
+    "Anthem Blue Cross": 1,
+    "Blue Cross": 2,
+    "Blue Shield": 3,
+    "Cigna": 4,
+    "UnitedHealthcare": 5,
+    "Kaiser Permanente": 6,
+    "Medicare": 7,
+    "Medi-Cal / Medicaid": 8,
+}
+
+
+def insurance_filter_options(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    counts: dict[str, int] = {}
+    for row in rows:
+        payer = canonical_payer_name(row.get("payer_name"))
+        if not payer or row.get("price_type") == "cash":
+            continue
+        counts[payer] = counts.get(payer, 0) + 1
+    return [
+        {"value": payer, "label": payer, "count": count}
+        for payer, count in sorted(
+            counts.items(),
+            key=lambda item: (COMMON_PAYER_ORDER.get(item[0], 999), item[0].lower()),
+        )
+    ]
 
 
 def price_details_help_text() -> str:
@@ -433,6 +504,7 @@ def build_hospitals(
     radius: float,
     price_filter: str,
     sort: str,
+    insurance_filter: str = "all",
 ) -> tuple[list[dict[str, Any]], int]:
     grouped: dict[int, list[dict[str, Any]]] = {}
     for row in rows:
@@ -456,7 +528,7 @@ def build_hospitals(
         else:
             continue
 
-        eligible = [row for row in hospital_rows if price_allowed(row, price_filter)]
+        eligible = [row for row in hospital_rows if price_allowed(row, price_filter) and insurance_matches(row, insurance_filter)]
         eligible.sort(key=lambda row: (price_rank(row["price_type"]), float(row["amount"])))
         eligible = dedupe_exact_price_rows(eligible)
         price_groups = group_price_rows_by_display_amount(eligible)
@@ -494,7 +566,7 @@ def build_hospitals(
                 "prices": prices,
                 "suppressed_price_count": len(suppressed),
                 "source_url": headline["source_url"],
-                "selection_explanation": price_selection_explanation(price_filter),
+                "selection_explanation": price_selection_explanation(price_filter, insurance_filter),
             }
         )
 
@@ -529,6 +601,7 @@ def search(payload: dict[str, Any]) -> dict[str, Any]:
 
     radius = float(payload.get("radius") or 50)
     price_filter = str(payload.get("priceType") or "all")
+    insurance_filter = str(payload.get("insuranceFilter") or "all")
     sort = str(payload.get("sort") or "price")
 
     connection = sqlite3.connect(DEFAULT_DB_PATH if DEFAULT_DB_PATH.exists() else DB_PATH)
@@ -549,7 +622,9 @@ def search(payload: dict[str, Any]) -> dict[str, Any]:
             "testing_prompts": user_testing_prompts(),
         }
 
-    hospitals, in_radius_count = build_hospitals(rows, location, radius, price_filter, sort)
+    option_rows = [row for row in rows if price_allowed(row, price_filter)]
+    insurance_filters = insurance_filter_options(option_rows)
+    hospitals, in_radius_count = build_hospitals(rows, location, radius, price_filter, sort, insurance_filter)
     if not hospitals:
         return {
             "status": "no_results_near_location",
@@ -559,6 +634,9 @@ def search(payload: dict[str, Any]) -> dict[str, Any]:
             "total_indexed_hospitals": len({row["hospital_id"] for row in rows}),
             "hospitals_in_radius": in_radius_count,
             "radius": radius,
+            "price_filter": price_filter,
+            "insurance_filter": insurance_filter,
+            "insurance_filters": insurance_filters,
             "message": no_results_message(),
             "examples": SUPPORTED_EXAMPLES,
             "testing_prompts": user_testing_prompts(),
@@ -571,6 +649,8 @@ def search(payload: dict[str, Any]) -> dict[str, Any]:
         "codes": [asdict(code) for code in codes],
         "radius": radius,
         "price_filter": price_filter,
+        "insurance_filter": insurance_filter,
+        "insurance_filters": insurance_filters,
         "sort": sort,
         "hospitals": hospitals,
         "total_indexed_hospitals": len({row["hospital_id"] for row in rows}),
