@@ -340,9 +340,9 @@ function renderHospital(hospital, priceDetailsHelp = "Hospitals can publish the 
   details.className = "details";
   const detailsHelp = tooltipText(priceDetailsHelp);
   details.innerHTML = `
-    <summary>Price details <span class="info-tooltip" tabindex="0" role="img" aria-label="${detailsHelp}" title="${detailsHelp}">ⓘ</span></summary>
+    <summary>Price details <span class="info-tooltip" tabindex="0" role="note" aria-label="Repeated price explanation">ⓘ<span class="tooltip-popover">${detailsHelp}</span></span></summary>
     <p class="meta">${hospital.selection_explanation || "HealthScan selected the displayed row from eligible, non-flagged price rows."}</p>
-    <p class="meta repeated-price-help">Repeated dollar amounts can be legitimate when they belong to different payer/plan contracts. Hover or tap the ⓘ for details.</p>
+    <p class="repeated-price-help"><strong>Why repeat prices?</strong> ${detailsHelp}</p>
     <p class="meta">Source: ${hospital.source_url ? `<a href="${hospital.source_url}" target="_blank" rel="noreferrer">hospital-published MRF row</a>` : "source URL unavailable"}</p>
     <table class="price-table">
       <thead><tr><th>Type</th><th>Amount</th><th>Source payer/plan field</th><th>Date shown</th></tr></thead>

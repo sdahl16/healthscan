@@ -324,6 +324,7 @@ button:hover {
 }
 
 .info-tooltip {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -344,8 +345,41 @@ button:hover {
   outline-offset: 2px;
 }
 
+.tooltip-popover {
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  display: none;
+  width: min(320px, calc(100vw - 40px));
+  transform: translateX(-50%);
+  padding: 10px 12px;
+  border: 1px solid #bdd9dd;
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--ink);
+  box-shadow: 0 12px 28px rgba(23, 33, 43, 0.18);
+  font-size: 0.82rem;
+  font-weight: 650;
+  line-height: 1.35;
+  text-align: left;
+}
+
+.info-tooltip:hover .tooltip-popover,
+.info-tooltip:focus .tooltip-popover,
+.info-tooltip:focus-within .tooltip-popover {
+  display: block;
+}
+
 .repeated-price-help {
-  margin-top: 8px;
+  display: block;
+  margin: 10px 0 0;
+  padding: 10px 12px;
+  border: 1px solid #d7e6e8;
+  border-radius: 8px;
+  background: #f6fbfb;
+  color: #30434f;
+  line-height: 1.45;
 }
 
 .repeated-amount-badge {
