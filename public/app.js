@@ -15,9 +15,9 @@ const locationOptions = document.querySelector("#location-options");
 let lastSelected = null;
 
 const priceLabels = {
-  cash: "Cash price",
-  negotiated: "Negotiated rate",
-  negotiated_min: "Negotiated minimum",
+  cash: "Self-pay / cash price",
+  negotiated: "Insurance negotiated rate",
+  negotiated_min: "Insurance negotiated minimum",
 };
 
 const fallbackProcedures = [
@@ -341,6 +341,27 @@ function renderNoNearby(result) {
   appendFeedback(result.testing_prompts || []);
 }
 
+function renderPriceRanges(ranges = {}) {
+  const entries = [ranges.cash, ranges.negotiated].filter(Boolean);
+  if (!entries.length) {
+    return "";
+  }
+  return `
+    <div class="price-ranges" aria-label="Price ranges by context">
+      ${entries
+        .map(
+          (range) => `
+            <div class="range-card">
+              <span>${tooltipText(range.label)}</span>
+              <strong>${money(range.min)}${range.min === range.max ? "" : `–${money(range.max)}`}</strong>
+            </div>
+          `,
+        )
+        .join("")}
+    </div>
+  `;
+}
+
 function renderResults(result) {
   renderInsuranceOptions(result.insurance_filters || [], result.insurance_filter || insuranceFilterInput.value);
   const summary = document.createElement("section");
@@ -356,6 +377,8 @@ function renderResults(result) {
       <span class="pill ${result.status === "limited_coverage" ? "warning" : ""}">${statusText}</span>
     </div>
     <p>${result.hospitals.length} hospital${result.hospitals.length === 1 ? "" : "s"} within ${result.radius} miles of ${result.location.label}. Coverage is currently strongest in Southern California.</p>
+    <p class="summary-source-note"><strong>${result.price_filter_label || "Selected price view"}:</strong> ${result.hospitals[0]?.selection_explanation || "Prices are selected from eligible, non-flagged hospital-published rows."}</p>
+    ${renderPriceRanges(result.price_ranges)}
     <p class="summary-source-note">Each result includes a hospital-published MRF source link and the best available date label. Use the source/date line to decide whether you trust a result.</p>
   `;
   resultsRegion.append(summary);
@@ -396,9 +419,11 @@ function renderHospital(hospital, priceDetailsHelp = "Hospitals can publish the 
   price.className = "price-block";
   const source = hospital.headline_price.source || {};
   const sourceLink = source.url || hospital.source_url;
+  const headlinePayerPlan = hospital.headline_price.payer_plan_display || "Not listed in source file";
   price.innerHTML = `
     <p class="price">${money(hospital.headline_price.amount)}</p>
     <p class="price-label">${priceLabels[hospital.headline_price.type] || hospital.headline_price.type}</p>
+    <p class="price-label payer-plan-line"><strong>Payer / plan:</strong> ${tooltipText(headlinePayerPlan)}</p>
     <p class="price-label source-date-line">${source.timestamp_label || "Indexed by HealthScan"}: ${source.display_timestamp || "unknown"}${sourceLink ? ` · <a href="${sourceLink}" target="_blank" rel="noreferrer">View MRF source</a>` : ""}</p>
   `;
 

@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>HealthScan</title>
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/styles.css?v=price-context-20260618" />
   </head>
   <body>
     <main class="shell">
@@ -53,9 +53,9 @@
           <label>
             <span>Price type</span>
             <select id="price-type">
-              <option value="all">All actionable</option>
-              <option value="cash">Cash only</option>
-              <option value="negotiated">Negotiated</option>
+              <option value="cash" selected>Self-pay prices</option>
+              <option value="negotiated">Insurance negotiated rates</option>
+              <option value="all">All prices — advanced</option>
             </select>
           </label>
           <label>
@@ -93,6 +93,6 @@
       </aside>
     </template>
 
-    <script src="/app.js" type="module"></script>
+    <script src="/app.js?v=price-context-20260618" type="module"></script>
   </body>
 </html>

@@ -15,7 +15,9 @@ from frontend_search import (
     insurance_filter_options,
     no_results_message,
     price_details_help_text,
+    price_range_summary,
     price_selection_explanation,
+    search,
     source_metadata,
     summarize_payer_plans,
     unavailable_message,
@@ -54,9 +56,41 @@ def test_source_metadata_prefers_hospital_file_date_over_index_timestamp() -> No
 
 
 def test_price_selection_explanation_changes_by_filter() -> None:
-    assert "cash/self-pay" in price_selection_explanation("cash")
+    assert "self-pay" in price_selection_explanation("cash")
+    assert "Have insurance?" in price_selection_explanation("cash")
     assert "negotiated" in price_selection_explanation("negotiated")
-    assert "preferring cash/self-pay" in price_selection_explanation("all")
+    assert "mixes self-pay prices and payer-specific negotiated rates" in price_selection_explanation("all")
+
+
+def test_default_search_uses_self_pay_prices_for_patient_friendly_start() -> None:
+    result = search({"procedure": "echocardiogram", "location": "San Diego", "radius": 100})
+
+    assert result["price_filter"] == "cash"
+    assert result["price_filter_label"] == "Self-pay prices"
+    assert result["hospitals"]
+    assert all(hospital["headline_price"]["type"] == "cash" for hospital in result["hospitals"])
+
+
+def test_advanced_all_prices_summary_keeps_cash_and_negotiated_ranges_separate() -> None:
+    result = search({"procedure": "echocardiogram", "location": "San Diego", "radius": 100, "priceType": "all"})
+
+    assert result["price_filter_label"] == "All prices — advanced"
+    assert result["price_ranges"]["cash"] == {"label": "Self-pay range", "min": 1356.0, "max": 6685.0}
+    assert result["price_ranges"]["negotiated"] == {"label": "Insurance negotiated range", "min": 125.35, "max": 1798.52}
+
+
+def test_price_range_summary_splits_self_pay_and_negotiated_ranges() -> None:
+    hospitals = [
+        {"headline_price": {"type": "negotiated", "amount": 125.35}},
+        {"headline_price": {"type": "negotiated", "amount": 1798.52}},
+        {"headline_price": {"type": "cash", "amount": 1356.0}},
+        {"headline_price": {"type": "cash", "amount": 6685.0}},
+    ]
+
+    assert price_range_summary(hospitals) == {
+        "cash": {"label": "Self-pay range", "min": 1356.0, "max": 6685.0},
+        "negotiated": {"label": "Insurance negotiated range", "min": 125.35, "max": 1798.52},
+    }
 
 
 def test_price_details_help_text_explains_repeated_amounts() -> None:

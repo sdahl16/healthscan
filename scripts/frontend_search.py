@@ -315,13 +315,21 @@ def source_metadata(row: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def price_filter_label(price_filter: str) -> str:
+    if price_filter == "cash":
+        return "Self-pay prices"
+    if price_filter == "negotiated":
+        return "Insurance negotiated rates"
+    return "All prices — advanced"
+
+
 def price_selection_explanation(price_filter: str, insurance_filter: str = "all") -> str:
     if price_filter == "cash":
-        text = "Showing the lowest eligible cash/self-pay row after suppressing flagged outliers."
+        text = "Showing self-pay prices first. Have insurance? Select your insurer to compare payer-specific negotiated rates."
     elif price_filter == "negotiated":
-        text = "Showing the lowest eligible negotiated row after suppressing flagged outliers."
+        text = "Showing insurance negotiated rates. These are payer/plan-specific hospital-published rates, not final out-of-pocket costs."
     else:
-        text = "Showing the lowest eligible actionable row, preferring cash/self-pay rows before negotiated rows and suppressing flagged outliers."
+        text = "Advanced view: this mixes self-pay prices and payer-specific negotiated rates, so the lowest and highest prices may not be comparable."
     if insurance_filter and insurance_filter != "all":
         text += f" Applied insurance filter: {insurance_filter}."
     return text
@@ -577,6 +585,46 @@ def build_hospitals(
     return hospitals, in_radius_count
 
 
+def price_range_summary(hospitals: list[dict[str, Any]]) -> dict[str, dict[str, float | str]]:
+    buckets = {
+        "cash": {"label": "Self-pay range", "values": []},
+        "negotiated": {"label": "Insurance negotiated range", "values": []},
+    }
+    for hospital in hospitals:
+        headline = hospital.get("headline_price", {})
+        price_type = headline.get("type")
+        amount = headline.get("amount")
+        if amount is None:
+            continue
+        if price_type == "cash":
+            buckets["cash"]["values"].append(float(amount))
+        elif price_type in {"negotiated", "negotiated_min"}:
+            buckets["negotiated"]["values"].append(float(amount))
+
+    summary: dict[str, dict[str, float | str]] = {}
+    for key, bucket in buckets.items():
+        values = bucket["values"]
+        if not values:
+            continue
+        summary[key] = {"label": str(bucket["label"]), "min": min(values), "max": max(values)}
+    return summary
+
+
+def price_range_summary_for_rows(
+    rows: list[dict[str, Any]],
+    location: Location,
+    radius: float,
+    price_filter: str,
+    insurance_filter: str = "all",
+) -> dict[str, dict[str, float | str]]:
+    filters = ["cash", "negotiated"] if price_filter == "all" else [price_filter]
+    summary: dict[str, dict[str, float | str]] = {}
+    for filter_name in filters:
+        hospitals, _ = build_hospitals(rows, location, radius, filter_name, "price", insurance_filter)
+        summary.update(price_range_summary(hospitals))
+    return summary
+
+
 def search(payload: dict[str, Any]) -> dict[str, Any]:
     location = geocode(str(payload.get("location") or ""))
     if location is None:
@@ -600,7 +648,7 @@ def search(payload: dict[str, Any]) -> dict[str, Any]:
         }
 
     radius = float(payload.get("radius") or 50)
-    price_filter = str(payload.get("priceType") or "all")
+    price_filter = str(payload.get("priceType") or "cash")
     insurance_filter = str(payload.get("insuranceFilter") or "all")
     sort = str(payload.get("sort") or "price")
 
@@ -635,6 +683,7 @@ def search(payload: dict[str, Any]) -> dict[str, Any]:
             "hospitals_in_radius": in_radius_count,
             "radius": radius,
             "price_filter": price_filter,
+            "price_filter_label": price_filter_label(price_filter),
             "insurance_filter": insurance_filter,
             "insurance_filters": insurance_filters,
             "message": no_results_message(),
@@ -649,10 +698,12 @@ def search(payload: dict[str, Any]) -> dict[str, Any]:
         "codes": [asdict(code) for code in codes],
         "radius": radius,
         "price_filter": price_filter,
+        "price_filter_label": price_filter_label(price_filter),
         "insurance_filter": insurance_filter,
         "insurance_filters": insurance_filters,
         "sort": sort,
         "hospitals": hospitals,
+        "price_ranges": price_range_summary_for_rows(rows, location, radius, price_filter, insurance_filter),
         "total_indexed_hospitals": len({row["hospital_id"] for row in rows}),
         "price_details_help": price_details_help_text(),
         "testing_prompts": user_testing_prompts(),
