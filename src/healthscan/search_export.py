@@ -7,7 +7,6 @@ import re
 import sqlite3
 from collections.abc import Iterable
 from dataclasses import dataclass
-from pathlib import Path
 from typing import Any
 
 from healthscan.indexer import parse_amount, quality_flag_for_amount
@@ -93,6 +92,95 @@ def _display_price(record: dict[str, Any]) -> tuple[float | None, str | None]:
     return None, None
 
 
+def _price_candidates(record: dict[str, Any]) -> list[tuple[str, float]]:
+    cash = _amount(record, "standard_charge|discounted_cash")
+    negotiated = _amount(record, "standard_charge|negotiated_dollar")
+    candidates = [
+        ("cash", cash),
+        ("negotiated", negotiated),
+    ]
+    if cash is None and negotiated is None:
+        candidates.extend(
+            [
+                ("negotiated_min", _amount(record, "standard_charge|min")),
+                ("median_allowed", _amount(record, "median_amount")),
+                ("gross", _amount(record, "standard_charge|gross")),
+            ]
+        )
+    return [(price_type, amount) for price_type, amount in candidates if amount is not None]
+
+
+def _result_for_price(
+    record: dict[str, Any],
+    *,
+    hospital: str,
+    procedure_name: str,
+    code_type: str,
+    code: str,
+    source_url: str | None,
+    evidence_source: str,
+    display_price_type: str,
+    display_price: float,
+) -> SearchResult:
+    data_quality_flag = quality_flag_for_amount(
+        amount=display_price,
+        code_type=code_type,
+        price_type=display_price_type,
+    )
+    relevance = assess_price_relevance({"data_quality_flag": data_quality_flag})
+    payer_name = None if display_price_type in {"cash", "gross"} else _clean(record.get("payer_name"))
+    plan_name = None if display_price_type in {"cash", "gross"} else _clean(record.get("plan_name"))
+
+    return SearchResult(
+        hospital=hospital,
+        procedure_name=procedure_name,
+        code_type=code_type,
+        code=code,
+        description=_clean(record.get("description")),
+        setting=_clean(record.get("setting")),
+        display_price=display_price,
+        display_price_type=display_price_type,
+        gross_price=display_price if display_price_type == "gross" else None,
+        cash_price=display_price if display_price_type == "cash" else None,
+        negotiated_price=display_price if display_price_type == "negotiated" else None,
+        negotiated_min=display_price if display_price_type == "negotiated_min" else None,
+        negotiated_max=display_price if display_price_type == "negotiated_max" else None,
+        payer_name=payer_name,
+        plan_name=plan_name,
+        data_quality_flag=data_quality_flag,
+        user_relevance_flag=relevance.user_relevance_flag,
+        user_relevance_reason=relevance.user_relevance_reason,
+        source_url=source_url,
+        evidence_source=evidence_source,
+    )
+
+
+def search_results_from_record(
+    record: dict[str, Any],
+    *,
+    hospital: str,
+    procedure_name: str,
+    code_type: str,
+    code: str,
+    source_url: str | None,
+    evidence_source: str,
+) -> list[SearchResult]:
+    return [
+        _result_for_price(
+            record,
+            hospital=hospital,
+            procedure_name=procedure_name,
+            code_type=code_type,
+            code=code,
+            source_url=source_url,
+            evidence_source=evidence_source,
+            display_price_type=price_type,
+            display_price=amount,
+        )
+        for price_type, amount in _price_candidates(record)
+    ]
+
+
 def search_result_from_record(
     record: dict[str, Any],
     *,
@@ -106,35 +194,16 @@ def search_result_from_record(
     display_price, display_price_type = _display_price(record)
     if display_price is None or display_price_type is None:
         return None
-
-    data_quality_flag = quality_flag_for_amount(
-        amount=display_price,
-        code_type=code_type,
-        price_type=display_price_type,
-    )
-    relevance = assess_price_relevance({"data_quality_flag": data_quality_flag})
-
-    return SearchResult(
+    return _result_for_price(
+        record,
         hospital=hospital,
         procedure_name=procedure_name,
         code_type=code_type,
         code=code,
-        description=_clean(record.get("description")),
-        setting=_clean(record.get("setting")),
-        display_price=display_price,
-        display_price_type=display_price_type,
-        gross_price=_amount(record, "standard_charge|gross"),
-        cash_price=_amount(record, "standard_charge|discounted_cash"),
-        negotiated_price=_amount(record, "standard_charge|negotiated_dollar"),
-        negotiated_min=_amount(record, "standard_charge|min"),
-        negotiated_max=_amount(record, "standard_charge|max"),
-        payer_name=_clean(record.get("payer_name")),
-        plan_name=_clean(record.get("plan_name")),
-        data_quality_flag=data_quality_flag,
-        user_relevance_flag=relevance.user_relevance_flag,
-        user_relevance_reason=relevance.user_relevance_reason,
         source_url=source_url,
         evidence_source=evidence_source,
+        display_price_type=display_price_type,
+        display_price=display_price,
     )
 
 

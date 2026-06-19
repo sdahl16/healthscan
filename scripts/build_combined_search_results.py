@@ -31,6 +31,7 @@ def main() -> int:
                     row["code_type"],
                     row["code"],
                     row["description"],
+                    row["display_price_type"],
                     row["display_price"],
                     row["payer_name"],
                     row["plan_name"],

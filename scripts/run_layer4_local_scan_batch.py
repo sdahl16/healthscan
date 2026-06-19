@@ -7,7 +7,7 @@ from pathlib import Path
 
 from healthscan.indexer import _codes_from_record
 from healthscan.local_sources import resolve_local_source
-from healthscan.search_export import SearchResult, search_result_from_record
+from healthscan.search_export import SearchResult, search_results_from_record
 from healthscan.streaming_json import records_from_large_json_file_for_codes
 
 
@@ -88,8 +88,8 @@ def scan_json_group(
     return matches
 
 
-def result_from_match(row: dict[str, str], record: dict[str, object]) -> SearchResult | None:
-    return search_result_from_record(
+def results_from_match(row: dict[str, str], record: dict[str, object]) -> list[SearchResult]:
+    return search_results_from_record(
         record,
         hospital=row["hospital_name"],
         procedure_name=row["procedure_name"],
@@ -154,7 +154,11 @@ def main() -> int:
     rows: list[dict[str, str]] = []
     for matrix_row in matrix_rows:
         matches = matches_by_row.get(int(matrix_row["_row_id"]), [])
-        ready = [result for record in matches if (result := result_from_match(matrix_row, record))]
+        ready = [
+            result
+            for record in matches
+            for result in results_from_match(matrix_row, record)
+        ]
         search_results.extend(ready)
         rows.append(
             {

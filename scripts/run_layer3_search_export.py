@@ -13,7 +13,7 @@ from healthscan.search_export import (
     record_from_dict_sample,
     records_from_json_fragment,
     records_from_providence_snippet,
-    search_result_from_record,
+    search_results_from_record,
 )
 
 
@@ -45,64 +45,8 @@ def load_csv_sample_results(path: Path) -> list[SearchResult]:
     with path.open(newline="", encoding="utf-8") as handle:
         for row in csv.DictReader(handle):
             record = record_from_csv_sample(row["sample_line"])
-            result = search_result_from_record(
-                record,
-                hospital=row["hospital"],
-                procedure_name=row["procedure_name"],
-                code_type=row["code_type"],
-                code=row["code"],
-                source_url=None,
-                evidence_source=path.name,
-            )
-            if result:
-                results.append(result)
-    return results
-
-
-def load_dict_sample_results(path: Path) -> list[SearchResult]:
-    results: list[SearchResult] = []
-    with path.open(newline="", encoding="utf-8") as handle:
-        for row in csv.DictReader(handle):
-            record = record_from_dict_sample(row["sample_line"])
-            result = search_result_from_record(
-                record,
-                hospital=row["hospital"],
-                procedure_name=row["procedure_name"],
-                code_type=row["code_type"],
-                code=row["code"],
-                source_url=row["source_url"],
-                evidence_source=path.name,
-            )
-            if result:
-                results.append(result)
-    return results
-
-
-def load_providence_results(path: Path) -> list[SearchResult]:
-    results: list[SearchResult] = []
-    with path.open(newline="", encoding="utf-8") as handle:
-        for row in csv.DictReader(handle):
-            for record in records_from_providence_snippet(row["sample_text"]):
-                result = search_result_from_record(
-                    record,
-                    hospital=row["hospital"],
-                    procedure_name=row["procedure_name"],
-                    code_type=row["code_type"],
-                    code=row["code"],
-                    source_url=row["source_url"],
-                    evidence_source=path.name,
-                )
-                if result:
-                    results.append(result)
-    return results
-
-
-def load_json_fragment_results(path: Path) -> list[SearchResult]:
-    results: list[SearchResult] = []
-    with path.open(newline="", encoding="utf-8") as handle:
-        for row in csv.DictReader(handle):
-            for record in records_from_json_fragment(row["sample_text"]):
-                result = search_result_from_record(
+            results.extend(
+                search_results_from_record(
                     record,
                     hospital=row["hospital"],
                     procedure_name=row["procedure_name"],
@@ -111,8 +55,64 @@ def load_json_fragment_results(path: Path) -> list[SearchResult]:
                     source_url=None,
                     evidence_source=path.name,
                 )
-                if result:
-                    results.append(result)
+            )
+    return results
+
+
+def load_dict_sample_results(path: Path) -> list[SearchResult]:
+    results: list[SearchResult] = []
+    with path.open(newline="", encoding="utf-8") as handle:
+        for row in csv.DictReader(handle):
+            record = record_from_dict_sample(row["sample_line"])
+            results.extend(
+                search_results_from_record(
+                    record,
+                    hospital=row["hospital"],
+                    procedure_name=row["procedure_name"],
+                    code_type=row["code_type"],
+                    code=row["code"],
+                    source_url=row["source_url"],
+                    evidence_source=path.name,
+                )
+            )
+    return results
+
+
+def load_providence_results(path: Path) -> list[SearchResult]:
+    results: list[SearchResult] = []
+    with path.open(newline="", encoding="utf-8") as handle:
+        for row in csv.DictReader(handle):
+            for record in records_from_providence_snippet(row["sample_text"]):
+                results.extend(
+                    search_results_from_record(
+                        record,
+                        hospital=row["hospital"],
+                        procedure_name=row["procedure_name"],
+                        code_type=row["code_type"],
+                        code=row["code"],
+                        source_url=row["source_url"],
+                        evidence_source=path.name,
+                    )
+                )
+    return results
+
+
+def load_json_fragment_results(path: Path) -> list[SearchResult]:
+    results: list[SearchResult] = []
+    with path.open(newline="", encoding="utf-8") as handle:
+        for row in csv.DictReader(handle):
+            for record in records_from_json_fragment(row["sample_text"]):
+                results.extend(
+                    search_results_from_record(
+                        record,
+                        hospital=row["hospital"],
+                        procedure_name=row["procedure_name"],
+                        code_type=row["code_type"],
+                        code=row["code"],
+                        source_url=None,
+                        evidence_source=path.name,
+                    )
+                )
     return results
 
 

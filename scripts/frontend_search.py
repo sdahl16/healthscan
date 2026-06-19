@@ -625,6 +625,22 @@ def price_range_summary_for_rows(
     return summary
 
 
+def price_availability_for_rows(
+    rows: list[dict[str, Any]],
+    location: Location,
+    radius: float,
+    insurance_filter: str = "all",
+) -> dict[str, int]:
+    cash_hospitals, _ = build_hospitals(rows, location, radius, "cash", "price", insurance_filter)
+    negotiated_hospitals, _ = build_hospitals(rows, location, radius, "negotiated", "price", insurance_filter)
+    all_hospitals, _ = build_hospitals(rows, location, radius, "all", "price", insurance_filter)
+    return {
+        "self_pay_hospitals": len(cash_hospitals),
+        "negotiated_hospitals": len(negotiated_hospitals),
+        "any_price_hospitals": len(all_hospitals),
+    }
+
+
 def search(payload: dict[str, Any]) -> dict[str, Any]:
     location = geocode(str(payload.get("location") or ""))
     if location is None:
@@ -704,6 +720,7 @@ def search(payload: dict[str, Any]) -> dict[str, Any]:
         "sort": sort,
         "hospitals": hospitals,
         "price_ranges": price_range_summary_for_rows(rows, location, radius, price_filter, insurance_filter),
+        "price_availability": price_availability_for_rows(rows, location, radius, insurance_filter),
         "total_indexed_hospitals": len({row["hospital_id"] for row in rows}),
         "price_details_help": price_details_help_text(),
         "testing_prompts": user_testing_prompts(),

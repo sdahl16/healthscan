@@ -75,8 +75,18 @@ def test_advanced_all_prices_summary_keeps_cash_and_negotiated_ranges_separate()
     result = search({"procedure": "echocardiogram", "location": "San Diego", "radius": 100, "priceType": "all"})
 
     assert result["price_filter_label"] == "All prices — advanced"
-    assert result["price_ranges"]["cash"] == {"label": "Self-pay range", "min": 1356.0, "max": 6685.0}
+    assert result["price_ranges"]["cash"] == {"label": "Self-pay range", "min": 391.72, "max": 11843.5}
     assert result["price_ranges"]["negotiated"] == {"label": "Insurance negotiated range", "min": 125.35, "max": 1798.52}
+
+
+def test_price_availability_counts_explain_different_hospital_counts_by_mode() -> None:
+    result = search({"procedure": "EKG", "location": "San Diego", "radius": 100, "priceType": "cash"})
+
+    assert result["price_availability"] == {
+        "self_pay_hospitals": 9,
+        "negotiated_hospitals": 9,
+        "any_price_hospitals": 10,
+    }
 
 
 def test_price_range_summary_splits_self_pay_and_negotiated_ranges() -> None:

@@ -4,6 +4,7 @@ from healthscan.search_export import (
     records_from_json_fragment,
     records_from_providence_snippet,
     search_result_from_record,
+    search_results_from_record,
 )
 
 
@@ -60,7 +61,38 @@ def test_record_from_dict_sample_parses_rady_sample() -> None:
     assert record["standard_charge|gross"] == "5400"
 
 
-def test_search_result_prefers_negotiated_display_price() -> None:
+def test_search_results_from_record_keeps_cash_and_negotiated_prices() -> None:
+    record = {
+        "description": "Diagnostic colonoscopy",
+        "standard_charge|gross": "10000",
+        "standard_charge|discounted_cash": "5000",
+        "standard_charge|negotiated_dollar": "3000",
+        "payer_name": "Blue Cross",
+        "plan_name": "Commercial PPO",
+    }
+
+    results = search_results_from_record(
+        record,
+        hospital="Example Hospital",
+        procedure_name="Colonoscopy",
+        code_type="CPT",
+        code="45378",
+        source_url="https://example.org/mrf.csv",
+        evidence_source="test",
+    )
+
+    assert [(result.display_price_type, result.display_price) for result in results] == [
+        ("cash", 5000),
+        ("negotiated", 3000),
+    ]
+    cash, negotiated = results
+    assert cash.payer_name is None
+    assert cash.plan_name is None
+    assert negotiated.payer_name == "Blue Cross"
+    assert negotiated.plan_name == "Commercial PPO"
+
+
+def test_search_result_from_record_keeps_legacy_negotiated_headline_behavior() -> None:
     record = {
         "description": "Diagnostic colonoscopy",
         "standard_charge|gross": "10000",
