@@ -13,6 +13,10 @@ const procedureOptions = document.querySelector("#procedure-options");
 const locationOptions = document.querySelector("#location-options");
 
 let lastSelected = null;
+let selectedProcedureName = "";
+let procedureCatalog = [];
+let locationCatalog = [];
+
 
 const priceLabels = {
   cash: "Self-pay / cash price",
@@ -70,7 +74,11 @@ const fallbackLocations = [
   { value: "San Francisco, CA 94102", label: "Out-of-area test" },
 ];
 
+procedureCatalog = [...fallbackProcedures];
+locationCatalog = [...fallbackLocations];
+
 function renderProcedureOptions(procedures) {
+  procedureCatalog = procedures;
   const options = procedures.map((procedure) => {
     const option = document.createElement("option");
     option.value = procedure.plain_name;
@@ -81,6 +89,7 @@ function renderProcedureOptions(procedures) {
 }
 
 function renderLocationOptions(locations) {
+  locationCatalog = locations;
   const options = locations.map((location) => {
     const option = document.createElement("option");
     option.value = location.value;
@@ -103,6 +112,115 @@ function renderInsuranceOptions(options = [], selectedValue = insuranceFilterInp
   insuranceFilterInput.replaceChildren(allOption, ...payerOptions);
   const values = new Set(["all", ...options.map((payer) => payer.value)]);
   insuranceFilterInput.value = values.has(selectedValue) ? selectedValue : "all";
+}
+
+function createAutocomplete(input, optionsProvider, { display, meta, onSelect }) {
+  const listbox = document.createElement("div");
+  listbox.className = "autocomplete-list";
+  listbox.id = `${input.id}-autocomplete-list`;
+  listbox.setAttribute("role", "listbox");
+  listbox.setAttribute("aria-label", `${input.name || input.id} suggestions`);
+  listbox.hidden = true;
+  input.insertAdjacentElement("afterend", listbox);
+  input.setAttribute("role", "combobox");
+  input.setAttribute("aria-autocomplete", "list");
+  input.setAttribute("aria-expanded", "false");
+  input.setAttribute("aria-controls", listbox.id);
+
+  function hide() {
+    listbox.hidden = true;
+    input.setAttribute("aria-expanded", "false");
+  }
+
+  function show() {
+    listbox.hidden = false;
+    input.setAttribute("aria-expanded", "true");
+  }
+
+  function renderSuggestions() {
+    const query = input.value.trim().toLowerCase();
+    if (query.length < 1) {
+      hide();
+      listbox.replaceChildren();
+      return;
+    }
+    const matches = optionsProvider()
+      .filter((option) => display(option).toLowerCase().includes(query) || meta(option).toLowerCase().includes(query))
+      .slice(0, 8);
+    if (!matches.length) {
+      hide();
+      listbox.replaceChildren();
+      return;
+    }
+    const buttons = matches.map((option, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "autocomplete-option";
+      button.id = `${listbox.id}-option-${index}`;
+      button.setAttribute("role", "option");
+      button.innerHTML = `<span>${tooltipText(display(option))}</span><small>${tooltipText(meta(option))}</small>`;
+      button.addEventListener("mousedown", (event) => event.preventDefault());
+      button.addEventListener("click", () => {
+        input.value = display(option);
+        onSelect(option);
+        hide();
+      });
+      return button;
+    });
+    listbox.replaceChildren(...buttons);
+    show();
+  }
+
+  input.addEventListener("input", renderSuggestions);
+  input.addEventListener("focus", renderSuggestions);
+  input.addEventListener("blur", () => window.setTimeout(hide, 120));
+  input.addEventListener("keydown", (event) => {
+    const options = [...listbox.querySelectorAll(".autocomplete-option")];
+    if (event.key === "Escape") {
+      hide();
+      return;
+    }
+    if (event.key === "ArrowDown" && options.length) {
+      event.preventDefault();
+      options[0].focus();
+    }
+  });
+  listbox.addEventListener("keydown", (event) => {
+    const options = [...listbox.querySelectorAll(".autocomplete-option")];
+    const index = options.indexOf(document.activeElement);
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      options[Math.min(index + 1, options.length - 1)]?.focus();
+    }
+    if (event.key === "ArrowUp") {
+      event.preventDefault();
+      if (index <= 0) {
+        input.focus();
+      } else {
+        options[index - 1]?.focus();
+      }
+    }
+    if (event.key === "Escape") {
+      hide();
+      input.focus();
+    }
+  });
+}
+
+function setupAutocompletes() {
+  createAutocomplete(procedureInput, () => procedureCatalog, {
+    display: (procedure) => procedure.plain_name,
+    meta: (procedure) => `${procedure.code_type} ${procedure.procedure_code}`,
+    onSelect: (procedure) => {
+      selectedProcedureName = procedure.plain_name;
+      lastSelected = null;
+    },
+  });
+  createAutocomplete(locationInput, () => locationCatalog, {
+    display: (location) => location.value,
+    meta: (location) => location.label || "Covered alpha location",
+    onSelect: () => {},
+  });
 }
 
 async function loadProcedureOptions() {
@@ -435,6 +553,7 @@ function renderHospital(hospital, priceDetailsHelp = "Hospitals can publish the 
     <p class="meta">${hospital.selection_explanation || "HealthScan selected the displayed row from eligible, non-flagged price rows."}</p>
     <p class="repeated-price-help"><strong>Why repeat prices?</strong> ${detailsHelp}</p>
     <p class="meta">Source: ${hospital.source_url ? `<a href="${hospital.source_url}" target="_blank" rel="noreferrer">hospital-published MRF row</a>` : "source URL unavailable"}</p>
+    <p class="date-help"><strong>Date note:</strong> “Indexed by HealthScan” means when this row was processed, not a guarantee that the hospital still charges this amount. Prefer “Hospital file date” when available and verify with the hospital/insurer.</p>
     <table class="price-table">
       <thead><tr><th>Type</th><th>Amount</th><th>Payer / plan</th><th>Date/source shown</th></tr></thead>
       <tbody>
@@ -442,10 +561,10 @@ function renderHospital(hospital, priceDetailsHelp = "Hospitals can publish the 
           .map(
             (priceRow) => `
               <tr>
-                <td>${priceLabels[priceRow.type] || priceRow.type}</td>
-                <td>${money(priceRow.amount)}${priceRow.display_amount_note ? ` <span class="repeated-amount-badge" title="${tooltipText(priceRow.display_amount_note)}">same amount ×${priceRow.display_amount_group_count}</span>` : ""}</td>
-                <td>${priceRow.payer_plan_display || "Not listed"}</td>
-                <td>${priceRow.source?.display_timestamp || priceRow.last_updated || "unknown"}${priceRow.source?.url ? ` · <a href="${priceRow.source.url}" target="_blank" rel="noreferrer">source</a>` : ""}</td>
+                <td data-label="Type">${priceLabels[priceRow.type] || priceRow.type}</td>
+                <td data-label="Amount">${money(priceRow.amount)}${priceRow.display_amount_note ? ` <span class="repeated-amount-badge" title="${tooltipText(priceRow.display_amount_note)}">same amount ×${priceRow.display_amount_group_count}</span>` : ""}</td>
+                <td data-label="Payer / plan">${tooltipText(priceRow.payer_plan_display || "Not listed")}</td>
+                <td data-label="Date/source shown">${priceRow.source?.display_timestamp || priceRow.last_updated || "unknown"}${priceRow.source?.url ? ` · <a href="${priceRow.source.url}" target="_blank" rel="noreferrer">source</a>` : ""}</td>
               </tr>
             `,
           )
@@ -465,8 +584,11 @@ function renderHospital(hospital, priceDetailsHelp = "Hospitals can publish the 
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  lastSelected = null;
-  search(null).catch((error) => {
+  if (procedureInput.value.trim() !== selectedProcedureName) {
+    lastSelected = null;
+    selectedProcedureName = "";
+  }
+  search(lastSelected).catch((error) => {
     clear();
     notice(error.message, "warning");
   });
@@ -483,5 +605,6 @@ for (const control of [radiusInput, sortInput, priceTypeInput, insuranceFilterIn
   });
 }
 
+setupAutocompletes();
 loadProcedureOptions();
 loadLocationOptions();
