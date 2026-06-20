@@ -1,0 +1,91 @@
+location,procedure,price_type,status,shown_hospitals,self_pay_hospitals,negotiated_hospitals,any_price_hospitals,total_indexed_hospitals
+San Diego,MRI brain,cash,results,14,14,14,15,22
+San Diego,MRI brain,negotiated,results,14,14,14,15,22
+San Diego,MRI brain,all,results,15,14,14,15,22
+San Diego,Colonoscopy,cash,results,9,9,13,13,19
+San Diego,Colonoscopy,negotiated,results,13,9,13,13,19
+San Diego,Colonoscopy,all,results,13,9,13,13,19
+San Diego,Screening colonoscopy,cash,results,9,9,13,13,19
+San Diego,Screening colonoscopy,negotiated,results,13,9,13,13,19
+San Diego,Screening colonoscopy,all,results,13,9,13,13,19
+San Diego,Emergency department visit,cash,results,14,14,12,14,19
+San Diego,Emergency department visit,negotiated,results,12,14,12,14,19
+San Diego,Emergency department visit,all,results,14,14,12,14,19
+San Diego,Appendectomy,cash,results,7,7,10,10,19
+San Diego,Appendectomy,negotiated,results,10,7,10,10,19
+San Diego,Appendectomy,all,results,10,7,10,10,19
+San Diego,C-section,cash,results,8,8,12,13,19
+San Diego,C-section,negotiated,results,12,8,12,13,19
+San Diego,C-section,all,results,13,8,12,13,19
+San Diego,Vaginal delivery,cash,results,8,8,12,13,19
+San Diego,Vaginal delivery,negotiated,results,12,8,12,13,19
+San Diego,Vaginal delivery,all,results,13,8,12,13,19
+San Diego,Hip replacement,cash,results,9,9,14,15,21
+San Diego,Hip replacement,negotiated,results,14,9,14,15,21
+San Diego,Hip replacement,all,results,15,9,14,15,21
+San Diego,Knee replacement,cash,results,9,9,14,15,21
+San Diego,Knee replacement,negotiated,results,14,9,14,15,21
+San Diego,Knee replacement,all,results,15,9,14,15,21
+San Diego,Cardiac catheterization,cash,results,12,12,14,15,22
+San Diego,Cardiac catheterization,negotiated,results,14,12,14,15,22
+San Diego,Cardiac catheterization,all,results,15,12,14,15,22
+Chula Vista,MRI brain,cash,results,14,14,14,15,22
+Chula Vista,MRI brain,negotiated,results,14,14,14,15,22
+Chula Vista,MRI brain,all,results,15,14,14,15,22
+Chula Vista,Colonoscopy,cash,results,9,9,13,13,19
+Chula Vista,Colonoscopy,negotiated,results,13,9,13,13,19
+Chula Vista,Colonoscopy,all,results,13,9,13,13,19
+Chula Vista,Screening colonoscopy,cash,results,9,9,13,13,19
+Chula Vista,Screening colonoscopy,negotiated,results,13,9,13,13,19
+Chula Vista,Screening colonoscopy,all,results,13,9,13,13,19
+Chula Vista,Emergency department visit,cash,results,14,14,12,14,19
+Chula Vista,Emergency department visit,negotiated,results,12,14,12,14,19
+Chula Vista,Emergency department visit,all,results,14,14,12,14,19
+Chula Vista,Appendectomy,cash,results,7,7,10,10,19
+Chula Vista,Appendectomy,negotiated,results,10,7,10,10,19
+Chula Vista,Appendectomy,all,results,10,7,10,10,19
+Chula Vista,C-section,cash,results,8,8,12,13,19
+Chula Vista,C-section,negotiated,results,12,8,12,13,19
+Chula Vista,C-section,all,results,13,8,12,13,19
+Chula Vista,Vaginal delivery,cash,results,8,8,12,13,19
+Chula Vista,Vaginal delivery,negotiated,results,12,8,12,13,19
+Chula Vista,Vaginal delivery,all,results,13,8,12,13,19
+Chula Vista,Hip replacement,cash,results,9,9,14,15,21
+Chula Vista,Hip replacement,negotiated,results,14,9,14,15,21
+Chula Vista,Hip replacement,all,results,15,9,14,15,21
+Chula Vista,Knee replacement,cash,results,9,9,14,15,21
+Chula Vista,Knee replacement,negotiated,results,14,9,14,15,21
+Chula Vista,Knee replacement,all,results,15,9,14,15,21
+Chula Vista,Cardiac catheterization,cash,results,12,12,14,15,22
+Chula Vista,Cardiac catheterization,negotiated,results,14,12,14,15,22
+Chula Vista,Cardiac catheterization,all,results,15,12,14,15,22
+La Jolla,MRI brain,cash,results,14,14,14,15,22
+La Jolla,MRI brain,negotiated,results,14,14,14,15,22
+La Jolla,MRI brain,all,results,15,14,14,15,22
+La Jolla,Colonoscopy,cash,results,9,9,13,13,19
+La Jolla,Colonoscopy,negotiated,results,13,9,13,13,19
+La Jolla,Colonoscopy,all,results,13,9,13,13,19
+La Jolla,Screening colonoscopy,cash,results,9,9,13,13,19
+La Jolla,Screening colonoscopy,negotiated,results,13,9,13,13,19
+La Jolla,Screening colonoscopy,all,results,13,9,13,13,19
+La Jolla,Emergency department visit,cash,results,14,14,12,14,19
+La Jolla,Emergency department visit,negotiated,results,12,14,12,14,19
+La Jolla,Emergency department visit,all,results,14,14,12,14,19
+La Jolla,Appendectomy,cash,results,7,7,10,10,19
+La Jolla,Appendectomy,negotiated,results,10,7,10,10,19
+La Jolla,Appendectomy,all,results,10,7,10,10,19
+La Jolla,C-section,cash,results,8,8,12,13,19
+La Jolla,C-section,negotiated,results,12,8,12,13,19
+La Jolla,C-section,all,results,13,8,12,13,19
+La Jolla,Vaginal delivery,cash,results,8,8,12,13,19
+La Jolla,Vaginal delivery,negotiated,results,12,8,12,13,19
+La Jolla,Vaginal delivery,all,results,13,8,12,13,19
+La Jolla,Hip replacement,cash,results,9,9,14,15,21
+La Jolla,Hip replacement,negotiated,results,14,9,14,15,21
+La Jolla,Hip replacement,all,results,15,9,14,15,21
+La Jolla,Knee replacement,cash,results,9,9,14,15,21
+La Jolla,Knee replacement,negotiated,results,14,9,14,15,21
+La Jolla,Knee replacement,all,results,15,9,14,15,21
+La Jolla,Cardiac catheterization,cash,results,12,12,14,15,22
+La Jolla,Cardiac catheterization,negotiated,results,14,12,14,15,22
+La Jolla,Cardiac catheterization,all,results,15,12,14,15,22

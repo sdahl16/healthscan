@@ -53,6 +53,28 @@ def test_exact_mapping_returns_schema_compatible_code_fields() -> None:
     assert response.elapsed_ms < 100
 
 
+def test_thin_procedure_mappings_include_valid_alternate_codes() -> None:
+    translator = ProcedureTranslator()
+    expected_codes = {
+        "MRI brain": {("CPT", "70551"), ("CPT", "70552"), ("CPT", "70553")},
+        "Colonoscopy": {("CPT", "45378"), ("CPT", "45380"), ("CPT", "45385"), ("HCPCS", "G0121")},
+        "Emergency department visit": {("CPT", "99283"), ("CPT", "99284"), ("CPT", "99285")},
+        "Appendectomy": {("CPT", "44950"), ("CPT", "44960"), ("CPT", "44970"), ("DRG", "341"), ("DRG", "342"), ("DRG", "343")},
+        "C-section": {("DRG", "783"), ("DRG", "784"), ("DRG", "785"), ("DRG", "786"), ("DRG", "787"), ("DRG", "788")},
+        "Vaginal delivery": {("DRG", "806"), ("DRG", "807")},
+        "Hip replacement": {("DRG", "469"), ("DRG", "470"), ("CPT", "27130")},
+        "Knee replacement": {("DRG", "469"), ("DRG", "470"), ("CPT", "27447")},
+        "Cardiac catheterization": {("DRG", "286"), ("DRG", "287"), ("CPT", "93454"), ("CPT", "93458"), ("CPT", "93460")},
+    }
+
+    for procedure, expected in expected_codes.items():
+        response = translator.translate(procedure)
+
+        assert response.status == "match", procedure
+        found = {(code.code_type, code.procedure_code) for code in response.candidates[0].codes}
+        assert expected.issubset(found), procedure
+
+
 def test_synonym_maps_to_same_canonical_procedure() -> None:
     response = ProcedureTranslator().translate("total knee arthroplasty")
 
@@ -116,7 +138,8 @@ def test_care_setting_filters_drg_vs_cpt_codes() -> None:
     inpatient = ProcedureTranslator().translate("knee replacement", care_setting="inpatient")
     outpatient = ProcedureTranslator().translate("knee replacement", care_setting="outpatient")
 
-    assert [code.code_type for code in inpatient.candidates[0].codes] == ["DRG"]
+    assert {code.code_type for code in inpatient.candidates[0].codes} == {"DRG"}
+    assert {code.procedure_code for code in inpatient.candidates[0].codes} == {"469", "470"}
     assert [code.code_type for code in outpatient.candidates[0].codes] == ["CPT"]
     assert outpatient.candidates[0].codes[0].procedure_code == "27447"
 

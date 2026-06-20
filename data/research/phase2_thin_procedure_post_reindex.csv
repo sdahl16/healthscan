@@ -1,0 +1,43 @@
+procedure_name,code_type,procedure_code,rows,hospitals,cash_hospitals,negotiated_hospitals
+MRI brain,CPT,70551,1075,22,19,20
+MRI brain,CPT,70552,1047,22,19,20
+MRI brain,CPT,70553,1060,22,19,20
+Colonoscopy,CPT,45378,2552,19,11,19
+Colonoscopy,CPT,45380,1232,19,12,19
+Colonoscopy,CPT,45385,1109,19,11,19
+Colonoscopy,HCPCS,G0121,383,12,4,12
+Screening colonoscopy,CPT,45378,2550,19,11,19
+Screening colonoscopy,CPT,45380,1232,19,12,19
+Screening colonoscopy,CPT,45385,1109,19,11,19
+Screening colonoscopy,HCPCS,G0121,383,12,4,12
+Emergency department visit,CPT,99283,1337,19,18,16
+Emergency department visit,CPT,99284,1912,19,18,16
+Emergency department visit,CPT,99285,1992,19,18,16
+Appendectomy,CPT,44950,239,12,3,12
+Appendectomy,CPT,44960,97,9,2,9
+Appendectomy,CPT,44970,1054,16,7,16
+Appendectomy,DRG,341,7661,9,4,8
+Appendectomy,DRG,342,7063,6,4,5
+Appendectomy,DRG,343,8580,5,3,5
+Appendectomy (inpatient),DRG,341,7658,6,4,5
+Appendectomy (inpatient),DRG,342,7063,6,4,5
+Appendectomy (inpatient),DRG,343,8580,5,3,5
+C-section,DRG,783,885,17,6,17
+C-section,DRG,784,1050,18,7,18
+C-section,DRG,785,777,18,7,17
+C-section,DRG,786,1018,19,8,18
+C-section,DRG,787,978,19,8,18
+C-section,DRG,788,1004,19,8,18
+Vaginal delivery,DRG,806,1054,19,8,18
+Vaginal delivery,DRG,807,1031,19,9,18
+Hip replacement,CPT,27130,393,12,3,12
+Hip replacement,DRG,469,5970,19,9,17
+Hip replacement,DRG,470,6247,19,10,18
+Knee replacement,CPT,27447,394,12,3,12
+Knee replacement,DRG,469,5970,19,9,17
+Knee replacement,DRG,470,6247,19,10,18
+Cardiac catheterization,CPT,93454,795,19,13,17
+Cardiac catheterization,CPT,93458,797,19,13,17
+Cardiac catheterization,CPT,93460,843,19,13,17
+Cardiac catheterization,DRG,286,1063,20,8,18
+Cardiac catheterization,DRG,287,1152,21,9,19

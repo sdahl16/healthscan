@@ -38,3 +38,45 @@ Shoulder arthroscopy,CPT,29827,outpatient,true,1,needs_socal_indexing,Added afte
 MRI spine,CPT,72148,outpatient,true,1,needs_socal_indexing,Added after next-10 expansion breadth gap scan.
 CT scan abdomen,CPT,74178,outpatient,true,1,needs_socal_indexing,Added after next-10 expansion breadth gap scan.
 Coronary bypass (CABG),DRG,231,inpatient,true,1,needs_socal_indexing,Added after next-10 expansion breadth gap scan.
+Colonoscopy,CPT,45378,outpatient,true,1,phase2_thin_procedure_indexing,Primary diagnostic colonoscopy.
+Colonoscopy,CPT,45380,outpatient,false,2,phase2_thin_procedure_indexing,Colonoscopy with biopsy.
+Colonoscopy,CPT,45385,outpatient,false,2,phase2_thin_procedure_indexing,Colonoscopy with snare/lesion removal.
+Colonoscopy,HCPCS,G0121,outpatient,false,2,phase2_thin_procedure_indexing,Screening colonoscopy.
+Screening colonoscopy,HCPCS,G0121,outpatient,true,1,phase2_thin_procedure_indexing,Screening colonoscopy primary HCPCS.
+Screening colonoscopy,CPT,45378,outpatient,false,2,phase2_thin_procedure_indexing,Diagnostic colonoscopy alternate.
+Screening colonoscopy,CPT,45380,outpatient,false,2,phase2_thin_procedure_indexing,Colonoscopy with biopsy alternate.
+Screening colonoscopy,CPT,45385,outpatient,false,2,phase2_thin_procedure_indexing,Colonoscopy with snare/lesion removal alternate.
+MRI brain,CPT,70551,outpatient,true,1,phase2_thin_procedure_indexing,MRI brain without contrast.
+MRI brain,CPT,70552,outpatient,false,2,phase2_thin_procedure_indexing,MRI brain with contrast.
+MRI brain,CPT,70553,outpatient,false,2,phase2_thin_procedure_indexing,MRI brain without/with contrast.
+Emergency department visit,CPT,99285,outpatient,true,1,phase2_thin_procedure_indexing,ED level 5.
+Emergency department visit,CPT,99284,outpatient,false,2,phase2_thin_procedure_indexing,ED level 4.
+Emergency department visit,CPT,99283,outpatient,false,2,phase2_thin_procedure_indexing,ED level 3.
+Appendectomy,CPT,44970,outpatient,true,1,phase2_thin_procedure_indexing,Laparoscopic appendectomy.
+Appendectomy,CPT,44950,outpatient,false,2,phase2_thin_procedure_indexing,Open appendectomy.
+Appendectomy,CPT,44960,outpatient,false,2,phase2_thin_procedure_indexing,Appendectomy for ruptured appendix/abscess.
+Appendectomy,DRG,341,inpatient,false,2,phase2_thin_procedure_indexing,Appendectomy with complicated principal diagnosis with MCC.
+Appendectomy,DRG,342,inpatient,false,2,phase2_thin_procedure_indexing,Appendectomy with complicated principal diagnosis with CC.
+Appendectomy,DRG,343,inpatient,false,2,phase2_thin_procedure_indexing,Appendectomy without complicated principal diagnosis without CC/MCC.
+Appendectomy (inpatient),DRG,341,inpatient,true,1,phase2_thin_procedure_indexing,Inpatient appendectomy DRG 341.
+Appendectomy (inpatient),DRG,342,inpatient,false,2,phase2_thin_procedure_indexing,Inpatient appendectomy DRG 342.
+Appendectomy (inpatient),DRG,343,inpatient,false,2,phase2_thin_procedure_indexing,Inpatient appendectomy DRG 343.
+C-section,DRG,783,inpatient,true,1,phase2_thin_procedure_indexing,Cesarean delivery DRG family.
+C-section,DRG,784,inpatient,false,2,phase2_thin_procedure_indexing,Cesarean delivery DRG family.
+C-section,DRG,785,inpatient,false,2,phase2_thin_procedure_indexing,Cesarean delivery DRG family.
+C-section,DRG,786,inpatient,false,2,phase2_thin_procedure_indexing,Cesarean delivery DRG family.
+C-section,DRG,787,inpatient,false,2,phase2_thin_procedure_indexing,Cesarean delivery DRG family.
+C-section,DRG,788,inpatient,false,2,phase2_thin_procedure_indexing,Cesarean delivery DRG family.
+Vaginal delivery,DRG,807,inpatient,true,1,phase2_thin_procedure_indexing,Vaginal delivery without sterilization/D&C.
+Vaginal delivery,DRG,806,inpatient,false,2,phase2_thin_procedure_indexing,Vaginal delivery with sterilization/D&C.
+Hip replacement,DRG,470,inpatient,true,1,phase2_thin_procedure_indexing,Major hip/knee replacement without MCC.
+Hip replacement,DRG,469,inpatient,false,2,phase2_thin_procedure_indexing,Major hip/knee replacement with MCC.
+Hip replacement,CPT,27130,outpatient,false,2,phase2_thin_procedure_indexing,Total hip arthroplasty CPT.
+Knee replacement,DRG,470,inpatient,true,1,phase2_thin_procedure_indexing,Major hip/knee replacement without MCC.
+Knee replacement,DRG,469,inpatient,false,2,phase2_thin_procedure_indexing,Major hip/knee replacement with MCC.
+Knee replacement,CPT,27447,outpatient,false,2,phase2_thin_procedure_indexing,Total knee arthroplasty CPT.
+Cardiac catheterization,DRG,287,inpatient,true,1,phase2_thin_procedure_indexing,Circulatory disorders except AMI with cardiac catheterization without MCC.
+Cardiac catheterization,DRG,286,inpatient,false,2,phase2_thin_procedure_indexing,Circulatory disorders except AMI with cardiac catheterization with MCC.
+Cardiac catheterization,CPT,93454,outpatient,false,2,phase2_thin_procedure_indexing,Coronary angiography.
+Cardiac catheterization,CPT,93458,outpatient,false,2,phase2_thin_procedure_indexing,Left heart catheterization/coronary angiography.
+Cardiac catheterization,CPT,93460,outpatient,false,2,phase2_thin_procedure_indexing,Right/left heart catheterization/coronary angiography.
