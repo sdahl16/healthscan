@@ -71,6 +71,16 @@ def test_default_search_uses_self_pay_prices_for_patient_friendly_start() -> Non
     assert all(hospital["headline_price"]["type"] == "cash" for hospital in result["hospitals"])
 
 
+def test_common_san_diego_area_aliases_use_local_geocodes() -> None:
+    la_jolla = search({"procedure": "upper endoscopy", "location": "La Jolla", "radius": 100, "priceType": "all"})
+    chula = search({"procedure": "upper endoscopy", "location": "Chula", "radius": 100, "priceType": "all"})
+
+    assert la_jolla["status"] == "results"
+    assert la_jolla["location"]["label"] == "La Jolla, CA 92037"
+    assert chula["status"] == "results"
+    assert chula["location"]["label"] == "Chula Vista, CA"
+
+
 def test_advanced_all_prices_summary_keeps_cash_and_negotiated_ranges_separate() -> None:
     result = search({"procedure": "echocardiogram", "location": "San Diego", "radius": 100, "priceType": "all"})
 
