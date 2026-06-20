@@ -103,3 +103,44 @@ def test_resolve_local_source_finds_next_ten_sources() -> None:
         assert source is not None, url
         assert source.mrf_format == expected_format
         assert source.scan_scope == expected_scope
+
+
+def test_resolve_local_source_finds_phase1_san_diego_sources() -> None:
+    cases = [
+        (
+            "https://apps.scripps.org/pricetransparency/"
+            "951684089_Scripps-Memorial-Hospital-La-Jolla_standardcharges.csv",
+            "csv",
+            "full_local_csv",
+        ),
+        (
+            "https://apps.scripps.org/pricetransparency/"
+            "951684089_Scripps-Mercy-Hospital-San-Diego_standardcharges.csv",
+            "csv",
+            "full_local_csv",
+        ),
+        (
+            "https://downloads.ctfassets.net/pxcfulgsd9e2/7kOO19WgXRFqOFfWyPsSCE/"
+            "1dd67ee60fbf2a34d729812c39abb1fe/95-3782169_sharp-memorial-hospital_standardcharges.csv",
+            "csv",
+            "full_local_csv",
+        ),
+        (
+            "https://downloads.ctfassets.net/pxcfulgsd9e2/pDe4LFVvP8fh5nOJd8Zji/"
+            "71b0885eb86902c17aee42e048ea796b/33-0449527_grossmont-hospital-corporation_standardcharges.csv",
+            "csv",
+            "full_local_csv",
+        ),
+        (
+            "https://paradisevalleyhospital.com/wp-content/uploads/2026/04/"
+            "205837239_ParadiseValleyHospital_standardcharges.JSON",
+            "json",
+            "large_local_json",
+        ),
+    ]
+
+    for url, expected_format, expected_scope in cases:
+        source = resolve_local_source(url)
+        assert source is not None, url
+        assert source.mrf_format == expected_format
+        assert source.scan_scope == expected_scope

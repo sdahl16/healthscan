@@ -93,9 +93,9 @@ def test_price_availability_counts_explain_different_hospital_counts_by_mode() -
     result = search({"procedure": "EKG", "location": "San Diego", "radius": 100, "priceType": "cash"})
 
     assert result["price_availability"] == {
-        "self_pay_hospitals": 9,
-        "negotiated_hospitals": 9,
-        "any_price_hospitals": 10,
+        "self_pay_hospitals": 13,
+        "negotiated_hospitals": 14,
+        "any_price_hospitals": 15,
     }
 
 

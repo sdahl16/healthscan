@@ -8,10 +8,15 @@ keck-hospital-usc-standardcharges.csv,csv,39,842,775
 loma-linda-university-medical-center-standardcharges.csv,csv,39,3103,6154
 los-robles-regional-medical-center-standardcharges.json,json,39,6084,6914
 memorialcare-orange-coast-standardcharges.json,json,39,1342,1342
+paradise-valley-standardcharges.json,json,39,2578,5139
 rady-childrens-standardcharges.csv,csv,39,360,338
 riverside-community-hospital-standardcharges.json,json,39,5528,6169
 scripps-green-standardcharges.csv,csv,39,6723,13446
+scripps-memorial-la-jolla-standardcharges.csv,csv,39,6684,13316
+scripps-mercy-san-diego-standardcharges.csv,csv,39,6759,13518
 sharp-chula-vista-standardcharges.csv,csv,39,1212,2424
+sharp-grossmont-standardcharges.csv,csv,39,1110,2220
+sharp-memorial-standardcharges.csv,csv,39,435,870
 tri-city-medical-center-standardcharges.csv,csv,39,125,125
 uci-medical-center-standardcharges.json,json,39,552,552
 ucla-ronald-reagan-standardcharges.json,json,39,839,839

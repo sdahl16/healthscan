@@ -118,6 +118,36 @@ LOCAL_MRF_SOURCES = (
         mrf_format='csv',
         scan_scope='full_local_csv',
     ),
+    LocalMrfSource(
+        url_marker='951684089_Scripps-Memorial-Hospital-La-Jolla_standardcharges.csv',
+        path=ROOT / "data" / "raw" / "mrf" / 'scripps-memorial-la-jolla-standardcharges.csv',
+        mrf_format='csv',
+        scan_scope='full_local_csv',
+    ),
+    LocalMrfSource(
+        url_marker='951684089_Scripps-Mercy-Hospital-San-Diego_standardcharges.csv',
+        path=ROOT / "data" / "raw" / "mrf" / 'scripps-mercy-san-diego-standardcharges.csv',
+        mrf_format='csv',
+        scan_scope='full_local_csv',
+    ),
+    LocalMrfSource(
+        url_marker='95-3782169_sharp-memorial-hospital_standardcharges.csv',
+        path=ROOT / "data" / "raw" / "mrf" / 'sharp-memorial-standardcharges.csv',
+        mrf_format='csv',
+        scan_scope='full_local_csv',
+    ),
+    LocalMrfSource(
+        url_marker='33-0449527_grossmont-hospital-corporation_standardcharges.csv',
+        path=ROOT / "data" / "raw" / "mrf" / 'sharp-grossmont-standardcharges.csv',
+        mrf_format='csv',
+        scan_scope='full_local_csv',
+    ),
+    LocalMrfSource(
+        url_marker='205837239_ParadiseValleyHospital_standardcharges.JSON',
+        path=ROOT / "data" / "raw" / "mrf" / 'paradise-valley-standardcharges.json',
+        mrf_format='json',
+        scan_scope='large_local_json',
+    ),
 )
 
 

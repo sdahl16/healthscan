@@ -1,0 +1,52 @@
+location,procedure,status,results,self_pay,negotiated,any
+Chula Vista,EKG,results,15,13,14,15
+Chula Vista,Echocardiogram,results,15,14,14,15
+Chula Vista,Mammogram,results,15,13,14,15
+Chula Vista,CT scan abdomen,results,15,14,14,15
+Chula Vista,MRI brain,results,4,2,2,4
+Chula Vista,MRI spine,results,15,14,14,15
+Chula Vista,Colonoscopy,results,4,1,3,4
+Chula Vista,Upper endoscopy,results,13,10,13,13
+Chula Vista,Cataract surgery,results,10,5,10,10
+Chula Vista,Sleep study,results,12,9,12,12
+Chula Vista,Emergency department visit,results,4,2,2,4
+Chula Vista,Appendectomy,limited_coverage,1,1,0,1
+Chula Vista,C-section,limited_coverage,2,0,2,2
+Chula Vista,Vaginal delivery,limited_coverage,2,1,1,2
+Chula Vista,Hip replacement,results,3,0,3,3
+Chula Vista,Knee replacement,results,3,0,3,3
+Chula Vista,Cardiac catheterization,results,3,1,2,3
+La Jolla,EKG,results,15,13,14,15
+La Jolla,Echocardiogram,results,15,14,14,15
+La Jolla,Mammogram,results,15,13,14,15
+La Jolla,CT scan abdomen,results,15,14,14,15
+La Jolla,MRI brain,results,4,2,2,4
+La Jolla,MRI spine,results,15,14,14,15
+La Jolla,Colonoscopy,results,4,1,3,4
+La Jolla,Upper endoscopy,results,13,10,13,13
+La Jolla,Cataract surgery,results,10,5,10,10
+La Jolla,Sleep study,results,12,9,12,12
+La Jolla,Emergency department visit,results,4,2,2,4
+La Jolla,Appendectomy,limited_coverage,1,1,0,1
+La Jolla,C-section,limited_coverage,2,0,2,2
+La Jolla,Vaginal delivery,limited_coverage,2,1,1,2
+La Jolla,Hip replacement,results,3,0,3,3
+La Jolla,Knee replacement,results,3,0,3,3
+La Jolla,Cardiac catheterization,results,3,1,2,3
+San Diego,EKG,results,15,13,14,15
+San Diego,Echocardiogram,results,15,14,14,15
+San Diego,Mammogram,results,15,13,14,15
+San Diego,CT scan abdomen,results,15,14,14,15
+San Diego,MRI brain,results,4,2,2,4
+San Diego,MRI spine,results,15,14,14,15
+San Diego,Colonoscopy,results,4,1,3,4
+San Diego,Upper endoscopy,results,13,10,13,13
+San Diego,Cataract surgery,results,10,5,10,10
+San Diego,Sleep study,results,12,9,12,12
+San Diego,Emergency department visit,results,4,2,2,4
+San Diego,Appendectomy,limited_coverage,1,1,0,1
+San Diego,C-section,limited_coverage,2,0,2,2
+San Diego,Vaginal delivery,limited_coverage,2,1,1,2
+San Diego,Hip replacement,results,3,0,3,3
+San Diego,Knee replacement,results,3,0,3,3
+San Diego,Cardiac catheterization,results,3,1,2,3
