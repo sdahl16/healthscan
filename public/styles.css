@@ -586,6 +586,42 @@ button:hover {
     text-align: left;
   }
 
+  body.has-results .search-panel {
+    gap: 12px;
+    padding: 14px;
+  }
+
+  body.has-results .eyebrow,
+  body.has-results .lede,
+  body.has-results .alpha-trust-strip {
+    display: none;
+  }
+
+  body.has-results h1 {
+    font-size: 1.65rem;
+    line-height: 1.05;
+  }
+
+  body.has-results .search-form {
+    gap: 8px;
+  }
+
+  body.has-results .controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding-top: 0;
+  }
+
+  body.has-results input,
+  body.has-results select,
+  body.has-results button {
+    min-height: 42px;
+  }
+
+  body.has-results .results-region {
+    margin-top: 12px;
+  }
+
   .price-table,
   .price-table tbody,
   .price-table tr,

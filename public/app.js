@@ -271,6 +271,15 @@ function notice(message, kind = "") {
   statusRegion.replaceChildren(node);
 }
 
+function markSearchRendered() {
+  document.body.classList.add("has-results");
+  if (window.matchMedia("(max-width: 780px)").matches) {
+    window.requestAnimationFrame(() => {
+      resultsRegion.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+}
+
 function appendDisclaimers() {
   resultsRegion.append(disclaimerTemplate.content.cloneNode(true));
 }
@@ -368,6 +377,7 @@ function renderClarification(result) {
 
   panel.append(heading, grid);
   resultsRegion.append(panel);
+  markSearchRendered();
 }
 
 function renderExamples(panel, examples = []) {
@@ -423,6 +433,7 @@ function renderEmpty(title, message, result) {
   resultsRegion.append(panel);
   appendDisclaimers();
   appendFeedback(result.testing_prompts || []);
+  markSearchRendered();
 }
 
 function renderNoNearby(result) {
@@ -457,6 +468,7 @@ function renderNoNearby(result) {
   resultsRegion.append(panel);
   appendDisclaimers();
   appendFeedback(result.testing_prompts || []);
+  markSearchRendered();
 }
 
 function renderPriceRanges(ranges = {}) {
@@ -509,6 +521,7 @@ function renderResults(result) {
   }
   resultsRegion.append(list);
   appendFeedback(result.testing_prompts || []);
+  markSearchRendered();
 }
 
 function tooltipText(value) {
